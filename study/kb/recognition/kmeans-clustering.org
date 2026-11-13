@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       kmeans-clustering
+:DOMAIN:   recognition
+:AREA:     classification
+:KIND:     method
+:REQUIRES: feature-space minimum-distance-classifier
+:SEE:      scattergram recognition-system
+:ALIASES:  k-means, clustering, unsupervised classification, ISODATA, centroid, within-cluster variance
+:END:
+#+title: k-means clustering
+#+summary: Unsupervised classification groups pixels without labels: k-means alternates assigning each pixel to the nearest of \(k\) centroids and moving each centroid to the mean of its pixels, monotonically decreasing the within-cluster sum of squares; the analyst then labels the spectral clusters as information classes.
+
+* Algorithm
+\begin{algorithmic}[1]
+\Require feature vectors $\mathbf x_n$, number of clusters $k$
+\State initialise centroids $\boldsymbol\mu_1,\dots,\boldsymbol\mu_k$ (random pixels or a grid in feature space)
+\Repeat
+\ForAll{$n$} \State $c_n\gets\arg\min_j\|\mathbf x_n-\boldsymbol\mu_j\|^2$ \EndFor
+\ForAll{$j$} \State $\boldsymbol\mu_j\gets$ mean of $\{\mathbf x_n: c_n=j\}$ \EndFor
+\Until{assignments do not change}
+\State \Return $c$, $\boldsymbol\mu$
+\end{algorithmic}
+Objective \(J=\sum_n\|\mathbf x_n-\boldsymbol\mu_{c_n}\|^2\): each step does not increase it, so the algorithm converges, to a local minimum. ISODATA adds splitting of elongated clusters and merging of close ones, so \(k\) adapts.
+
+* Example
+#+begin_src python
+  from sklearn.cluster import KMeans
+  km = KMeans(n_clusters=8, n_init=10, random_state=0).fit(F)
+  cluster_map = km.labels_.reshape(rows, cols)
+#+end_src
+
+* Intuition
+Let the data say which groups exist; then a human decides what each group is on the ground.
+
+* Pitfall
+Clusters are spectral, not semantic: one class may split into several clusters and several classes may share one. Results depend on \(k\), initialisation and feature scaling.

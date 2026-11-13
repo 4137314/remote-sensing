@@ -1,0 +1,27 @@
+:PROPERTIES:
+:ID:       acquisition-platforms
+:DOMAIN:   acquisition
+:AREA:     orbits
+:KIND:     definition
+:REQUIRES: remote-sensing-system
+:SEE:      satellite-orbits scanner-geometry
+:ALIASES:  platform, satellite, aircraft, UAV, drone, stratospheric platform, ISS, airborne remote sensing
+:END:
+#+title: Acquisition platforms
+#+summary: Sensors fly on platforms at very different altitudes — UAVs below 1 km, aircraft at 5–15 km, stratospheric platforms at 15–36 km, polar satellites at 500–800 km, the ISS at 400 km, geostationary satellites at 36 000 km — trading resolution and flexibility against coverage, stability and cost.
+
+* Definition
+| platform | altitude | strengths | weaknesses |
+|---+---+---+---|
+| UAV, helicopter | < 1–5 km | centimetric resolution, on demand | small areas, regulations |
+| aircraft | 5–15 km | high resolution, rapid response (disasters), heavy sensors | turbulence distorts images, each flight is a costly mission |
+| stratospheric platform | 15–36 km | persistent regional view | technology still maturing |
+| LEO / polar satellite | 500–800 km | global, regular, stable geometry | fixed revisit, launch cost |
+| ISS | ~400 km | crewed servicing | non-polar orbit, vibrations |
+| geostationary satellite | 35 786 km | continuous view of one hemisphere | coarse resolution |
+
+* Intuition
+Lower means sharper but smaller and more expensive per square kilometre; higher means coarser but wider, more regular and stable.
+
+* Pitfall
+Aircraft images need strong geometric correction: roll, pitch and yaw change from line to line, unlike the smooth attitude of a satellite.

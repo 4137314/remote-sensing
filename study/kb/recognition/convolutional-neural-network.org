@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       convolutional-neural-network
+:DOMAIN:   recognition
+:AREA:     neural-networks
+:KIND:     construction
+:REQUIRES: backpropagation moving-window-filters
+:SEE:      remote-sensing-applications change-detection
+:ALIASES:  CNN, convolutional neural network, deep learning, convolution layer, pooling, feature map, U-Net, semantic segmentation, transfer learning
+:END:
+#+title: Convolutional neural networks and deep learning
+#+summary: Deep learning stacks many layers that learn features directly from pixels; a CNN uses convolution layers (small learned kernels shared over the image), non-linearities and pooling to build increasingly abstract spatial–spectral features, and is used for scene classification, semantic segmentation (U-Net) and object detection in remote sensing.
+
+* Construction
+- *Convolution layer*: \(K\) kernels of size \(k\times k\times C_{in}\), each slid over the input like a [[id:moving-window-filters][moving-window filter]] but with learned weights, producing \(K\) feature maps; weight sharing makes the number of parameters independent of the image size.
+- *Activation*: ReLU.
+- *Pooling*: max or average over \(2\times2\) windows: downsampling, invariance to small shifts.
+- *Head*: fully connected layers + softmax (scene/patch classification) or an upsampling decoder with skip connections (U-Net: pixel-wise maps).
+Trained end to end by [[id:backpropagation][backpropagation]] on large labelled sets; transfer learning reuses networks pre-trained on other images; data augmentation (rotations, flips) compensates for few labels.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[kbcyan] (0,0) rectangle (1.4,1.4); \node[below] at (0.7,0) {image $B$ bands};
+\foreach \k in {0,1,2} \draw[kbamber, fill=white, fill opacity=0] (2+\k*0.12,0.15+\k*0.12) rectangle (3+\k*0.12,1.15+\k*0.12); \node[below] at (2.6,0) {conv + ReLU};
+\foreach \k in {0,...,4} \draw[kbamber] (3.8+\k*0.1,0.35+\k*0.08) rectangle (4.4+\k*0.1,0.95+\k*0.08); \node[below] at (4.3,0) {pool, conv};
+\draw[kbmagenta] (5.6,0.2) rectangle (5.9,1.3); \node[below] at (5.75,0) {classes};
+\draw[-{Stealth}] (1.5,0.7) -- (1.95,0.7); \draw[-{Stealth}] (3.4,0.7) -- (3.75,0.7); \draw[-{Stealth}] (4.95,0.7) -- (5.55,0.7);
+\end{tikzpicture}
+
+* Intuition
+Instead of choosing texture measures and indices by hand, the network learns which local patterns matter, starting from edges and ending with fields, roofs and roads.
+
+* Pitfall
+Deep networks need many labels and generalise poorly to other sensors, regions and seasons than those they were trained on (domain shift); a high test accuracy on patches from the training scene says little about a new country.

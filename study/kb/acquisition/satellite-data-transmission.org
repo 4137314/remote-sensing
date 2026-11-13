@@ -1,0 +1,26 @@
+:PROPERTIES:
+:ID:       satellite-data-transmission
+:DOMAIN:   acquisition
+:AREA:     satellites
+:KIND:     definition
+:REQUIRES: satellite-architecture
+:SEE:      digital-number image-formats
+:ALIASES:  BPSK, QPSK, phase shift keying, forward error correction, convolutional code, data relay, store and forward, X band downlink, frequency bands
+:END:
+#+title: Satellite data transmission
+#+summary: Satellite links use regulated frequency bands (uplink above downlink, e.g. 6/4 GHz, 14/12 GHz, 30/20 GHz) and digital phase modulations (BPSK, QPSK) protected by forward error correction with convolutional codes; Earth-observation data are downlinked directly, stored on board until a station is visible, or relayed through a telecommunication satellite.
+
+* Definition
+- *Bands*: commercial 5925–6425 MHz up / 3700–4200 MHz down (C), 14–14.5 / 11.7–12.2 GHz (Ku), 27.5–30.5 / 17.7–20.2 GHz (Ka); military 7.9–8.4 / 7.25–7.75 GHz (X). Earth-observation downlinks typically in X band (8 GHz), increasingly Ka.
+- *Modulation*: BPSK carries 1 bit per symbol with phases \(\{0,\pi\}\); QPSK 2 bits per symbol with \(\{\pi/4,3\pi/4,\dots\}\), double rate in the same bandwidth at the same bit error rate per bit.
+- *Channel coding*: forward error correction (convolutional codes, Viterbi decoding; today also LDPC and Reed–Solomon) lets the receiver correct errors without retransmission, essential with long delays and short passes.
+- *Paths*: direct satellite–ground link during a pass; *store and forward* with on-board memory; *relay* to a geostationary data-relay satellite (interlink), which forwards to the ground almost in real time.
+
+* Derivation
+Data volume per orbit: a pushbroom with \(N\) pixels across track, \(B\) bands, \(Q\) bits, ground speed \(v\approx7\) km/s and pixel \(\Delta\) produces \(R=N\,B\,Q\,v/\Delta\) bit/s. For Sentinel-2-like values (\(N=29\,000\) at 10 m over 290 km, 4 bands of 10 m, 12 bits) \(R\approx29000\cdot4\cdot12\cdot700\approx1\) Gbit/s before compression: why on-board compression and fast downlinks are needed.
+
+* Intuition
+The satellite sees far more than it can tell: transmission, not sensing, is the bottleneck.
+
+* Pitfall
+Higher frequencies give more bandwidth but suffer more rain attenuation (Ka band), so link budgets need margins tied to the station's climate.

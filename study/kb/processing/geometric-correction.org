@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       geometric-correction
+:DOMAIN:   processing
+:AREA:     corrections
+:KIND:     method
+:REQUIRES: geometric-distortions
+:SEE:      radar-geometric-distortions change-detection
+:ALIASES:  geocoding, georeferencing, image registration, ground control points, GCP, polynomial warping, resampling, nearest neighbour, bilinear, cubic convolution, orthorectification, RMSE
+:END:
+#+title: Geometric correction, geocoding and registration
+#+summary: Ground control points identified both in the image and on a map (or in a reference image) fit a mapping, typically a low-order polynomial by least squares, from map to image coordinates; the corrected grid is filled by resampling — nearest neighbour, bilinear or cubic convolution — and the residual error at independent points measures the accuracy.
+
+* Method
+1. *GCPs*: well-defined points (road crossings, corners) with image coordinates \((u_i,v_i)\) and map coordinates \((x_i,y_i)\).
+2. *Mapping*: \(u=\sum_{p+q\le n}a_{pq}x^py^q\), \(v=\sum b_{pq}x^py^q\). First order (affine, 6 coefficients) handles shift, rotation, scale, skew; second order (12 coefficients) mild curvature. At least \((n+1)(n+2)/2\) GCPs, in practice many more.
+3. *Least squares*: \(\mathbf a=(X^\top X)^{-1}X^\top\mathbf u\); residuals per GCP, \(\mathrm{RMSE}=\sqrt{\tfrac1K\sum(\Delta u^2+\Delta v^2)}\), target below one pixel on check points not used for fitting.
+4. *Resampling*: for each output pixel compute \((u,v)\) (inverse mapping, so no holes) and interpolate:
+   - *nearest neighbour*: keeps original DNs (good before classification), blocky;
+   - *bilinear*: 4 neighbours, smooth, slightly blurred;
+   - *cubic convolution*: 16 neighbours, sharper, may overshoot.
+*Geocoding*: to map coordinates. *Registration*: to another image (co-registration for change detection). *Orthorectification*: with a DEM, removing relief.
+
+* Example
+#+begin_src python
+  # affine fit from K ground control points
+  X = np.c_[np.ones(K), x, y]
+  a, *_ = np.linalg.lstsq(X, u, rcond=None)
+  b, *_ = np.linalg.lstsq(X, v, rcond=None)
+  rmse = np.sqrt(np.mean((X @ a - u) ** 2 + (X @ b - v) ** 2))
+#+end_src
+
+* Intuition
+Pin the image to the map at known points, find the smoothest rubber-sheet deformation that fits the pins, and repaint the pixels on the new sheet.
+
+* Pitfall
+High-order polynomials fit the GCPs perfectly and go wild between and outside them; GCPs clustered in one corner give an extrapolation, not a correction.

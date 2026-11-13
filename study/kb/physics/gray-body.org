@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       gray-body
+:DOMAIN:   physics
+:AREA:     radiation
+:KIND:     theorem
+:REQUIRES: planck-law
+:SEE:      spectral-signature wien-stefan-boltzmann
+:ALIASES:  gray body, grey body, emissivity, reflectivity, absorptivity, transmissivity, Kirchhoff's law, energy conservation
+:END:
+#+title: Real bodies: emissivity and Kirchhoff's law
+#+summary: Incident energy splits into reflected, absorbed and transmitted parts, \(\rho(\lambda)+\alpha(\lambda)+\tau(\lambda)=1\); a real body emits \(\varepsilon(\lambda)B(\lambda,T)\) with emissivity \(\varepsilon<1\), and Kirchhoff's law \(\alpha=\varepsilon\) gives \(\rho+\tau+\varepsilon=1\): good absorbers are good emitters.
+
+* Statement
+For a surface hit by \(E_i(\lambda)\): \(E_r+E_a+E_t=E_i\), so with \(\rho=E_r/E_i\), \(\alpha=E_a/E_i\), \(\tau=E_t/E_i\)
+\[ \rho(\lambda)+\alpha(\lambda)+\tau(\lambda)=1. \]
+Emissivity \(\varepsilon(\lambda)=B_{real}(\lambda,T)/B_{bb}(\lambda,T)\), \(0\le\varepsilon<1\). Kirchhoff (1860): in thermal equilibrium \(\alpha(\lambda)=\varepsilon(\lambda)\), hence \(\rho+\tau+\varepsilon=1\), and for opaque bodies (\(\tau=0\)) \(\rho=1-\varepsilon\).
+- black body: \(\varepsilon=1\), \(\rho=0\);
+- perfect reflector: \(\varepsilon=0\), \(\rho=1\).
+A *gray body* has \(\varepsilon\) constant in \(\lambda\): \(B=\varepsilon B_{bb}\), \(M=\bar\varepsilon\sigma T^4\).
+
+* Example
+Water has \(\varepsilon\approx0.98\) in the thermal infrared: it reflects almost nothing there and looks like a black body. Polished metal has \(\varepsilon\approx0.05\): it looks cold to a thermal camera while reflecting the sky.
+
+* Intuition
+Energy that is not reflected or transmitted is absorbed, and whatever absorbs a wavelength well also emits it well.
+
+* Pitfall
+A thermal sensor measures \(\varepsilon B(T)\), not \(T\): two surfaces at the same temperature with different emissivities give different radiances. Retrieving temperature requires knowing \(\varepsilon\) (brightness temperature vs kinetic temperature).

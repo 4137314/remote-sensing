@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       speckle-filtering
+:DOMAIN:   processing
+:AREA:     sar-processing
+:KIND:     method
+:REQUIRES: speckle-statistics moving-window-filters
+:SEE:      statistical-filters sar-complex-image
+:ALIASES:  speckle filter, multilooking, Lee filter, Frost filter, Kuan filter, Gamma MAP, adaptive filter, despeckling
+:END:
+#+title: Speckle reduction
+#+summary: Speckle is reduced by multilooking (averaging independent looks, at the cost of resolution) or by adaptive filters such as Lee, Kuan and Frost, which in homogeneous areas average strongly and near edges and point targets keep the original value, by comparing the local coefficient of variation with the speckle's.
+
+* Method
+- *Multilook*: average \(L\) looks (sub-apertures or neighbouring pixels): \(\sigma_I/\mu_I\to1/\sqrt L\), resolution worse by \(L\).
+- *Mean / median filters*: reduce speckle but blur edges and erase point targets.
+- *Lee filter*: model \(I=R\,n\), \(E[n]=1\), \(\mathrm{Var}(n)=\sigma_n^2=1/L\). In a window with mean \(\bar I\) and variance \(\mathrm{Var}(I)\),
+\[ \hat R=\bar I+k\,(I-\bar I),\qquad k=\frac{\mathrm{Var}(R)}{\mathrm{Var}(I)},\quad \mathrm{Var}(R)=\frac{\mathrm{Var}(I)-\bar I^2\sigma_n^2}{1+\sigma_n^2}. \]
+In a homogeneous area \(\mathrm{Var}(I)\approx\bar I^2\sigma_n^2\Rightarrow k\approx0\): output the mean. On an edge or a strong target \(k\to1\): keep the pixel.
+- *Frost*: exponentially weighted kernel whose decay grows with the local coefficient of variation. *Gamma MAP*: Bayesian estimate with Gamma priors.
+- Modern: non-local means, multitemporal filtering, deep networks.
+
+* Example
+#+begin_src python
+  def lee(I, size=7, L=1):
+      m = ndimage.uniform_filter(I, size); m2 = ndimage.uniform_filter(I**2, size)
+      var = m2 - m**2; sn2 = 1.0 / L
+      varR = np.maximum((var - m**2 * sn2) / (1 + sn2), 0)
+      k = varR / np.maximum(var, 1e-12)
+      return m + k * (I - m)
+#+end_src
+
+* Intuition
+Smooth only where the variation can be explained by speckle alone; where there is more variation than speckle could produce, there must be structure, so leave it.
+
+* Pitfall
+Every speckle filter trades noise against resolution and radiometric fidelity: filtered intensities can be biased, so estimate \(\sigma^0\) on homogeneous areas of unfiltered (or carefully multilooked) data.

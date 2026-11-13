@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       image-thresholding
+:DOMAIN:   processing
+:AREA:     segmentation
+:KIND:     method
+:REQUIRES: image-segmentation image-histogram
+:SEE:      change-detection bayes-classifier
+:ALIASES:  thresholding, histogram threshold, Otsu method, bimodal histogram, binary mask, water mask
+:END:
+#+title: Histogram thresholding
+#+summary: When the histogram is bimodal, a threshold \(T\) between the modes splits the image into two classes; Otsu's method chooses \(T\) maximising the between-class variance \(\omega_0\omega_1(\mu_0-\mu_1)^2\), and with Gaussian models the Bayes threshold is where the weighted class densities cross.
+
+* Method
+For a threshold \(T\): class 0 = \(\{\mathrm{DN}\le T\}\), class 1 = \(\{\mathrm{DN}>T\}\), with weights \(\omega_0(T)=H(T)\), \(\omega_1=1-\omega_0\), means \(\mu_0,\mu_1\). Otsu:
+\[ T^\ast=\arg\max_T\ \sigma_B^2(T)=\omega_0\,\omega_1\,(\mu_0-\mu_1)^2, \]
+equivalent to minimising the within-class variance; computed in one pass over the histogram. Bayesian alternative: fit two densities and put \(T\) where \(P_0p_0(T)=P_1p_1(T)\) (minimum error).
+
+* Example
+Water mapping: water is dark in NIR and in SAR intensity, land bright; one threshold gives a binary water mask.
+#+begin_src python
+  from skimage.filters import threshold_otsu
+  T = threshold_otsu(nir); water = nir < T
+#+end_src
+
+* Intuition
+Look at the valley between the two hills of the histogram and cut there.
+
+* Pitfall
+A threshold uses no spatial information: noise and mixed pixels produce isolated errors; and if one class is tiny, its hill is invisible and Otsu splits the dominant class instead.

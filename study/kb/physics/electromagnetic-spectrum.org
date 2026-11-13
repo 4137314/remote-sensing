@@ -1,0 +1,42 @@
+:PROPERTIES:
+:ID:       electromagnetic-spectrum
+:DOMAIN:   physics
+:AREA:     radiation
+:KIND:     definition
+:REQUIRES: remote-sensing-system
+:SEE:      atmospheric-windows radar-bands planck-law spectral-signature
+:ALIASES:  EM spectrum, wavelength, frequency, visible, NIR, SWIR, MWIR, TIR, thermal infrared, microwave, spectral regions
+:END:
+#+title: Electromagnetic spectrum and spectral regions
+#+summary: Radiation is ordered by wavelength \(\lambda=c/f\); remote sensing of the Earth uses the visible (0.4–0.7 µm), near and short-wave infrared (reflected sunlight), mid and thermal infrared (emitted heat, 3–14 µm) and microwaves (1 mm–1 m, radar and radiometers), the regions where the atmosphere is transparent.
+
+* Definition
+\(\lambda f=c\), \(c\approx3\times10^8\) m/s; photon energy \(E=hf\). From short to long: gamma rays, X rays, ultraviolet, visible (380–750 nm), infrared, microwaves, radio waves. No source or sensor covers the whole range.
+
+| region | \(\lambda\) (µm) | source | surface property |
+|---+---+---+---|
+| Visible (V) | 0.4–0.7 | Sun | reflectance |
+| Near infrared (NIR) | 0.7–1.1 | Sun | reflectance |
+| Short-wave IR (SWIR) | 1.1–1.35, 1.4–1.8, 2–2.5 | Sun | reflectance |
+| Mid-wave IR (MWIR) | 3–4, 4.5–5 | Sun and Earth | reflectance and temperature |
+| Thermal IR (TIR) | 8–9.5, 10–14 | Earth | temperature, emissivity |
+| Microwave | \(10^3\)–\(10^6\) | Earth (passive), sensor (active) | temperature, roughness, moisture |
+
+The gaps between the intervals are absorption bands of water vapour and CO\(_2\): see [[id:atmospheric-windows][atmospheric windows]].
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[-{Stealth}] (0,0) -- (9.5,0) node[right] {$\lambda$};
+\foreach \x/\l in {0.5/1 nm,2.5/1\,$\mu$m,5/1 mm,7/1 m,9/1 km} {\draw (\x,-0.1) -- (\x,0.1); \node[below] at (\x,-0.1) {\l};}
+\fill[kbviolet, opacity=0.5] (2.2,0.15) rectangle (2.45,0.5); \node[above] at (2.3,0.5) {VIS};
+\fill[kbmagenta, opacity=0.4] (2.45,0.15) rectangle (4.5,0.5); \node[above] at (3.5,0.5) {infrared};
+\fill[kbcyan, opacity=0.4] (4.5,0.15) rectangle (7,0.5); \node[above] at (5.8,0.5) {microwave};
+\fill[kbguide, opacity=0.3] (0.5,0.15) rectangle (2.2,0.5); \node[above] at (1.3,0.5) {UV, X};
+\end{tikzpicture}
+Logarithmic wavelength axis: the visible is a thin slice.
+
+* Intuition
+Each region answers a different question: colour and vegetation in the reflective bands, temperature in the thermal ones, geometry and moisture in the microwaves.
+
+* Pitfall
+Bands are named differently by different missions (Landsat "SWIR1", Sentinel-2 "B11"); always reason with the wavelength interval, not the label.

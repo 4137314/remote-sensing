@@ -1,0 +1,40 @@
+:PROPERTIES:
+:ID:       speckle-statistics
+:DOMAIN:   processing
+:AREA:     sar-processing
+:KIND:     theorem
+:REQUIRES: sar-complex-image homogeneous-area-statistics
+:SEE:      speckle-filtering edge-detection texture-features
+:ALIASES:  speckle, fully developed speckle, Rayleigh distribution, negative exponential distribution, multiplicative noise, coherent imaging, random phasor sum, equivalent number of looks
+:END:
+#+title: Speckle and its statistics
+#+summary: A SAR resolution cell contains many elementary scatterers whose echoes add with random phases; for many independent scatterers with uniform phases, real and imaginary parts are zero-mean Gaussian with variance \(\beta/2\), so the amplitude is Rayleigh distributed and the intensity negative exponential with mean \(\beta\propto\sigma^0\) and standard deviation equal to its mean: multiplicative noise.
+
+* Statement
+Hypotheses on a homogeneous area:
+1. \(N\) elementary scatterers per cell, with independent amplitudes \(A_k\) and phases \(\phi_k\);
+2. phases uniform on \([-\pi,\pi]\), independent of amplitudes;
+3. \(N\) large.
+Then with \(z=\sum_k A_ke^{j\phi_k}\), \(\beta=\sum_k E[A_k^2]\):
+\[ p_A(A)=\frac{2A}{\beta}e^{-A^2/\beta}\ (\text{Rayleigh}),\qquad p_I(I)=\frac1\beta e^{-I/\beta}\ (\text{exponential}),\qquad \frac{\sigma_I}{\mu_I}=1. \]
+
+* Derivation
+\(E[\cos\phi_k]=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos\phi\,d\phi=0\), so \(E[\mathrm{Re}\,z]=E[\mathrm{Im}\,z]=0\). Cross terms vanish by independence, and \(E[\cos^2\phi]=\tfrac12\): \(\mathrm{Var}(\mathrm{Re}\,z)=\mathrm{Var}(\mathrm{Im}\,z)=\beta/2\), uncorrelated. With \(N\) large, by the central limit theorem \(\mathrm{Re}\,z\) and \(\mathrm{Im}\,z\) are independent Gaussians; the modulus of a 2-D isotropic Gaussian is Rayleigh, its square exponential (chi-square with 2 degrees of freedom). The intensity can be written \(I=\beta\cdot n\) with \(n\) unit-mean exponential noise: the noise multiplies the signal.
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={value}, ylabel={$p$}, xmin=0, xmax=4, ymin=0, ymax=1.05, legend pos=north east]
+\addplot+[domain=0:4, samples=100] {2*x*exp(-x^2)}; \addlegendentry{amplitude (Rayleigh)}
+\addplot+[domain=0:4, samples=100] {exp(-x)}; \addlegendentry{intensity (exponential)}
+\end{axis}
+\end{tikzpicture}
+\(\beta=1\): the most likely intensity is zero, even on a bright target.
+
+* Multi-look
+Averaging \(L\) independent looks gives a Gamma-distributed intensity with \(\sigma_I/\mu_I=1/\sqrt L\); the equivalent number of looks \(\mathrm{ENL}=\mu^2/\sigma^2\) measures the residual speckle on a homogeneous area.
+
+* Intuition
+Speckle is interference, not noise in the electronic sense: the same scene seen again from the same place gives the same speckle; a slight change of view gives a completely different one.
+
+* Pitfall
+Because speckle is multiplicative, a single bright pixel is not evidence of a strong target, and differences between images must be measured as ratios (or in dB), not differences.

@@ -1,0 +1,27 @@
+:PROPERTIES:
+:ID:       digital-number
+:DOMAIN:   acquisition
+:AREA:     optical-sensors
+:KIND:     definition
+:REQUIRES: scanner-geometry
+:SEE:      sensor-resolutions digital-image look-up-table radiometric-quantities
+:ALIASES:  DN, digital number, detector, quantization, A/D conversion, radiometric calibration, gain, offset, bits per pixel
+:END:
+#+title: Detector, quantization and digital numbers
+#+summary: The detector converts the radiance focused by the optics into a current or voltage, which is sampled and quantized with \(Q\) bits into a digital number \(\mathrm{DN}\in\{0,\dots,2^Q-1\}\); calibration relates DN linearly to radiance, \(L=\mathrm{gain}\cdot\mathrm{DN}+\mathrm{offset}\).
+
+* Definition
+Chain: mirror and optics collect radiance → filters or prism select the band → detector (transducer) converts EM energy variations into an electrical signal → amplifier → sampling and A/D conversion → DN. Each pixel's DN represents the radiance integrated over its ground cell, spectral band and integration time.
+
+Linear quantization with \(Q\) bits over the range \([L_{min},L_{max}]\):
+\[ \mathrm{DN}=\mathrm{round}\!\left((2^Q-1)\frac{L-L_{min}}{L_{max}-L_{min}}\right),\qquad L=\mathrm{gain}\cdot\mathrm{DN}+\mathrm{offset}. \]
+Gains and offsets come from pre-launch and on-board calibration (lamps, solar diffusers, deep space views) and are distributed in the image metadata.
+
+* Example
+Landsat 8 OLI quantizes at 12 bits (4096 levels, delivered in 16-bit words); Sentinel-2 delivers 16-bit products; older sensors used 8 bits (256 levels).
+
+* Intuition
+A DN is a measurement in arbitrary units: meaningful within one band of one image, comparable across images only after conversion to radiance or reflectance.
+
+* Pitfall
+More bits are useless if the noise is larger than one quantization step: \(Q\) should match the [[id:sensor-resolutions][radiometric resolution]], not exceed it.

@@ -1,0 +1,34 @@
+:PROPERTIES:
+:ID:       recognition-system
+:DOMAIN:   recognition
+:AREA:     features
+:KIND:     model
+:REQUIRES: remote-sensing-system
+:SEE:      photointerpretation feature-extraction discriminant-functions accuracy-assessment change-detection
+:ALIASES:  recognition, pattern recognition, classification system, thematic map, training, validation, supervised, unsupervised, design cycle
+:END:
+#+title: Recognition systems
+#+summary: Recognition extracts information from the data — thematic maps, change maps, bio/geo-physical parameters, risk maps, 3-D models — either by photointerpretation or automatically; an automatic classifier chains pre-processing, feature extraction, a classifier trained on labelled samples (supervised) or not (unsupervised), and post-processing, and is designed in a cycle of feature selection, model selection, training and validation.
+
+* Model
+Architecture: scene → acquisition → pre-processing (corrections, registration) → feature extraction → classifier (with a supervisor providing training labels) → post-processing (majority filtering, merging) → thematic map.
+
+Design cycle: data acquisition → feature selection → model selection (using prior knowledge) → classifier training → validation, iterating on any step whose results are inadequate.
+
+- *Supervised*: training samples with known labels (ground truth from field surveys or photointerpretation).
+- *Unsupervised*: no labels; the data are grouped into clusters ([[id:kmeans-clustering][clustering]]) and the analyst names them afterwards.
+- *Photointerpretation vs automatic*: the human uses context and experience but is slow, qualitative and subjective; automatic recognition is fast, quantitative, objective, but cannot exploit all the perceptual knowledge of an expert.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize, node distance=0.3cm, b/.style={draw, minimum height=0.55cm}]
+\node[b, draw=kbcyan] (a) {image}; \node[b, right=of a] (p) {pre-processing}; \node[b, right=of p] (f) {features};
+\node[b, right=of f, draw=kbamber] (c) {classifier}; \node[b, right=of c] (m) {thematic map};
+\foreach \x/\y in {a/p,p/f,f/c,c/m} \draw[-{Stealth}] (\x) -- (\y);
+\node[b, above=of c, draw=kbmagenta] (s) {training samples}; \draw[-{Stealth}] (s) -- (c);
+\end{tikzpicture}
+
+* Intuition
+A classifier is a learned rule from "what the pixel measures" to "what the ground is"; everything before it shapes what it can learn, everything after it cleans its answers.
+
+* Pitfall
+Training and validation samples must be different and independent: evaluating on the training pixels (or on neighbouring pixels of the same fields) overstates accuracy.

@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       scanner-geometry
+:DOMAIN:   acquisition
+:AREA:     optical-sensors
+:KIND:     definition
+:REQUIRES: passive-active-sensors satellite-orbits
+:SEE:      sensor-resolutions digital-number point-spread-function geometric-distortions
+:ALIASES:  IFOV, GIFOV, GSI, ground sample interval, swath, whiskbroom, pushbroom, across-track scanner, along-track scanner, field of view
+:END:
+#+title: Scanner geometry: IFOV, GIFOV, swath
+#+summary: A detector of size \(w\) behind optics of focal length \(f\) sees the angle \(\mathrm{IFOV}=w/f\); from altitude \(H\) this is a ground cell \(\mathrm{GIFOV}=H\,w/f\), the geometric resolution; the image is built line by line by a rotating mirror (whiskbroom) or by a linear array of detectors (pushbroom) while the platform moves.
+
+* Definition
+- \(\mathrm{IFOV}=w/f\) (rad): intrinsic to the instrument.
+- \(\mathrm{GIFOV}=2H\tan(\mathrm{IFOV}/2)\approx H\,w/f\): depends on altitude.
+- *GSI* (ground sample interval): distance on the ground between neighbouring pixel centres; usually equal to the GIFOV, sometimes smaller along the scan (overlapping cells, better sampling).
+- *Swath*: width of the imaged strip; *FOV* the total angle of view.
+- *Whiskbroom* (across-track): a rotating or oscillating mirror sweeps one or few detectors across the track (Landsat TM). *Pushbroom* (along-track): a linear array with one detector per across-track pixel images a whole line at once; the platform motion provides the second dimension (SPOT, Sentinel-2). Pushbrooms have longer dwell time per pixel, hence better SNR, and no moving parts, but must calibrate thousands of detectors.
+
+* Derivation
+For \(H=700\) km, \(f=1\) m and \(w=10\) µm: \(\mathrm{GIFOV}=700\times10^3\cdot10^{-5}=7\) m. Halving the altitude or doubling the focal length halves the pixel.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[kbcyan, fill=kbcyan, fill opacity=0.2] (-0.15,3) rectangle (0.15,3.2); \node[right] at (0.2,3.1) {detector $w$};
+\draw[kbguide] (-0.6,2.5) -- (0.6,2.5); \node[right] at (0.6,2.5) {optics, focal $f$};
+\draw[kbamber] (0,2.5) -- (-0.5,0) (0,2.5) -- (0.5,0);
+\draw[kbmagenta, line width=1.5pt] (-0.5,0) -- (0.5,0); \node[below] at (0,0) {GIFOV $=Hw/f$};
+\draw[<->] (1.6,0) -- node[right] {$H$} (1.6,2.5);
+\end{tikzpicture}
+
+* Intuition
+The pixel on the ground is the detector projected through a lens from very high up: shrink the detector, lengthen the lens or fly lower to see finer detail.
+
+* Pitfall
+The GIFOV grows off nadir (the line of sight is longer and oblique): pixels at the edge of a wide swath cover more ground than at the centre — the panoramic distortion of wide-angle scanners.

@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       photointerpretation
+:DOMAIN:   recognition
+:AREA:     features
+:KIND:     method
+:REQUIRES: recognition-system false-color-composite
+:SEE:      accuracy-assessment
+:ALIASES:  photointerpretation, visual interpretation, image interpretation keys, tone, shape, texture, pattern, context
+:END:
+#+title: Photointerpretation
+#+summary: A trained analyst classifies the scene visually on one or more false-colour composites, using tone and colour, size, shape, texture, pattern, shadow and context; it exploits knowledge that is hard to formalise, but is slow, qualitative and subjective, and today mainly produces training and validation data for automatic classifiers.
+
+* Method
+Elements of interpretation: tone/colour (spectral behaviour), size and shape (fields, roads, buildings), texture (orchards vs meadows), pattern (field layouts, drainage networks), shadow (height, relief), site and association (a harbour near water). The interpreter draws polygons and assigns classes using interpretation keys, often after field checks.
+
+* Comparison
+| | photointerpretation | automatic recognition |
+|---+---+---|
+| speed | slow, small areas | fast, huge volumes |
+| result | qualitative | quantitative |
+| repeatability | subjective | objective |
+| knowledge | rich context, experience | only what the features encode |
+
+* Intuition
+The human eye is an excellent classifier trained for decades; the problem is that it cannot look at a continent every five days.
+
+* Pitfall
+Different interpreters draw different maps of the same image; when photointerpretation is used as ground truth, its own errors become the classifier's apparent errors.

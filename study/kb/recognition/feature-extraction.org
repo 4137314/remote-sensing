@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       feature-extraction
+:DOMAIN:   recognition
+:AREA:     features
+:KIND:     method
+:REQUIRES: recognition-system
+:SEE:      ndvi texture-features feature-space image-segmentation
+:ALIASES:  feature extraction, feature selection, pixel-based, region-based, object-based, normalization, feature vector, spectral indices
+:END:
+#+title: Feature extraction
+#+summary: Feature extraction computes, for each pixel (pixel-based) or each segmented region (region-based), a vector of parameters useful to discriminate the classes — original bands, spectral indices such as NDVI, texture measures, region shape — normalised to a common range before classification.
+
+* Method
+Input: multispectral and/or multiband, multipolarization images, pre-processed. Features:
+- unaltered bands;
+- indices from band ratios and differences ([[id:ndvi][NDVI]], water and snow indices) that enhance a property and reduce illumination effects;
+- [[id:texture-features][texture]] (variance, entropy, co-occurrence measures).
+Approaches:
+- *pixel-based*: one feature vector per pixel; the output is a set of feature images, one per feature. Suitable when classes are internally homogeneous at the image resolution.
+- *region-based*: segment first, then compute region descriptors (mean DN, area, perimeter, compactness, texture). Suitable for very high resolution images where objects span many heterogeneous pixels.
+*Normalisation*: each feature \(f_i\) mapped to \([0,1]\) by \((f_i-\min f_i)/(\max f_i-\min f_i)\) or standardised to zero mean and unit variance, so that no feature dominates distances only because of its units.
+*Selection*: keep the subset that best separates the classes (separability measures, wrappers), fighting the curse of dimensionality.
+
+* Example
+#+begin_src python
+  ndvi = (nir - red) / (nir + red + 1e-9)
+  var5 = ndimage.generic_filter(nir, np.var, size=5)
+  F = np.stack([blue, green, red, nir, ndvi, var5], axis=-1).reshape(-1, 6)
+  F = (F - F.mean(0)) / F.std(0)
+#+end_src
+
+* Intuition
+Features are the questions the classifier is allowed to ask about a pixel; good questions make the answer easy.
+
+* Pitfall
+More features are not always better: with few training samples, adding weak features lowers accuracy (Hughes phenomenon).

@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       ndvi
+:DOMAIN:   recognition
+:AREA:     features
+:KIND:     definition
+:REQUIRES: spectral-signature feature-extraction
+:SEE:      change-detection remote-sensing-applications false-color-composite
+:ALIASES:  NDVI, normalized difference vegetation index, vegetation index, NDWI, NDSI, band ratio, spectral index
+:END:
+#+title: NDVI and normalised difference indices
+#+summary: \(\mathrm{NDVI}=\dfrac{\rho_{NIR}-\rho_{red}}{\rho_{NIR}+\rho_{red}}\in[-1,1]\) exploits the contrast between red absorption by chlorophyll and high NIR reflectance of leaves: dense green vegetation gives 0.6–0.9, soil 0.1–0.2, water negative; the normalisation cancels much of the illumination variation.
+
+* Definition
+\[ \mathrm{NDVI}=\frac{\rho_{NIR}-\rho_{red}}{\rho_{NIR}+\rho_{red}}. \]
+Same pattern for other surfaces: NDWI \(=(\rho_{green}-\rho_{NIR})/(\rho_{green}+\rho_{NIR})\) for open water, NDSI \(=(\rho_{green}-\rho_{SWIR})/(\rho_{green}+\rho_{SWIR})\) for snow, NBR (NIR, SWIR2) for burn severity.
+
+* Derivation
+A shadow or a slope multiplies both bands by the same factor \(k\): \((k\rho_N-k\rho_R)/(k\rho_N+k\rho_R)\) is unchanged. A ratio-based index is therefore robust to illumination, unlike the simple difference \(\rho_N-\rho_R\).
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=6.4cm, height=4cm, axis lines=left, xlabel={NDVI}, ylabel={}, xmin=-1, xmax=1, ymin=0, ymax=1.2, ticks=none, extra x ticks={-1,0,1}, extra x tick labels={$-1$,$0$,$1$}]
+\addplot+[domain=-1:1, samples=100] {exp(-((x+0.4)/0.12)^2)}; \node at (axis cs:-0.4,1.1) {\scriptsize water};
+\addplot+[domain=-1:1, samples=100] {exp(-((x-0.15)/0.07)^2)}; \node at (axis cs:0.15,1.1) {\scriptsize soil};
+\addplot+[domain=-1:1, samples=100] {exp(-((x-0.75)/0.1)^2)}; \node at (axis cs:0.75,1.1) {\scriptsize vegetation};
+\end{axis}
+\end{tikzpicture}
+
+* Example
+Sentinel-2: \(\mathrm{NDVI}=(B8-B4)/(B8+B4)\), on reflectances. NDVI time series track crop phenology: green-up, peak, senescence, harvest.
+
+* Intuition
+Vegetation is the only common surface that is dark red and bright infrared at the same time; NDVI measures exactly that contrast.
+
+* Pitfall
+NDVI saturates over dense canopies (it stops increasing beyond leaf area index ~3) and is sensitive to soil background in sparse vegetation; indices such as EVI and SAVI correct partially.

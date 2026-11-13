@@ -1,0 +1,38 @@
+:PROPERTIES:
+:ID:       contrast-stretching
+:DOMAIN:   processing
+:AREA:     enhancement
+:KIND:     method
+:REQUIRES: look-up-table image-histogram
+:SEE:      histogram-equalization false-color-composite
+:ALIASES:  contrast enhancement, histogram stretching, linear stretch, saturation, percentile stretch, piecewise linear, logarithmic stretch, nonlinear stretch
+:END:
+#+title: Contrast stretching
+#+summary: Radiometric enhancement maps the occupied DN range onto the full display range: linear stretching \(\mathrm{GL}=255(\mathrm{DN}-\mathrm{DN}_{min})/(\mathrm{DN}_{max}-\mathrm{DN}_{min})\), linear with saturation at percentiles to ignore outliers, piecewise linear, or nonlinear (logarithmic, exponential) to expand dark or bright tones.
+
+* Method
+- *Linear*: \(\mathrm{GL}=a\,\mathrm{DN}+b\), with \(a=255/(\mathrm{DN}_{max}-\mathrm{DN}_{min})\), \(b=-a\,\mathrm{DN}_{min}\): a translation and a scaling of the histogram.
+- *Linear with saturation*: \(\mathrm{DN}_{min},\mathrm{DN}_{max}\) taken at percentiles (e.g. 2% and 98%); values outside are clipped to 0 or 255. A few very bright pixels (clouds, metal roofs) no longer waste the range.
+- *Piecewise linear*: different slopes for different DN intervals, to favour the interval of interest (water vs land).
+- *Nonlinear*: \(\mathrm{GL}=c\log(1+\mathrm{DN})\) expands dark tones (useful for SAR amplitude); power laws (gamma) or exponentials expand bright tones; [[id:histogram-equalization][equalisation]] is the data-driven nonlinear case.
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=6cm, height=4.8cm, axis lines=left, xlabel={DN}, ylabel={GL}, xmin=0, xmax=1000, ymin=0, ymax=270, legend pos=south east]
+\addplot+[domain=0:1000, samples=2] {0.255*x}; \addlegendentry{identity}
+\addplot+[domain=0:1000, samples=200] {min(255,max(0,255*(x-150)/(500-150)))}; \addlegendentry{saturated}
+\addplot+[domain=0:1000, samples=200] {255*ln(1+x)/ln(1001)}; \addlegendentry{log}
+\end{axis}
+\end{tikzpicture}
+
+* Example
+#+begin_src python
+  lo, hi = np.percentile(band, [2, 98])
+  gl = np.clip(255 * (band - lo) / (hi - lo), 0, 255).astype(np.uint8)
+#+end_src
+
+* Intuition
+Stretching spends the display's gray levels where the data are, instead of on empty parts of the range.
+
+* Pitfall
+Stretching each band separately for a colour composite changes colour balance between images: two composites stretched independently cannot be compared by colour.

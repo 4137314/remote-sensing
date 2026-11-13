@@ -1,0 +1,27 @@
+:PROPERTIES:
+:ID:       scattergram
+:DOMAIN:   recognition
+:AREA:     features
+:KIND:     definition
+:REQUIRES: feature-space
+:SEE:      false-color-composite kmeans-clustering
+:ALIASES:  scattergram, scatter plot, 2-D histogram, feature space plot, soil line, tasselled cap
+:END:
+#+title: Scattergram
+#+summary: A scattergram plots, for two bands, the number of pixels at each pair of values (a two-dimensional histogram); it shows clusters, their correlation between bands and the classes' separability, and is the basic exploratory view of a multispectral image.
+
+* Definition
+\(S(i,j)=\#\{(y,x): I_{b_1}(y,x)=i,\ I_{b_2}(y,x)=j\}\), displayed as an image with logarithmic grey scale. Typical structures in the red–NIR plane: the *soil line* (bare soils from dark to bright along a diagonal), vegetation above it (high NIR, low red), water near the origin.
+
+* Example
+#+begin_src python
+  H, xe, ye = np.histogram2d(red.ravel(), nir.ravel(), bins=256)
+  plt.imshow(np.log1p(H.T), origin="lower", extent=[xe[0], xe[-1], ye[0], ye[-1]])
+#+end_src
+Selecting a region of the scattergram and highlighting the corresponding pixels in the image links feature space and geography.
+
+* Intuition
+It is the image seen from inside the feature space: where the pixels pile up, there is a class.
+
+* Pitfall
+Highly correlated bands (visible bands among themselves) put all pixels on a narrow diagonal: little separability. Choose band pairs that carry different information, such as red and NIR.

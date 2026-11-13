@@ -1,0 +1,25 @@
+:PROPERTIES:
+:ID:       sun-synchronous-orbit
+:DOMAIN:   acquisition
+:AREA:     orbits
+:KIND:     definition
+:REQUIRES: satellite-orbits
+:SEE:      earth-observation-missions copernicus-sentinel scanner-geometry
+:ALIASES:  polar orbit, sun-synchronous, near-polar orbit, revisit time, repeat cycle, local time of descending node, constellation
+:END:
+#+title: Sun-synchronous polar orbits and revisit time
+#+summary: Most Earth-observation satellites fly near-polar orbits at 600–800 km whose plane precesses 360° a year, so they pass over every latitude at the same local solar time and similar illumination; the revisit time over a site depends on orbit, swath and pointing, and is shortened by constellations.
+
+* Definition
+- *Polar orbit*: inclination close to 90°, so the Earth rotates under the orbit and every latitude is reached.
+- *Sun-synchronous*: the nodal precession caused by the Earth's oblateness, \(\dot\Omega\propto-\cos i/a^{7/2}\), is tuned to \(+360^\circ\)/year (\(i\approx98^\circ\) at 700 km, slightly retrograde). The angle between orbital plane and Sun stays constant: fixed local time at the nodes (e.g. 10:30 descending node for Sentinel-2).
+- *Revisit time*: interval between two observations of the same area; the *repeat cycle* is the time after which the ground track repeats exactly.
+
+* Derivation
+At ~14.5 orbits a day, successive tracks at the equator are \(360^\circ/14.5\approx25^\circ\) of longitude apart (≈2750 km). A swath of 290 km (Sentinel-2) covers the equator in about 10 days with one satellite, 5 days with two satellites phased 180° apart. Wider swaths, off-nadir pointing and higher latitudes (converging tracks) shorten the revisit.
+
+* Intuition
+The satellite is always late morning wherever it passes: shadows and illumination are comparable from one image to the next, which makes change detection possible.
+
+* Pitfall
+Fixed local time also means a fixed bias: phenomena that happen in the afternoon (convective clouds, peak temperature) are never seen by a morning satellite.

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Remote Sensing
+GenericName=Knowledge base
+Comment=Remote sensing systems and image analysis: radiation, satellites, SAR, image processing, classification, in Emacs
+Keywords=remote;sensing;telerilevamento;rssia;sar;satellite;kb;knowledge;study;studio;emacs;
+Exec=env RS_ROOT=@ROOT@ @BIN@
+Path=@ROOT@/study/kb
+Icon=emacs
+Terminal=false
+Categories=Education;
+StartupWMClass=emacs

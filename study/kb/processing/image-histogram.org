@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       image-histogram
+:DOMAIN:   processing
+:AREA:     images
+:KIND:     definition
+:REQUIRES: digital-image
+:SEE:      image-statistics contrast-stretching histogram-equalization image-thresholding
+:ALIASES:  histogram, cumulative histogram, relative frequency, probability density, CDF, image distribution
+:END:
+#+title: Image histogram
+#+summary: The histogram \(h(k)\) counts, normalised by the number of pixels, how often each DN \(k\) occurs; it approximates the probability density of the image values and ignores where pixels are; its running sum, the cumulative histogram, approximates the distribution function.
+
+* Definition
+For an image of \(NM\) pixels:
+\[ h(k)=\frac{\#\{(y,x):I(y,x)=k\}}{NM},\qquad \sum_k h(k)=1,\qquad H(k)=\sum_{j\le k}h(j). \]
+\(H\) is non-decreasing and reaches 1. \(h\) is associated with the probability density of the DNs, \(H\) with the cumulative distribution, an approximation since DNs are discrete.
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=7cm, height=4.2cm, axis lines=left, xlabel={DN}, ylabel={$h$}, xmin=0, xmax=255, ymin=0, ymax=0.03, ybar, bar width=1.5pt, axis y line*=left, ticks=none]
+\addplot+[domain=0:255, samples=60, fill=kbcyan, draw=none] {0.6*exp(-((x-60)/18)^2)/(18*1.77)+0.4*exp(-((x-150)/25)^2)/(25*1.77)};
+\end{axis}
+\end{tikzpicture}
+A bimodal histogram: two populations of pixels, e.g. water and land.
+
+* Uses
+- choosing stretch limits and LUTs;
+- [[id:histogram-equalization][equalisation]] through \(H\);
+- thresholds between modes for [[id:image-thresholding][segmentation]];
+- detecting saturation (peaks at 0 or \(2^Q-1\)) and quantization gaps.
+
+* Intuition
+The histogram is the image with its geometry thrown away: it tells what values occur and how often, not where.
+
+* Pitfall
+Two very different images can have the same histogram (shuffle the pixels): histogram-based operations are blind to spatial structure.

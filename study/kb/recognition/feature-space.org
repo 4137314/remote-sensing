@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       feature-space
+:DOMAIN:   recognition
+:AREA:     features
+:KIND:     definition
+:REQUIRES: feature-extraction homogeneous-area-statistics
+:SEE:      scattergram discriminant-functions kmeans-clustering
+:ALIASES:  feature space, multispectral space, spectral classes, information classes, clusters, class distribution, separability
+:END:
+#+title: Feature space and spectral classes
+#+summary: Each pixel is a point \(\mathbf x\in\mathbb R^p\) of the feature (multispectral) space; pixels of a land-cover type form clusters whose shape and spread depend on features, cover type, noise and topography; information classes (what the user wants) may consist of several spectral classes (what the data separate).
+
+* Definition
+- *Feature space*: \(\mathbb R^p\), one axis per feature; a pixel is a vector \(\mathbf x=(f_1,\dots,f_p)\).
+- *Cluster*: the region occupied by the pixels of one cover type, described by a class-conditional density \(p(\mathbf x\mid\omega_i)\), often [[id:homogeneous-area-statistics][Gaussian]].
+- *Information class*: a category of the user's legend (forest, urban, crop).
+- *Spectral class*: a group of pixels with similar features. "Forest" may be two spectral classes (sunlit and shaded slopes); "pasture" and "lawn" may be one.
+Cluster shape and size depend on the features used, on the cover type, on noise and on topographic effects. Classification amounts to partitioning the feature space into decision regions, one per class.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[-{Stealth}] (0,0) -- (4.2,0) node[right] {red}; \draw[-{Stealth}] (0,0) -- (0,3.2) node[above] {NIR};
+\draw[kbgreen, fill=kbgreen, fill opacity=0.2, rotate around={20:(0.9,2.4)}] (0.9,2.4) ellipse (0.6 and 0.3); \node[kbgreen] at (0.9,2.95) {vegetation};
+\draw[kbamber, fill=kbamber, fill opacity=0.2, rotate around={40:(2.8,1.9)}] (2.8,1.9) ellipse (0.7 and 0.3); \node[kbamber] at (3.4,2.5) {soil};
+\draw[kbcyan, fill=kbcyan, fill opacity=0.2] (0.7,0.4) ellipse (0.35 and 0.2); \node[kbcyan] at (1.4,0.4) {water};
+\end{tikzpicture}
+Two features already separate three classes; the soil line runs diagonally.
+
+* Intuition
+Classification is geography in feature space: classes are countries, and the classifier draws their borders.
+
+* Pitfall
+Clusters overlap: pixels in the overlap will be misclassified by any rule, and only better features (more bands, texture, time series) can pull the clusters apart.

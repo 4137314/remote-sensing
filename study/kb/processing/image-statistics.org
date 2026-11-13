@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       image-statistics
+:DOMAIN:   processing
+:AREA:     images
+:KIND:     definition
+:REQUIRES: image-histogram
+:SEE:      homogeneous-area-statistics texture-features
+:ALIASES:  mean, variance, standard deviation, mode, median, skewness, kurtosis, moments, contrast
+:END:
+#+title: Image statistics: moments, mode, median
+#+summary: Mean \(\mu\) and variance \(\sigma^2\) summarise the level and spread of the DNs; the mode is the histogram peak, the median the value splitting the pixels in half; skewness (third standardised moment) measures asymmetry and kurtosis (fourth) the weight of the tails.
+
+* Definition
+With \(h(k)\) the normalised histogram:
+\[ \mu=\sum_k k\,h(k),\qquad \sigma^2=\sum_k(k-\mu)^2h(k), \]
+\[ \gamma_1=\frac{1}{\sigma^3}\sum_k(k-\mu)^3h(k),\qquad \gamma_2=\frac{1}{\sigma^4}\sum_k(k-\mu)^4h(k). \]
+- mode: \(\arg\max_k h(k)\); median: \(\mathrm{DN}_p\) with \(H(\mathrm{DN}_p)=0.5\);
+- skewness \(\gamma_1=0\) for symmetric distributions, \(>0\) for a long right tail;
+- kurtosis \(\gamma_2=3\) for a Gaussian; larger means heavier tails and a sharper peak.
+For a symmetric unimodal histogram mean, median and mode coincide; with skew they separate (mode, median, mean in the direction of the tail).
+- contrast: \(\mathrm{DN}_{max}-\mathrm{DN}_{min}\), their ratio, or \(\sigma\).
+
+* Example
+#+begin_src python
+  from scipy import stats
+  b = img[3].ravel().astype(float)
+  print(b.mean(), b.var(), np.median(b), stats.mode(b, keepdims=False).mode,
+        stats.skew(b), stats.kurtosis(b, fisher=False))
+#+end_src
+
+* Intuition
+Mean and variance describe the bulk; skewness and kurtosis describe the tails, where the unusual pixels (clouds, fires, shadows) live.
+
+* Pitfall
+Global statistics of a scene mix classes: a mean over forest and lake describes neither. Statistics are meaningful on [[id:homogeneous-area-statistics][homogeneous areas]].

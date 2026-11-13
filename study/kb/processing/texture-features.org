@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       texture-features
+:DOMAIN:   processing
+:AREA:     filtering
+:KIND:     definition
+:REQUIRES: statistical-filters image-statistics
+:SEE:      feature-extraction speckle-statistics
+:ALIASES:  texture, co-occurrence matrix, GLCM, Haralick features, contrast, homogeneity, entropy, local variance, angular second moment
+:END:
+#+title: Texture features
+#+summary: Texture is the spatial arrangement of tones; it is measured by first-order statistics in a window (variance, range, entropy) or by second-order statistics from the grey-level co-occurrence matrix \(P_{d,\theta}(i,j)\) — how often level \(i\) sits next to level \(j\) at a given offset — from which contrast, homogeneity, entropy and energy are derived.
+
+* Definition
+*First order* (window \(W\)): local mean, variance, range, entropy of the local histogram.
+
+*Co-occurrence matrix* (Haralick): for an offset \((d,\theta)\), \(P(i,j)\) = normalised count of pixel pairs with values \(i\) and \(j\) at that offset (levels usually requantized to 16–64). Features:
+\[ \mathrm{Contrast}=\sum_{i,j}(i-j)^2P(i,j),\quad \mathrm{Homogeneity}=\sum_{i,j}\frac{P(i,j)}{1+|i-j|},\]
+\[ \mathrm{Entropy}=-\sum_{i,j}P(i,j)\log P(i,j),\quad \mathrm{Energy}=\sum_{i,j}P(i,j)^2. \]
+Computed in a moving window, each feature becomes a new band for classification.
+
+* Example
+#+begin_src python
+  from skimage.feature import graycomatrix, graycoprops
+  q = (band / band.max() * 31).astype(np.uint8)
+  P = graycomatrix(q, distances=[1], angles=[0, np.pi/2], levels=32, normed=True)
+  contrast, homogeneity = graycoprops(P, "contrast"), graycoprops(P, "homogeneity")
+#+end_src
+
+* Intuition
+Two fields with the same average colour, one orchard and one meadow, differ in how the colour changes from pixel to pixel: that is texture.
+
+* Pitfall
+Texture depends on window size and resolution: too small a window is noisy, too large mixes classes at boundaries, producing a halo of wrong features along every edge.

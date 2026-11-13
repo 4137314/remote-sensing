@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       geostationary-orbit
+:DOMAIN:   acquisition
+:AREA:     orbits
+:KIND:     construction
+:REQUIRES: satellite-orbits
+:SEE:      telecom-satellite-orbits earth-observation-missions
+:ALIASES:  geostationary, GEO, 35786 km, Meteosat orbit, geosynchronous
+:END:
+#+title: Geostationary orbit
+#+summary: A circular equatorial orbit with period equal to one sidereal day (23 h 56 min) keeps a satellite over the same point of the equator; Kepler's law fixes its altitude at 35 786 km, from where it sees about 43% of the Earth continuously — ideal for meteorology and telecommunications, at kilometre resolution.
+
+* Derivation
+\(T=86164\) s (sidereal day), \(\mu=3.986\times10^{14}\) m\(^3\)s\(^{-2}\):
+\[ r=\left(\frac{\mu T^2}{4\pi^2}\right)^{1/3}\approx42164\ \mathrm{km},\qquad h=r-R_\oplus\approx42164-6378=35786\ \mathrm{km}. \]
+The angular velocity equals the Earth's and the orbital plane is the equatorial one (\(i=0^\circ\)), so the satellite looks fixed in the sky.
+
+* Properties
+- continuous observation of one disc (images every 5–15 minutes: cloud motion, storms, volcanic plumes);
+- coverage up to about \(\pm70^\circ\) latitude, poor near the poles;
+- resolution of 1–3 km at nadir for passive sensors, since the distance is about 50 times that of LEO;
+- propagation delay \(2h/c\approx0.24\) s for a ground–satellite–ground hop.
+
+* Intuition
+A camera nailed to the sky over the equator: always the same view, never close.
+
+* Pitfall
+"Geosynchronous" (period of one day) is not enough: with non-zero inclination the satellite traces a figure eight in the sky; only the equatorial circular case is geostationary.

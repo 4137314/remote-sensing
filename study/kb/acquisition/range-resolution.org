@@ -1,0 +1,31 @@
+:PROPERTIES:
+:ID:       range-resolution
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     theorem
+:REQUIRES: side-looking-radar
+:SEE:      chirp-pulse-compression azimuth-resolution
+:ALIASES:  slant range resolution, ground range resolution, pulse length, pulse duration
+:END:
+#+title: Range resolution
+#+summary: Two targets are separated in range if their echoes do not overlap: with a pulse of duration \(\tau\), slant-range resolution is \(r_{SR}=c\tau/2\) and ground-range resolution \(r_{GR}=c\tau/(2\sin\theta)\), finer at far range and independent of the distance from the sensor.
+
+* Statement
+\[ r_{SR}=\frac{c\,\tau}{2},\qquad r_{GR}=\frac{c\,\tau}{2\sin\theta}. \]
+
+* Derivation
+Targets A and B at slant ranges \(R\) and \(R+\Delta R\): B's echo arrives \(2\Delta R/c\) after A's. The two pulses of length \(\tau\) do not overlap if \(2\Delta R/c\ge\tau\), i.e. \(\Delta R\ge c\tau/2\). On the ground a horizontal distance \(\Delta x\) corresponds to \(\Delta R=\Delta x\sin\theta\), so \(\Delta x\ge c\tau/(2\sin\theta)\).
+
+* Example
+\(\tau=0.1\) µs gives \(r_{SR}=15\) m; at \(\theta=20^\circ\) \(r_{GR}\approx44\) m, at \(50^\circ\) about 20 m.
+
+* Consequences
+- resolution does not degrade with altitude: it depends only on the pulse;
+- it degrades towards near range (small \(\theta\)) and is undefined at nadir (\(\theta=0\)), another reason to look sideways;
+- a finer resolution needs a shorter pulse, hence higher peak power for the same energy — solved by [[id:chirp-pulse-compression][chirp pulses]].
+
+* Intuition
+Range resolution is half the pulse length in metres: echoes from points closer than that blur into one.
+
+* Pitfall
+Ground-range resolution varies across the swath: the pixel spacing of a ground-range product is constant, its true resolution is not.

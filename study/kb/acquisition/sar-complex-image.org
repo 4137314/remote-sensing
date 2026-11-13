@@ -1,0 +1,25 @@
+:PROPERTIES:
+:ID:       sar-complex-image
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     definition
+:REQUIRES: synthetic-aperture-radar backscattering-coefficient
+:SEE:      speckle-statistics speckle-filtering
+:ALIASES:  single look complex, SLC, in-phase, quadrature, amplitude image, intensity image, phase image, I/Q, multilook
+:END:
+#+title: SAR complex, amplitude and intensity images
+#+summary: The SAR receiver measures in-phase and quadrature components of the echo, so each pixel is a complex number \(z=A\cos\phi+jA\sin\phi=Ae^{j\phi}\); from it one derives the amplitude image \(A=|z|\), the intensity image \(I=A^2\) (proportional to \(\sigma^0\)) and the phase image, which alone looks random but carries range information exploited by interferometry.
+
+* Definition
+The transmitted sinusoid \(\cos(2\pi f_0t)\) comes back as \(A(x,y)\cos(2\pi f_0t+\phi(x,y))\), with \(A\) and \(\phi\) shaped by the target. Coherent demodulation yields
+\[ z(x,y)=\underbrace{A\cos\phi}_{\text{in phase}}+j\,\underbrace{A\sin\phi}_{\text{quadrature}}=A\,e^{j\phi}. \]
+Products: *single look complex* (SLC) \(z\); *amplitude* \(A=\sqrt{\mathrm{Re}^2+\mathrm{Im}^2}\); *intensity* \(I=A^2\), whose mean over a homogeneous area is proportional to \(\sigma^0\); *phase* \(\phi\).
+
+* Uses of the phase
+In one image the phase of a pixel is the sum of many random scatterer phases and is uniform noise. The *difference* of phases between two acquisitions from slightly different positions (interferometry, InSAR) measures topography; between two dates from the same position (differential InSAR) it measures ground displacement with millimetre precision.
+
+* Intuition
+A SAR pixel is a phasor: its length says how strongly the cell backscatters, its angle where, within a wavelength, the echo came from.
+
+* Pitfall
+Amplitude and intensity have different statistics (Rayleigh vs exponential, see [[id:speckle-statistics][speckle]]): filters and thresholds designed for one are wrong for the other.

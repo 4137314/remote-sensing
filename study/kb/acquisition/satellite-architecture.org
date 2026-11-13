@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       satellite-architecture
+:DOMAIN:   acquisition
+:AREA:     satellites
+:KIND:     model
+:REQUIRES: telecom-satellite-orbits
+:SEE:      satellite-data-transmission passive-active-sensors
+:ALIASES:  space segment, ground segment, payload module, service module, TT&C, attitude and orbit control, power subsystem, solar array, eclipse, uplink, downlink, interlink, launch vehicle
+:END:
+#+title: Satellite system architecture
+#+summary: A satellite system has a space segment (the satellite plus tracking, telemetry and command stations) and a ground segment (receiving, processing, archiving and distribution); the satellite is a payload module (antennas or sensors) carried by a service module (power, attitude and orbit control, thrusters, TT&C), powered by solar arrays and by batteries during eclipses.
+
+* Model
+- *Space segment*: satellite(s) and TT&C stations that control and monitor them. Links: *uplink* (ground to satellite, usually the higher frequency), *downlink*, *interlinks* between satellites (radio or optical).
+- *Ground segment*: for Earth observation, a *flight operations segment* (configuration, on-board software, orbit control) and a *data management segment* (processing, storage, dissemination to users).
+- *Payload module*: transponders and antennas (telecommunications) or remote sensing instruments and their management (Earth observation).
+- *Service module* (bus): power generation, attitude and orbit control, thrusters, TT&C, and for Earth observation the data transmission system.
+- *Power*: primary subsystem = solar arrays; secondary = electrochemical batteries, charged in sunlight, used in the shadow cone. In eclipse an Earth-observation satellite often cannot both acquire and transmit: sensors are switched off, or data are recorded on board and downlinked later.
+- *Launch*: a launch vehicle (Vega, Ariane, Falcon 9) places the satellite in orbit in minutes (about 24 min for Sentinel-2 on Vega) at very high cost; reusable stages reduce it.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize, b/.style={draw, minimum height=0.55cm, align=center}]
+\node[b, draw=kbcyan] (s) at (0,2) {satellite\\payload + service};
+\node[b] (tt) at (-2.4,0) {TT\&C\\station};
+\node[b, draw=kbamber] (g) at (2.4,0) {ground stations\\processing, archive};
+\node[b] (u) at (5,0) {users};
+\draw[-{Stealth}] (tt) to[bend left=15] node[left] {uplink} (s);
+\draw[-{Stealth}] (s) to[bend left=15] node[right] {downlink} (g);
+\draw[-{Stealth}] (g) -- (u);
+\end{tikzpicture}
+
+* Intuition
+The instrument is the reason for the mission; everything else on board exists to keep it pointed, powered, warm and talking to the ground.
+
+* Pitfall
+Power and downlink capacity, not the sensor, often limit how much a satellite can image per orbit.

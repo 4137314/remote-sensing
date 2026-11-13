@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       sensor-resolutions
+:DOMAIN:   acquisition
+:AREA:     optical-sensors
+:KIND:     definition
+:REQUIRES: scanner-geometry digital-number
+:SEE:      multispectral-hyperspectral-image point-spread-function earth-observation-missions
+:ALIASES:  geometric resolution, spatial resolution, radiometric resolution, spectral resolution, temporal resolution, signal to noise ratio, trade-off
+:END:
+#+title: Geometric, radiometric, spectral and temporal resolution
+#+summary: A sensor integrates radiance over space (geometric resolution, the GIFOV), wavelength (spectral resolution, band width and number), and is limited by noise (radiometric resolution, the smallest measurable radiance difference) and by revisit (temporal resolution); for a given detector they trade against each other because each pixel must collect enough energy.
+
+* Definition
+- *Geometric*: size of the smallest ground cell resolved, the GIFOV (sub-metre to kilometres).
+- *Spectral*: number, position and width of the bands (panchromatic: 1 broad band; multispectral: 3–15 bands of ~50–200 nm; hyperspectral: hundreds of contiguous bands of ~10 nm).
+- *Radiometric*: smallest difference in integrated radiance the sensor can distinguish above its noise; \(Q\) bits are chosen accordingly.
+- *Temporal*: revisit time.
+
+* Derivation
+The energy reaching a detector in one pixel is about
+\[ E\propto L_\lambda\,\Delta\lambda\;\mathrm{GIFOV}^2\;\frac{A_{optics}}{H^2}\;t_{int}. \]
+For fixed detector noise, halving the GIFOV divides \(E\) by four; to keep the SNR (radiometric resolution) one must widen \(\Delta\lambda\) (coarser spectral resolution), integrate longer or use larger optics. This is why the panchromatic band has the finest pixel (it is the widest band) and hyperspectral sensors have coarser pixels.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[kbcyan, line width=1pt] (0,0) -- (2,1.6) -- (4,0) -- cycle;
+\node[above] at (2,1.6) {geometric}; \node[left] at (0,0) {spectral}; \node[right] at (4,0) {radiometric};
+\fill[kbamber] (2,0.55) circle (0.08); \node[kbamber, below] at (2,0.5) {fixed energy budget};
+\end{tikzpicture}
+Improving one corner of the triangle costs the others.
+
+* Intuition
+A pixel is a bucket catching photons: a smaller bucket (finer pixel) or a narrower colour range (finer band) catches fewer, and noise takes over.
+
+* Pitfall
+Pixel size in a product is not resolution: images are often resampled to a finer grid than the GIFOV, and the effective resolution also depends on the [[id:point-spread-function][point spread function]].

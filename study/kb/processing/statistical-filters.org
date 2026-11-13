@@ -1,0 +1,32 @@
+:PROPERTIES:
+:ID:       statistical-filters
+:DOMAIN:   processing
+:AREA:     filtering
+:KIND:     method
+:REQUIRES: moving-window-filters
+:SEE:      speckle-filtering texture-features
+:ALIASES:  median filter, mode filter, minimum filter, maximum filter, rank filter, order statistics, nonlinear filter, salt and pepper noise
+:END:
+#+title: Statistical (rank) filters
+#+summary: Nonlinear filters replace each pixel with a statistic of its window — median, mode, minimum, maximum, variance; the median removes impulse noise while preserving edges, the mode cleans classification maps, variance and range measure local texture.
+
+* Method
+For each pixel, sort the \(K\) values of the window \(W(y,x)\) and output
+- *median*: middle value; an isolated outlier never wins, and a straight edge keeps its position;
+- *mode*: most frequent value; used on label maps (majority filter) to remove isolated misclassified pixels;
+- *min / max*: erosion / dilation in grey-level morphology;
+- *variance, range, entropy*: local texture measures (see [[id:texture-features][texture]]).
+Cost: \(O(K\log K)\) per pixel by sorting, \(O(K)\) with histogram updates.
+
+* Example
+#+begin_src python
+  med = ndimage.median_filter(band, size=3)
+  majority = ndimage.generic_filter(labels, lambda w: np.bincount(w.astype(int)).argmax(), size=3)
+#+end_src
+A \(3\times3\) window with values \(\{10,11,12,10,250,11,12,10,11\}\): mean 37 (outlier spread around), median 11 (outlier removed).
+
+* Intuition
+Ranking makes a filter robust: a few crazy values cannot move the middle of a sorted list.
+
+* Pitfall
+The median erodes thin lines and sharp corners narrower than half the window: roads one pixel wide disappear with a \(5\times5\) median.

@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       look-up-table
+:DOMAIN:   processing
+:AREA:     images
+:KIND:     definition
+:REQUIRES: digital-image
+:SEE:      contrast-stretching histogram-equalization false-color-composite
+:ALIASES:  LUT, look-up table, DN to gray level, display, gray level, GL, transfer function
+:END:
+#+title: Look-up tables and visualization
+#+summary: Screens show 256 gray levels per channel, while sensors deliver up to \(2^{16}\) DNs; a look-up table is an associative memory \(\mathrm{GL}=\mathrm{LUT}(\mathrm{DN})\) applied pixel by pixel, which converts (and enhances) the data for display without changing the stored values.
+
+* Definition
+A LUT is a function \(f:\{0,\dots,2^Q-1\}\to\{0,\dots,255\}\), stored as an array indexed by DN. Several DNs can map to the same GL. Linear LUT between chosen limits:
+\[ \mathrm{GL}=\begin{cases}0 & \mathrm{DN}<\mathrm{DN}_{a}\\ \mathrm{round}\!\big(255\,\frac{\mathrm{DN}-\mathrm{DN}_a}{\mathrm{DN}_b-\mathrm{DN}_a}\big) & \mathrm{DN}_a\le\mathrm{DN}\le\mathrm{DN}_b\\ 255 & \mathrm{DN}>\mathrm{DN}_b\end{cases} \]
+the slope \(255/(\mathrm{DN}_b-\mathrm{DN}_a)\) fixes the contrast.
+
+* Example
+Sentinel-2 delivers 16-bit data (\(0\)–\(65535\)); a natural scene occupies maybe \(0\)–\(4000\). Mapping the full 16-bit range to 256 levels would squeeze the scene into the first 16 gray levels: almost black. A LUT on \([\mathrm{DN}_a,\mathrm{DN}_b]=[0,3000]\) uses the whole display range.
+#+begin_src python
+  lut = np.clip(np.round(255 * np.arange(65536) / 3000), 0, 255).astype(np.uint8)
+  gl = lut[img[3]]                      # one memory access per pixel
+#+end_src
+
+* Intuition
+A LUT is the display's lens: it decides which part of the data's range gets the screen's limited shades.
+
+* Pitfall
+Visual enhancement must not be confused with data processing: classify and measure on the DNs (or reflectances), not on the stretched 8-bit display values.

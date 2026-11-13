@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       discrete-fourier-transform
+:DOMAIN:   processing
+:AREA:     filtering
+:KIND:     definition
+:REQUIRES: digital-image
+:SEE:      frequency-domain-filtering moving-window-filters point-spread-function
+:ALIASES:  DFT, 2-D DFT, Fourier transform, spatial frequency, magnitude spectrum, FFT, fftshift, IDFT
+:END:
+#+title: Two-dimensional discrete Fourier transform
+#+summary: The 2-D DFT writes an \(N\times M\) image as a sum of sinusoidal patterns, \(I_F(k_y,k_x)=\sum_{y,x}I(y,x)\,e^{-j2\pi(k_yy/N+k_xx/M)}\); it is periodic, Hermitian-symmetric for real images, its value at the origin is \(NM\) times the mean, low frequencies hold smooth variations and high frequencies edges and details.
+
+* Definition
+1-D: \(D(k)=\sum_{x=0}^{M-1}d(x)e^{-j2\pi kx/M}\), \(d(x)=\frac1M\sum_k D(k)e^{j2\pi kx/M}\), periodic with period \(M\); the largest representable frequency (Nyquist) is \(k=M/2\).
+2-D:
+\[ I_F(k_y,k_x)=\sum_{y=0}^{N-1}\sum_{x=0}^{M-1}I(y,x)\,e^{-j2\pi\left(\frac{k_yy}{N}+\frac{k_xx}{M}\right)}, \]
+\[ I(y,x)=\frac{1}{NM}\sum_{k_y,k_x}I_F(k_y,k_x)\,e^{j2\pi\left(\frac{k_yy}{N}+\frac{k_xx}{M}\right)}. \]
+Properties: separable (rows then columns, \(O(NM\log NM)\) with the FFT); periodic in both indices (the image is implicitly tiled); \(I_F(0,0)=NM\,\mu\); for real images \(I_F(-k_y,-k_x)=I_F^*(k_y,k_x)\). Usually displayed as \(\log(1+|I_F|)\), shifted so the origin is centred.
+
+* Spatial structures
+- periodic patterns (field rows, waves) give isolated peaks at their frequency, perpendicular to their stripes;
+- straight linear features (roads, edges) give a line through the origin perpendicular to them;
+- irregular natural textures give diffuse spectra.
+
+* Example
+#+begin_src python
+  F = np.fft.fftshift(np.fft.fft2(band))
+  plt.imshow(np.log1p(np.abs(F)), cmap="gray")
+#+end_src
+
+* Intuition
+The DFT re-expresses the image as a recipe of stripes: how much of each stripe width and orientation it contains.
+
+* Pitfall
+The magnitude alone does not determine the image: the phase carries the positions of the structures, and swapping the phases of two images swaps what they look like.

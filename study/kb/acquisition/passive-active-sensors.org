@@ -1,0 +1,30 @@
+:PROPERTIES:
+:ID:       passive-active-sensors
+:DOMAIN:   acquisition
+:AREA:     optical-sensors
+:KIND:     definition
+:REQUIRES: remote-sensing-system
+:SEE:      scanner-geometry radar-equation sensor-resolutions
+:ALIASES:  passive sensor, active sensor, imaging sensor, non-imaging sensor, lidar, radiometer, camera, scanner
+:END:
+#+title: Passive and active sensors
+#+summary: Passive sensors measure radiation emitted or reflected by the target (cameras, multispectral and hyperspectral scanners, thermal cameras, microwave radiometers); active sensors illuminate the target and measure what comes back (radar, SAR, lidar, ground-penetrating radar); both can produce measurements (1-D signals) or images (2-D).
+
+* Definition
+The aim of a sensor is to measure reflected or emitted radiance. Every measurement integrates the radiation over a range of wavelengths, an area on the ground and a time interval, which limits its accuracy.
+
+| | measures (non-imaging) | imaging |
+|---+---+---|
+| passive | radiometers, spectrometers, passive microwave | photo camera, thermal camera, multispectral and hyperspectral scanners |
+| active | radar altimeter, scatterometer, lidar profiler | camera with flash, side-looking radar, SAR, imaging lidar, GPR |
+
+* Comparison
+- passive optical: rich spectral information, needs sunlight (reflective bands) and clear sky;
+- active microwave: day and night, through clouds, sensitive to geometry, roughness and moisture; harder to interpret (speckle, side-looking geometry);
+- lidar: precise 3-D structure (canopy height, terrain), small swaths.
+
+* Intuition
+A passive sensor is a camera in daylight; an active one brings its own flash, at a wavelength of its choice.
+
+* Pitfall
+"Active" does not mean better: radar measures different physical properties than optical sensors, and the two are complementary rather than interchangeable.

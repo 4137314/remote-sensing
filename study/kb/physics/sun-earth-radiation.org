@@ -1,0 +1,32 @@
+:PROPERTIES:
+:ID:       sun-earth-radiation
+:DOMAIN:   physics
+:AREA:     radiation
+:KIND:     example
+:REQUIRES: wien-stefan-boltzmann
+:SEE:      atmospheric-windows electromagnetic-spectrum
+:ALIASES:  solar radiation, Earth radiation, thermal emission, sources of passive remote sensing
+:END:
+#+title: The Sun and the Earth as sources
+#+summary: Modelled as black bodies, the Sun (5778 K) peaks at 0.5 µm and dominates the visible to short-wave infrared, the Earth (300 K) peaks at 9.66 µm in the thermal infrared; the two curves cross near 3–5 µm, so reflective sensing and thermal sensing use different bands.
+
+* Example
+By [[id:wien-stefan-boltzmann][Wien's law]]:
+\[ \lambda_{\max,\odot}=\frac{2898}{5778}\approx0.50\ \mu\mathrm m\ (\text{visible}), \]
+\[ \lambda_{\max,\oplus}=\frac{2898}{300}\approx9.66\ \mu\mathrm m\ (\text{thermal IR}). \]
+Materials on the Earth absorb, reflect or transmit solar energy between about 0.4 and 3 µm. Reaching the Earth, the solar irradiance is diluted by the factor \((R_\odot/d)^2\approx2.2\times10^{-5}\), so in the 3–5 µm region reflected sunlight and Earth emission are comparable; above 5 µm emission dominates.
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=7.2cm, height=4.6cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={relative radiance}, xmode=log, ymode=log, xmin=0.2, xmax=50, ymin=1e-4, ymax=1e3, legend pos=north east]
+\addplot+[domain=0.2:50, samples=200] {2.2e-5*3.74e8/(x^5*(exp(14388/(x*5778))-1))/1e4}; \addlegendentry{reflected Sun}
+\addplot+[domain=0.2:50, samples=200] {3.74e8/(x^5*(exp(14388/(x*300))-1))/1e4}; \addlegendentry{Earth emission}
+\end{axis}
+\end{tikzpicture}
+Sunlight reaching the ground versus Earth emission: they cross between 3 and 5 µm.
+
+* Intuition
+By day, below 3 µm we see the Sun's light bounced off the ground; above 5 µm we see the ground's own warmth, day and night.
+
+* Pitfall
+At night the reflective bands are blind, but thermal bands still work: night images are thermal or radar images.

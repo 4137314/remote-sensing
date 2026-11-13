@@ -1,0 +1,37 @@
+:PROPERTIES:
+:ID:       region-growing
+:DOMAIN:   processing
+:AREA:     segmentation
+:KIND:     method
+:REQUIRES: image-segmentation
+:SEE:      split-and-merge feature-extraction
+:ALIASES:  region growing, seed, seeded region growing, flood fill, connected components
+:END:
+#+title: Region growing
+#+summary: Starting from seed pixels or small atomic regions, each region repeatedly absorbs adjacent pixels that satisfy the homogeneity criterion with respect to it (e.g. difference from the region mean below a tolerance), until no region can grow; seeds come from user clicks, local minima of variance or a regular grid.
+
+* Algorithm
+\begin{algorithmic}[1]
+\Require image $I$, seeds $s_1,\dots,s_n$, tolerance $\delta$
+\ForAll{seeds $s_r$} \State $R_r\gets\{s_r\}$; $\mu_r\gets I(s_r)$; push neighbours of $s_r$ in queue $Q_r$ \EndFor
+\While{some queue is not empty}
+\ForAll{$r$ with $Q_r$ not empty}
+\State pop $p$ from $Q_r$
+\If{$p$ unlabelled and $|I(p)-\mu_r|<\delta$}
+\State add $p$ to $R_r$; update $\mu_r$; push unlabelled neighbours of $p$
+\EndIf
+\EndFor
+\EndWhile
+\State \Return regions; unlabelled pixels form leftover regions
+\end{algorithmic}
+
+* Choices
+- initialisation: manual seeds, pixels with the lowest local variance, or atomic regions from a split step;
+- criterion: distance from the region mean (optical), ratio to the region mean (SAR), multiband distance;
+- connectivity: 4- or 8-neighbours.
+
+* Intuition
+Drop ink on a few points and let each blot spread over pixels similar to it, stopping at edges.
+
+* Pitfall
+Updating the mean as the region grows lets it drift: a slow gradient (a field darkening towards a ditch) can be absorbed step by step into one region that spans very different values.

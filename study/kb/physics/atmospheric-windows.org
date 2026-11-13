@@ -1,0 +1,34 @@
+:PROPERTIES:
+:ID:       atmospheric-windows
+:DOMAIN:   physics
+:AREA:     atmosphere
+:KIND:     definition
+:REQUIRES: electromagnetic-spectrum
+:SEE:      atmospheric-scattering radiometric-correction radar-bands
+:ALIASES:  atmospheric window, transmittance, absorption bands, water vapour absorption, CO2 absorption
+:END:
+#+title: Atmospheric transmittance and windows
+#+summary: The atmosphere transmits a fraction \(\tau_a(\lambda)=E_t/E_i\) of the radiation crossing it; water vapour and CO\(_2\) absorb strongly in some bands (e.g. 1.4 and 1.9 µm, 2.7 µm, 6 µm), so sensors are designed in the windows where \(\tau_a\) is high: visible–NIR, SWIR, 3–5 µm, 8–14 µm and microwaves.
+
+* Definition
+\[ \tau_a(\lambda)=\frac{E_t(\lambda)}{E_i(\lambda)} \]
+for radiation crossing the atmosphere, on the way down (Sun–ground) and on the way up (ground–sensor). Low-transmittance regions are absorption bands of H\(_2\)O, CO\(_2\), O\(_3\), O\(_2\). \(\tau_a\) also varies with weather: clouds bring it to almost zero in the visible and infrared, while microwaves (except near the 1.36 cm water-vapour line) cross clouds, fog and rain.
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=7.4cm, height=4cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$\tau_a$}, xmin=0.3, xmax=3, ymin=0, ymax=1]
+\addplot+[domain=0.3:3, samples=300, fill=kbcyan, fill opacity=0.15] {0.85 - 0.8*exp(-((x-1.4)/0.06)^2) - 0.85*exp(-((x-1.9)/0.08)^2) - 0.8*exp(-((x-2.7)/0.12)^2) - 0.3*exp(-((x-1.13)/0.03)^2) - 0.25*exp(-((x-0.94)/0.03)^2) - 0.6*exp(-((x-0.3)/0.05)^2)} \closedcycle;
+\end{axis}
+\end{tikzpicture}
+Schematic transmittance in the reflective region: deep water-vapour bands at 1.4, 1.9 and 2.7 µm.
+
+* Consequences for design
+1. place bands inside windows, avoiding absorption features;
+2. pick acquisition conditions (season, time, cloud cover);
+3. still separate the atmospheric contribution from the surface one: [[id:radiometric-correction][atmospheric correction]].
+
+* Intuition
+The atmosphere is a coloured filter between the ground and the sensor; we can only look through the clear parts of the glass.
+
+* Pitfall
+Absorption bands are not useless: sensors for the atmosphere itself (water vapour, ozone, CO\(_2\)) work exactly in them.

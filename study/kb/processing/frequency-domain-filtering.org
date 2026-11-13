@@ -1,0 +1,43 @@
+:PROPERTIES:
+:ID:       frequency-domain-filtering
+:DOMAIN:   processing
+:AREA:     filtering
+:KIND:     method
+:REQUIRES: discrete-fourier-transform
+:SEE:      moving-window-filters edge-detection
+:ALIASES:  low-pass filter, high-pass filter, ideal filter, Butterworth, Gaussian filter, ringing, convolution theorem, band-stop filter
+:END:
+#+title: Filtering in the frequency domain
+#+summary: Multiplying the DFT by a transfer function \(H(k_y,k_x)\) and transforming back filters the image: a low-pass filter keeps smooth variations (blur), a high-pass filter keeps details and edges, a notch filter removes periodic noise; multiplication in frequency is convolution in space.
+
+* Method
+\[ I_{out}=\mathrm{IDFT}\big\{H\cdot\mathrm{DFT}\{I\}\big\},\qquad H\cdot I_F\ \leftrightarrow\ h\ast I. \]
+With \(D=\sqrt{k_x^2+k_y^2}\) the distance from the (centred) origin and cut-off \(D_0\):
+- *ideal low-pass*: \(H=1\) if \(D\le D_0\), else 0; *ideal high-pass*: \(1-H_{LP}\);
+- *Gaussian*: \(H=e^{-D^2/2D_0^2}\), no ringing;
+- *notch / band-stop*: zero small neighbourhoods around the peaks of periodic noise (striping).
+Every image equals its low-pass plus its high-pass part.
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={$D$}, ylabel={$H$}, xmin=0, xmax=3, ymin=0, ymax=1.15, legend pos=north east]
+\addplot+[const plot, no marks] coordinates {(0,1) (1,0) (3,0)}; \addlegendentry{ideal LP}
+\addplot+[domain=0:3, samples=80] {exp(-x^2/(2*0.8^2))}; \addlegendentry{Gaussian LP}
+\addplot+[domain=0:3, samples=80] {1-exp(-x^2/(2*0.8^2))}; \addlegendentry{Gaussian HP}
+\end{axis}
+\end{tikzpicture}
+
+* Example
+#+begin_src python
+  F = np.fft.fftshift(np.fft.fft2(band))
+  ky, kx = np.indices(band.shape); D = np.hypot(ky - band.shape[0] / 2, kx - band.shape[1] / 2)
+  H = np.exp(-D**2 / (2 * 30**2))
+  low = np.real(np.fft.ifft2(np.fft.ifftshift(H * F)))
+  high = band - low
+#+end_src
+
+* Intuition
+Decide which stripe sizes to keep: big stripes are the landscape, small ones are the details and the noise.
+
+* Pitfall
+The sharp cut of the ideal filter produces ringing (ripples near edges), because its spatial kernel is a sinc; smooth transfer functions avoid it.

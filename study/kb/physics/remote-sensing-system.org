@@ -1,0 +1,44 @@
+:PROPERTIES:
+:ID:       remote-sensing-system
+:DOMAIN:   physics
+:AREA:     systems
+:KIND:     model
+:REQUIRES:
+:SEE:      electromagnetic-spectrum passive-active-sensors acquisition-platforms recognition-system remote-sensing-applications
+:ALIASES:  remote sensing, Earth observation, remote sensing process, acquisition processing recognition
+:END:
+#+title: Remote sensing system
+#+summary: Remote sensing acquires information about an object without contact, by measuring the electromagnetic field it emits or reflects; a remote sensing system chains a source, the atmosphere, the surface, a sensor on a platform, a transmission link and a ground segment where images are processed and recognised.
+
+* Definition
+- *General*: acquisition of information about an object with a sensor not in contact with it.
+- *Operational*: acquisition of information about an object by detecting and measuring the electromagnetic field emitted and/or reflected/scattered by it.
+It began with photography and today works in the visible, infrared and microwave regions.
+
+* Model
+Passive scenario: the Sun irradiates the surface through the atmosphere ([[id:atmospheric-windows][transmittance]]); the surface absorbs, transmits and reflects according to its [[id:spectral-signature][spectral signature]]; the reflected radiance crosses the atmosphere again and reaches the sensor. Active scenario: the sensor (radar, lidar) is its own source.
+
+Three phases:
+1. *acquisition*: platform, sensor, on-board storage and data transmission;
+2. *processing*: improving data quality (radiometric and geometric corrections, enhancement, filtering);
+3. *recognition*: extracting information (thematic maps, change maps, bio/geo-physical parameters, risk maps, 3-D models).
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize, >={Stealth}]
+\draw[kbamber, fill=kbamber, fill opacity=0.3] (0,3) circle (0.4); \node at (0,3) {Sun};
+\fill[kbguide, opacity=0.15] (-0.8,0.6) rectangle (5.4,1.6); \node[kbguide] at (4.8,1.1) {atmosphere};
+\draw[kbgreen, line width=1pt] (-0.8,0.3) -- (5.4,0.3); \node[kbgreen] at (2.3,0) {surface};
+\node[draw, kbcyan] (s) at (4,3.1) {sensor};
+\draw[->, kbamber] (0.3,2.7) -- (2.1,0.35); \draw[->, kbcyan] (2.3,0.35) -- (3.9,2.8);
+\draw[->, kbviolet, dashed] (4.6,3.1) -- (5.6,2.2) node[right] {ground station};
+\end{tikzpicture}
+Source, two passes through the atmosphere, surface interaction, sensor, downlink.
+
+* Why from space
+Synoptic view at local and global scale, regular revisits, homogeneous measurements over areas with no access. Applications range from urban growth and deforestation to ozone monitoring, civil protection, agriculture, meteorology and planetary exploration.
+
+* Intuition
+A remote sensing image is a physical measurement before it is a picture: every pixel is radiance integrated over a patch of ground, a band of wavelengths and a short time.
+
+* Pitfall
+The sensor sees surface and atmosphere together: separating the two contributions is a problem of its own, solved by [[id:radiometric-correction][corrections]], not by the sensor.

@@ -1,0 +1,32 @@
+:PROPERTIES:
+:ID:       radiometric-quantities
+:DOMAIN:   physics
+:AREA:     radiation
+:KIND:     definition
+:REQUIRES: electromagnetic-spectrum
+:SEE:      planck-law digital-number atmospheric-windows
+:ALIASES:  radiant energy, radiant flux, exitance, irradiance, radiant intensity, radiance, spectral radiance, solid angle, reflectance
+:END:
+#+title: Radiometric quantities
+#+summary: Radiant energy [J], flux [W], exitance and irradiance (flux leaving or reaching a surface per unit area, W m\(^{-2}\)), intensity (flux per solid angle, W sr\(^{-1}\)) and radiance (flux per unit projected area and solid angle, W m\(^{-2}\) sr\(^{-1}\)): radiance is what a sensor measures, and it does not change with distance in a lossless medium.
+
+* Definition
+| quantity | symbol | unit | meaning |
+|---+---+---+---|
+| radiant energy | \(Q\) | J | energy of the EM wave |
+| radiant flux | \(\Phi=dQ/dt\) | W | power emitted, reflected, transmitted or received |
+| exitance | \(M=d\Phi/dA\) | W m\(^{-2}\) | flux emitted per unit area |
+| irradiance | \(E=d\Phi/dA\) | W m\(^{-2}\) | flux received per unit area |
+| intensity | \(I=d\Phi/d\Omega\) | W sr\(^{-1}\) | flux per unit solid angle |
+| radiance | \(L=\dfrac{d^2\Phi}{dA\cos\theta\, d\Omega}\) | W m\(^{-2}\) sr\(^{-1}\) | flux per projected area and solid angle |
+
+Spectral versions are per unit wavelength (W m\(^{-2}\) sr\(^{-1}\) µm\(^{-1}\)). *Reflectance* \(\rho=E_r/E_i\) is a dimensionless ratio, the physical property of the surface that the [[id:spectral-signature][spectral signature]] describes.
+
+* Derivation
+A detector with area \(A_d\) behind optics of solid angle \(\Omega\) collects \(\Phi\approx L\,A_d\,\Omega\). Moving the sensor away from a uniform surface, the ground area seen grows as \(R^2\) while the solid angle of each ground element shrinks as \(R^{-2}\): the collected flux, hence the measured radiance, does not depend on distance.
+
+* Intuition
+Irradiance is how much light falls on a surface; radiance is how bright that surface looks from a given direction — the quantity a camera pixel records.
+
+* Pitfall
+Radiance depends on the viewing and illumination geometry; reflectance does not (for a Lambertian surface). Comparing images taken at different sun angles requires converting radiance to reflectance.

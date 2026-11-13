@@ -1,0 +1,44 @@
+:PROPERTIES:
+:ID:       split-and-merge
+:DOMAIN:   processing
+:AREA:     segmentation
+:KIND:     method
+:REQUIRES: image-segmentation
+:SEE:      region-growing
+:ALIASES:  split and merge, quadtree, quadtree segmentation, atomic regions
+:END:
+#+title: Split and merge segmentation
+#+summary: Split: starting from the whole image, recursively divide every square block that fails the homogeneity test into four, building a quadtree whose leaves are homogeneous "atomic" regions; merge: join adjacent regions whose union is still homogeneous, removing the artificial square boundaries.
+
+* Algorithm
+\begin{algorithmic}[1]
+\Function{Split}{$B$}
+\If{$P(B)$ true or $B$ is a single pixel} \State \Return $\{B\}$ \EndIf
+\State divide $B$ into four quadrants $B_1,\dots,B_4$
+\State \Return $\bigcup_{q}$ \Call{Split}{$B_q$}
+\EndFunction
+\Function{Merge}{$\mathcal R$}
+\Repeat
+\ForAll{adjacent $R_i,R_j\in\mathcal R$}
+\If{$P(R_i\cup R_j)$} \State replace $R_i,R_j$ by $R_i\cup R_j$ \EndIf
+\EndFor
+\Until{no merge happens}
+\State \Return $\mathcal R$
+\EndFunction
+\end{algorithmic}
+\(P\): homogeneity predicate, e.g. \(\max-\min<\delta\) or variance below a threshold (optical), coefficient of variation compatible with speckle (SAR).
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw (0,0) rectangle (3.2,3.2); \draw (1.6,0) -- (1.6,3.2) (0,1.6) -- (3.2,1.6);
+\draw (2.4,1.6) -- (2.4,3.2) (1.6,2.4) -- (3.2,2.4); \draw (2.8,2.4) -- (2.8,3.2) (2.4,2.8) -- (3.2,2.8);
+\fill[kbcyan, opacity=0.25] (0,0) rectangle (1.6,3.2); \fill[kbcyan, opacity=0.25] (1.6,0) rectangle (3.2,1.6);
+\fill[kbamber, opacity=0.35] (2.4,2.4) -- (2.8,2.4) -- (2.8,2.8) -- (3.2,2.8) -- (3.2,3.2) -- (2.4,3.2) -- cycle;
+\node[right] at (3.5,1.6) {split where needed, then merge same-colour leaves};
+\end{tikzpicture}
+
+* Intuition
+Zoom in only where the image is busy; then glue back together the pieces that turned out to be the same thing.
+
+* Pitfall
+The result depends on the order of merges and on block alignment: a region straddling a quadtree boundary is split early and must be recovered by merging.

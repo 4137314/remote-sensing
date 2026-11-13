@@ -1,0 +1,20 @@
+# Course material (third-party PDFs, not versioned)
+asset/
+
+# Data and outputs of the exercises
+data/
+*.tif
+*.npy
+.ipynb_checkpoints/
+__pycache__/
+
+# Nix
+result
+.direnv/
+
+# Editors and system
+.vscode/
+.idea/
+*.swp
+.DS_Store
+.claude/settings.local.json

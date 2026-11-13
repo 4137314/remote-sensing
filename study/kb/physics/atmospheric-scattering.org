@@ -1,0 +1,27 @@
+:PROPERTIES:
+:ID:       atmospheric-scattering
+:DOMAIN:   physics
+:AREA:     atmosphere
+:KIND:     definition
+:REQUIRES: atmospheric-windows
+:SEE:      radiometric-correction
+:ALIASES:  Rayleigh scattering, Mie scattering, non-selective scattering, diffusion, path radiance, haze
+:END:
+#+title: Atmospheric scattering: Rayleigh and Mie
+#+summary: Besides absorbing, the atmosphere scatters radiation: particles much smaller than \(\lambda\) give Rayleigh scattering, proportional to \(\lambda^{-4}\) (blue light is scattered most); particles comparable to or larger than \(\lambda\) (aerosol, smoke, cloud droplets) give Mie and non-selective scattering, weakly dependent on \(\lambda\).
+
+* Definition
+- *Rayleigh*: scatterers (molecules) much smaller than \(\lambda\); intensity \(\propto\lambda^{-4}\). Blue (0.45 µm) is scattered about \((0.7/0.45)^4\approx5.8\) times more than red (0.7 µm): blue sky, bluish haze in images.
+- *Mie*: scatterers of size comparable to \(\lambda\) (aerosol, smoke, dust); dependence on \(\lambda\) weaker, forward scattering.
+- *Non-selective*: scatterers much larger than \(\lambda\) (cloud droplets): all visible wavelengths equally, so clouds look white.
+
+* Effect on the measurement
+The radiance at the sensor is
+\[ L_s=\tau_a\,\frac{\rho\,E_{\downarrow}}{\pi}+L_p, \]
+where \(L_p\) is *path radiance*: light scattered into the line of sight without touching the target. It adds an offset, larger in the blue, that reduces contrast; scattered skylight also illuminates shadows.
+
+* Intuition
+Scattering is fog in the image: it adds light that carries no information about the ground, mostly at short wavelengths.
+
+* Pitfall
+Because scattering is strongest in the blue, the blue band of a multispectral image has the largest offset and the lowest contrast; dark-object subtraction exploits exactly this (see [[id:radiometric-correction][corrections]]).

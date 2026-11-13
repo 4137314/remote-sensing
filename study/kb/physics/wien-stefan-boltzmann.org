@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       wien-stefan-boltzmann
+:DOMAIN:   physics
+:AREA:     radiation
+:KIND:     theorem
+:REQUIRES: planck-law
+:SEE:      sun-earth-radiation gray-body
+:ALIASES:  Wien's displacement law, Stefan-Boltzmann law, peak wavelength, total exitance
+:END:
+#+title: Stefan–Boltzmann and Wien laws
+#+summary: Integrating Planck's law over all wavelengths gives the total exitance \(M=\sigma T^4\) (\(\sigma=5.67\times10^{-8}\) W m\(^{-2}\) K\(^{-4}\)); setting its derivative to zero gives the peak wavelength \(\lambda_{\max}=b/T\) with \(b=2898\) µm K.
+
+* Statement
+\[ M(T)=\int_0^\infty B(\lambda,T)\,d\lambda=\sigma T^4,\qquad \lambda_{\max}=\frac{b}{T},\quad b=2898\ \mu\mathrm{m\,K}. \]
+
+* Derivation
+With \(x=c_2/(\lambda T)\), \(d\lambda=-c_2/(Tx^2)\,dx\):
+\[ M=\frac{c_1T^4}{c_2^4}\int_0^\infty\frac{x^3}{e^x-1}dx=\frac{c_1T^4}{c_2^4}\frac{\pi^4}{15}, \]
+so \(\sigma=\pi^4c_1/(15c_2^4)\). For the peak, \(\partial B/\partial\lambda=0\) gives \(x e^x/(e^x-1)=5\), whose root is \(x\approx4.965\): \(\lambda_{\max}T=c_2/4.965\approx2898\) µm K.
+
+* Example
+Doubling the temperature multiplies the emitted power by 16 and halves the peak wavelength. A forest fire at 800 K peaks at 3.6 µm, in the MWIR, which is why fire detection uses the 3–4 µm window.
+
+* Intuition
+Hotter bodies emit far more and bluer.
+
+* Pitfall
+Wien's law gives the peak in wavelength; the peak of the same spectrum written per unit frequency is at a different place. Use the form that matches the units of the sensor's bands.

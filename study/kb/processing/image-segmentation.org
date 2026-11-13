@@ -1,0 +1,34 @@
+:PROPERTIES:
+:ID:       image-segmentation
+:DOMAIN:   processing
+:AREA:     segmentation
+:KIND:     definition
+:REQUIRES: homogeneous-area-statistics
+:SEE:      image-thresholding split-and-merge region-growing feature-extraction
+:ALIASES:  segmentation, region, homogeneity criterion, label image, object-based image analysis, OBIA
+:END:
+#+title: Image segmentation
+#+summary: Segmentation partitions the image into connected regions that are homogeneous by some criterion and labels each region; the criterion depends on the data (for optical images closeness of means, for SAR closeness of mean intensities given multiplicative speckle), and the main families are histogram thresholding, contour-based, split-and-merge and region growing.
+
+* Definition
+A segmentation is a partition \(\{R_1,\dots,R_n\}\) of the pixels with
+1. \(\bigcup_i R_i=\) image, \(R_i\cap R_j=\emptyset\);
+2. each \(R_i\) connected;
+3. \(P(R_i)=\) true for a homogeneity predicate \(P\);
+4. \(P(R_i\cup R_j)=\) false for adjacent \(R_i,R_j\).
+Homogeneity criteria: optical — region variance below a threshold, or means of adjacent regions within a tolerance; SAR — ratio of mean intensities close to 1, coefficient of variation compatible with speckle.
+
+Methods:
+- [[id:image-thresholding][histogram thresholding]];
+- contour-based ([[id:edge-detection][edges]] closed into boundaries);
+- [[id:split-and-merge][split and merge]];
+- [[id:region-growing][region growing]].
+
+* Uses
+Region-based classification (object-based image analysis): classify regions instead of pixels, using shape, size and texture features; reduces salt-and-pepper noise in maps, especially in very high resolution images where single pixels are parts of objects.
+
+* Intuition
+Segmentation turns pixels into objects — fields, lakes, buildings — before anyone asks what the objects are.
+
+* Pitfall
+There is no single correct segmentation: the scale (minimum region size, homogeneity tolerance) decides whether a field is one region or a dozen, and the right scale depends on the application.

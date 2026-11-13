@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       geometric-distortions
+:DOMAIN:   processing
+:AREA:     corrections
+:KIND:     definition
+:REQUIRES: scanner-geometry
+:SEE:      geometric-correction radar-geometric-distortions radiometric-correction
+:ALIASES:  geometric distortion, Earth rotation skew, panoramic distortion, relief displacement, attitude, roll pitch yaw, Earth curvature
+:END:
+#+title: Geometric distortions
+#+summary: An image is not a map: Earth rotation during acquisition skews it, Earth curvature and wide fields of view stretch pixels off nadir (panoramic distortion), platform attitude and altitude variations (roll, pitch, yaw) warp lines, and relief displaces elevated points away from nadir.
+
+* Definition
+*Systematic* (predictable from orbit and sensor models):
+- *Earth rotation*: while successive lines are acquired the ground moves east: the image is skewed (strongest at the equator);
+- *panoramic distortion* and *Earth curvature*: pixel size grows as \(1/\cos^2\) of the scan angle for a scanner, plus curvature for wide swaths;
+- *scan non-linearity*, mirror velocity variations.
+*Random* (need ground control):
+- *attitude*: roll shifts lines across track, pitch along track, yaw rotates them; altitude changes alter scale;
+- *relief displacement*: a point at height \(h\) seen at off-nadir angle \(\alpha\) is displaced by about \(h\tan\alpha\) away from nadir (towards the sensor for radar).
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[kbcyan] (0,0) rectangle (1.6,1.6); \node[below] at (0.8,0) {ideal};
+\draw[kbamber] (2.4,0) -- (4.0,0) -- (4.4,1.6) -- (2.8,1.6) -- cycle; \node[below] at (3.4,0) {Earth rotation};
+\draw[kbmagenta] (5.2,0) -- (6.8,0) .. controls (6.6,0.8) .. (6.8,1.6) -- (5.2,1.6) .. controls (5.4,0.8) .. (5.2,0); \node[below] at (6,0) {attitude};
+\end{tikzpicture}
+
+* Intuition
+A scanner paints the image line by line from a moving, slightly wobbling platform over a rotating, curved, bumpy Earth; every one of those motions bends the picture.
+
+* Pitfall
+Relief displacement cannot be removed by a polynomial: it needs a digital elevation model (orthorectification).

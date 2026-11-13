@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       satellite-orbits
+:DOMAIN:   acquisition
+:AREA:     orbits
+:KIND:     definition
+:REQUIRES: acquisition-platforms
+:SEE:      geostationary-orbit sun-synchronous-orbit telecom-satellite-orbits
+:ALIASES:  orbit, inclination, ascending node, descending node, apogee, perigee, orbital period, Kepler's third law, LEO, MEO
+:END:
+#+title: Satellite orbits
+#+summary: An orbit is an ellipse (or circle) with the Earth at a focus, described by its inclination, its ascending and descending nodes, apogee and perigee; Kepler's third law \(T=2\pi\sqrt{a^3/\mu}\) ties the period to the semi-major axis, so altitude fixes the period.
+
+* Definition
+- *Inclination* \(i\): angle between the orbital plane and the equator (\(i=0^\circ\) equatorial, \(\approx90^\circ\) polar).
+- *Ascending / descending node*: where the satellite crosses the equator going north / south.
+- *Apogee / perigee*: farthest / nearest points; the satellite is fastest at perigee, slowest at apogee (Kepler's second law).
+- *Period*: for semi-major axis \(a\) and \(\mu=GM_\oplus=3.986\times10^{14}\) m\(^3\)s\(^{-2}\),
+\[ T=2\pi\sqrt{\frac{a^3}{\mu}}. \]
+
+* Derivation
+For a circular orbit of radius \(r\), gravity provides the centripetal force: \(\mu/r^2=\omega^2r\), so \(\omega=\sqrt{\mu/r^3}\) and \(T=2\pi/\omega\). At 700 km altitude, \(r=7078\) km: \(T\approx5930\) s \(\approx99\) min, about 14.5 orbits per day.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[kbguide] (0,0) ellipse (2.4 and 0.6); \node[kbguide] at (2.9,0) {equator};
+\fill[kbcyan, opacity=0.3] (0,0) circle (0.8);
+\draw[kbamber, line width=1pt, rotate=60] (0,0) ellipse (2.2 and 0.55);
+\fill[kbmagenta] (0.62,0.48) circle (0.06); \node[kbmagenta, right] at (0.62,0.55) {asc. node};
+\draw[kbguide, dashed] (0,0) -- (1.6,0); \draw[kbamber] (0.7,0) arc (0:60:0.7); \node[kbamber] at (0.95,0.35) {$i$};
+\end{tikzpicture}
+
+* Intuition
+Altitude is the master parameter: it sets the period, the speed over the ground, the footprint and the resolution.
+
+* Pitfall
+Orbits are not fixed: the Earth's oblateness (\(J_2\)) makes the orbital plane precess, and drag lowers LEO orbits. Sun-synchronous orbits exploit the first; station-keeping manoeuvres fight the second.

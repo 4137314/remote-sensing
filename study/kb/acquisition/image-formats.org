@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       image-formats
+:DOMAIN:   acquisition
+:AREA:     optical-sensors
+:KIND:     definition
+:REQUIRES: multispectral-hyperspectral-image
+:SEE:      digital-image
+:ALIASES:  BSQ, BIL, BIP, BIS, band sequential, band interleaved by line, band interleaved by pixel, interleaving
+:END:
+#+title: Image storage formats: BSQ, BIL, BIP
+#+summary: A cube of \(N\) lines, \(M\) columns and \(B\) bands can be written band after band (BSQ), line after line with all bands of each line (BIL), or pixel after pixel with all bands of each pixel (BIP, also BIS); the choice decides which access is fast.
+
+* Definition
+Offset of sample \((b,y,x)\) in a flat array:
+| format | order | offset |
+|---+---+---|
+| BSQ, band sequential | band, line, pixel | \(b\,NM+y\,M+x\) |
+| BIL, band interleaved by line | line, band, pixel | \(y\,BM+b\,M+x\) |
+| BIP/BIS, band interleaved by pixel | line, pixel, band | \((y\,M+x)B+b\) |
+
+* Example
+#+begin_src python
+  import numpy as np
+  raw = np.fromfile("scene.bil", dtype=np.uint16)
+  cube = raw.reshape(N, B, M).transpose(1, 0, 2)   # BIL -> (band, line, pixel)
+  ndvi_ready = cube[[3, 2]]                        # two bands at once
+#+end_src
+
+* Intuition
+BSQ is a stack of single-band pictures; BIP is a list of spectra; BIL is in between and matches how a pushbroom acquires a line.
+
+* Pitfall
+Reading a pixel's spectrum from a large BSQ file touches \(B\) distant locations on disk; reading one band from BIP touches every pixel. Pick the layout for the dominant operation or convert once.

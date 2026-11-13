@@ -1,0 +1,31 @@
+:PROPERTIES:
+:ID:       gaussian-maximum-likelihood
+:DOMAIN:   recognition
+:AREA:     classification
+:KIND:     construction
+:REQUIRES: bayes-classifier homogeneous-area-statistics
+:SEE:      minimum-distance-classifier accuracy-assessment
+:ALIASES:  maximum likelihood classifier, Gaussian classifier, quadratic discriminant, Mahalanobis distance, covariance matrix, parametric classifier
+:END:
+#+title: Gaussian maximum-likelihood classifier
+#+summary: Modelling each class as a multivariate Gaussian with mean \(\boldsymbol\mu_i\) and covariance \(\Sigma_i\) estimated from training pixels, the Bayes discriminant becomes \(g_i(\mathbf x)=-\tfrac12\ln|\Sigma_i|-\tfrac12(\mathbf x-\boldsymbol\mu_i)^\top\Sigma_i^{-1}(\mathbf x-\boldsymbol\mu_i)+\ln P(\omega_i)\): quadratic boundaries that account for spread and correlation of each class.
+
+* Construction
+Training: \(\hat{\boldsymbol\mu}_i=\frac1{n_i}\sum\mathbf x\), \(\hat\Sigma_i=\frac{1}{n_i-1}\sum(\mathbf x-\hat{\boldsymbol\mu}_i)(\mathbf x-\hat{\boldsymbol\mu}_i)^\top\). Taking the log of \(p(\mathbf x\mid\omega_i)P(\omega_i)\) and dropping constants:
+\[ g_i(\mathbf x)=-\tfrac12\ln|\Sigma_i|-\tfrac12(\mathbf x-\boldsymbol\mu_i)^\top\Sigma_i^{-1}(\mathbf x-\boldsymbol\mu_i)+\ln P(\omega_i). \]
+Special cases: equal covariances \(\Sigma_i=\Sigma\) → linear boundaries (Mahalanobis minimum distance); \(\Sigma=\sigma^2I\) and equal priors → Euclidean [[id:minimum-distance-classifier][minimum distance]]. A threshold on the Mahalanobis distance rejects pixels unlike any class.
+
+* Example
+#+begin_src python
+  from scipy.stats import multivariate_normal
+  models = [multivariate_normal(F_train[y_train == c].mean(0), np.cov(F_train[y_train == c].T))
+            for c in classes]
+  logp = np.stack([m.logpdf(F) + np.log(prior[c]) for c, m in zip(classes, models)], 1)
+  labels = classes[logp.argmax(1)]
+#+end_src
+
+* Intuition
+Each class is an ellipsoid of probability; a pixel joins the class in whose ellipsoid it sits most comfortably, given how big and how tilted each one is.
+
+* Pitfall
+\(\Sigma_i\) has \(p(p+1)/2\) parameters: with hyperspectral data and a few dozen training pixels it is singular or unstable — regularise, reduce dimensionality, or use non-parametric classifiers.

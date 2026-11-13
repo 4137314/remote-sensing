@@ -1,0 +1,32 @@
+:PROPERTIES:
+:ID:       change-detection
+:DOMAIN:   recognition
+:AREA:     applications
+:KIND:     method
+:REQUIRES: geometric-correction radiometric-correction image-thresholding
+:SEE:      ndvi remote-sensing-applications speckle-statistics
+:ALIASES:  change detection, image differencing, image ratioing, change vector analysis, CVA, post-classification comparison, multitemporal analysis, log-ratio
+:END:
+#+title: Change detection
+#+summary: Comparing co-registered, radiometrically consistent images of the same area at two dates reveals changes: differencing (optical) or log-ratio (SAR) images thresholded into change/no-change, change vector analysis on multispectral vectors (magnitude and direction), or post-classification comparison of two thematic maps.
+
+* Method
+Prerequisites: precise [[id:geometric-correction][co-registration]] (sub-pixel), [[id:radiometric-correction][radiometric]] consistency, similar acquisition conditions.
+- *Image differencing*: \(D=I_2-I_1\); unchanged pixels cluster around 0, changes in the tails.
+- *Log-ratio* (SAR): \(R=\log(I_2/I_1)\): turns multiplicative speckle into additive noise and makes the result independent of the absolute level.
+- *Change vector analysis*: \(\Delta\mathbf x=\mathbf x_2-\mathbf x_1\); magnitude \(\|\Delta\mathbf x\|\) says whether something changed, direction (angle) says what kind of change (vegetation loss, flooding).
+- *Thresholding*: on the magnitude, manually, by Otsu, or by Bayes with a two-component mixture (changed, unchanged).
+- *Post-classification comparison*: classify both dates independently and compare labels: gives "from–to" classes but errors of both maps multiply.
+
+* Example
+#+begin_src python
+  d = np.sqrt(((X2 - X1) ** 2).sum(axis=0))          # CVA magnitude over bands
+  changed = d > threshold_otsu(d)
+  sar_lr = np.log((I2 + 1e-6) / (I1 + 1e-6))
+#+end_src
+
+* Intuition
+Hold two images of the same place up to the light: what does not line up is change — provided the images were aligned and exposed the same way.
+
+* Pitfall
+Not every difference is a change of interest: phenology (seasons), soil moisture, sun angle, misregistration at edges all produce "changes". Comparing images from the same season reduces the first.

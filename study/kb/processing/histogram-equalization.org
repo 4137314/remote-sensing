@@ -1,0 +1,31 @@
+:PROPERTIES:
+:ID:       histogram-equalization
+:DOMAIN:   processing
+:AREA:     enhancement
+:KIND:     method
+:REQUIRES: contrast-stretching
+:SEE:      image-histogram
+:ALIASES:  histogram equalization, equalisation, uniform histogram, CDF transform, adaptive equalization, CLAHE
+:END:
+#+title: Histogram equalization
+#+summary: Using the cumulative histogram as the transfer function, \(\mathrm{GL}=\mathrm{round}\big((L-1)H(\mathrm{DN})\big)\), spreads the pixels as uniformly as possible over the gray levels: densely populated DN ranges get stretched, sparse ones compressed.
+
+* Method
+\[ \mathrm{GL}(k)=\mathrm{round}\big((L-1)\,H(k)\big),\qquad H(k)=\sum_{j\le k}h(j), \]
+with \(L=256\) display levels.
+
+* Derivation
+For a continuous variable \(X\) with distribution function \(F\), the variable \(U=F(X)\) is uniform on \([0,1]\): \(P(U\le u)=P(X\le F^{-1}(u))=u\). The discrete version can only merge levels, not split them, so the result is approximately flat, with gaps where levels have been spread apart.
+
+* Example
+#+begin_src python
+  hist, _ = np.histogram(band, bins=4096, range=(0, 4096))
+  cdf = np.cumsum(hist) / band.size
+  gl = np.round(255 * cdf[band]).astype(np.uint8)
+#+end_src
+
+* Intuition
+Give every gray level an equal share of the pixels: wherever many pixels have similar values, pull them apart.
+
+* Pitfall
+Equalisation maximises contrast for the dominant classes and can exaggerate noise in large uniform areas (sea, desert) while crushing small bright features; adaptive local versions (CLAHE) limit this.

@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       multilayer-perceptron
+:DOMAIN:   recognition
+:AREA:     neural-networks
+:KIND:     construction
+:REQUIRES: artificial-neuron
+:SEE:      backpropagation convolutional-neural-network accuracy-assessment
+:ALIASES:  MLP, multilayer perceptron, feed-forward network, hidden layer, input layer, output layer, softmax, universal approximation, recurrent network
+:END:
+#+title: Multilayer perceptron
+#+summary: An MLP stacks layers of neurons with one-way connections: an input layer with one neuron per feature, \(L\) hidden layers with non-linear activations, and an output layer with one neuron per class; with enough hidden units it can approximate any decision boundary, and it is trained by backpropagation.
+
+* Construction
+Layer \(l\) computes \(\mathbf h^{(l)}=g\big(W^{(l)}\mathbf h^{(l-1)}+\mathbf b^{(l)}\big)\), with \(\mathbf h^{(0)}=\mathbf x\). Input neurons are linear (they pass the features); hidden and output neurons usually sigmoidal or ReLU; the output often uses softmax \(y_c=e^{a_c}/\sum_ke^{a_k}\) so that outputs estimate posterior probabilities, and the pixel goes to the largest.
+- input layer: \(p\) neurons (features);
+- hidden layers: size chosen by the complexity of the problem;
+- output layer: \(C\) neurons (classes).
+Families: *feed-forward* (perceptron, MLP, RBF networks, probabilistic networks) vs *recurrent* (Hopfield, ART: bidirectional connections, dynamic).
+
+Properties to balance: *capacity* (how many samples it can memorise, how complex a function it can represent), *pattern complexity* (training samples needed to generalise), *computational complexity* of training.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize, n/.style={draw, circle, minimum size=0.45cm, inner sep=0}]
+\foreach \i in {1,...,4} \node[n, draw=kbcyan] (x\i) at (0,-\i*0.7) {};
+\foreach \i in {1,...,5} \node[n, draw=kbamber] (h\i) at (2,-\i*0.7+0.35) {};
+\foreach \i in {1,...,3} \node[n, draw=kbmagenta] (y\i) at (4,-\i*0.7-0.35) {};
+\foreach \i in {1,...,4} \foreach \j in {1,...,5} \draw[kbguide] (x\i) -- (h\j);
+\foreach \j in {1,...,5} \foreach \k in {1,...,3} \draw[kbguide] (h\j) -- (y\k);
+\node at (0,0) {features}; \node at (2,0.6) {hidden}; \node at (4,-0.35) {classes};
+\end{tikzpicture}
+
+* Intuition
+Hidden layers invent their own features — combinations of bands that make the classes easier to separate — instead of relying on hand-made indices.
+
+* Pitfall
+Too many hidden neurons for the training set overfit: perfect on training pixels, poor on the map. Use a validation set, early stopping and regularisation.

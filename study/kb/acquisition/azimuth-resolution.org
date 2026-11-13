@@ -1,0 +1,26 @@
+:PROPERTIES:
+:ID:       azimuth-resolution
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     theorem
+:REQUIRES: side-looking-radar
+:SEE:      synthetic-aperture-radar range-resolution
+:ALIASES:  azimuth resolution, along-track resolution, real aperture radar, beamwidth, antenna length
+:END:
+#+title: Azimuth resolution of a real-aperture radar
+#+summary: Along the track, two targets are separated only if they are not in the beam at the same time; an antenna of length \(L\) has beamwidth \(\beta\approx\lambda/L\), so at slant range \(R\) the azimuth resolution is \(r_A\approx\lambda R/L\): it worsens with distance, and from orbit would require antennas kilometres long.
+
+* Statement
+\[ r_A\approx\beta R=\frac{\lambda R}{L}. \]
+
+* Derivation
+The beam illuminates along-track a strip of width \(\beta R\). Two targets within that strip return echoes during the same pulses and cannot be distinguished by timing. With diffraction-limited beamwidth \(\beta\approx\lambda/L\) the result follows.
+
+* Example
+C band, \(\lambda=5.6\) cm, \(R=850\) km, \(L=10\) m: \(r_A\approx4.8\) km. To get 5 m one would need \(L\approx9.5\) km. Airborne at \(R=10\) km with \(L=3\) m: about 190 m.
+
+* Intuition
+A real antenna is a torch: the farther the wall, the wider the spot, and everything inside the spot looks like one point.
+
+* Pitfall
+Increasing \(L\) improves the resolution but narrows the beam and the swath; the way out is not a bigger antenna but a [[id:synthetic-aperture-radar][synthetic one]].

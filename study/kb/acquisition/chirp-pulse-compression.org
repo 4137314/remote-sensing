@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       chirp-pulse-compression
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     construction
+:REQUIRES: range-resolution
+:SEE:      synthetic-aperture-radar
+:ALIASES:  chirp, linear frequency modulation, LFM, pulse compression, matched filter, bandwidth, time-bandwidth product
+:END:
+#+title: Chirp and pulse compression
+#+summary: Instead of a very short, very powerful pulse, radars transmit a long linear-frequency-modulated pulse (chirp) of bandwidth \(B\) and correlate the echo with a replica (matched filter); the output peak has width \(\approx1/B\), so the range resolution becomes \(c/(2B)\), independent of the pulse duration.
+
+* Construction
+Chirp of duration \(\tau\) and rate \(k\): \(s(t)=\mathrm{rect}(t/\tau)\cos\!\big(2\pi f_0t+\pi k t^2\big)\), instantaneous frequency \(f_0+kt\), bandwidth \(B=k\tau\). The matched filter (correlation with \(s\)) compresses the echo into a sinc-like peak of width \(1/B\):
+\[ r_{SR}=\frac{c}{2B},\qquad r_{GR}=\frac{c}{2B\sin\theta}. \]
+The compression ratio \(\tau B\) (time–bandwidth product, typically 100–1000) is the gain in peak-to-energy ratio.
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=7cm, height=3.4cm, axis lines=left, xlabel={$t$}, ylabel={$s(t)$}, xmin=0, xmax=1, ymin=-1.2, ymax=1.2, ticks=none]
+\addplot+[domain=0:1, samples=600] {cos(deg(2*pi*(5*x+25*x^2)))};
+\end{axis}
+\end{tikzpicture}
+A chirp: frequency grows linearly during the pulse.
+
+* Example
+Sentinel-1 uses chirps of up to 100 MHz bandwidth: \(c/(2B)=1.5\) m in slant range, a few metres on the ground, with pulses tens of microseconds long.
+
+* Intuition
+A long whistle that rises in pitch: each instant of the echo is labelled by its frequency, so the receiver can tell overlapping echoes apart and re-stack them into a sharp click.
+
+* Pitfall
+Compression produces sidelobes around strong targets; they are reduced by weighting (windowing) the filter, at the cost of a slightly wider peak.

@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       copernicus-sentinel
+:DOMAIN:   acquisition
+:AREA:     missions
+:KIND:     example
+:REQUIRES: earth-observation-missions
+:SEE:      sun-synchronous-orbit radar-bands remote-sensing-applications
+:ALIASES:  Copernicus, Sentinel, Sentinel-1, Sentinel-2, Sentinel-3, Sentinel-5P, Sentinel-6, ESA, open data
+:END:
+#+title: Copernicus and the Sentinel missions
+#+summary: Copernicus is the European Earth-observation programme: Sentinel missions, mostly pairs of satellites for frequent revisit, with free and open data — Sentinel-1 C-band SAR, Sentinel-2 13-band multispectral at 10–60 m, Sentinel-3 ocean and land colour, temperature and altimetry, Sentinel-4/5/5P atmospheric chemistry, Sentinel-6 sea level.
+
+* Example
+| mission | payload | main uses |
+|---+---+---|
+| Sentinel-1 | C-band SAR (5.405 GHz), IW mode 5×20 m, 250 km swath | land motion (InSAR), floods, sea ice, ships, oil spills |
+| Sentinel-2 | MSI: 13 bands 0.44–2.2 µm, 10/20/60 m, 290 km swath, 5-day revisit with two satellites | agriculture, forests, land cover, water quality |
+| Sentinel-3 | OLCI (ocean/land colour), SLSTR (surface temperature), SRAL altimeter | oceans, sea-surface temperature, fires |
+| Sentinel-4, -5 | spectrometers on meteorological satellites | air quality (O\(_3\), NO\(_2\), SO\(_2\)) |
+| Sentinel-5P | TROPOMI | atmospheric trace gases, daily global |
+| Sentinel-6 | radar altimeter | sea level, continuation of Jason |
+Sentinel-1, 2, 3, 5P and 6 were designed ad hoc; Sentinel-4 and 5 are instruments on EUMETSAT platforms. New expansion missions (CO\(_2\), hyperspectral, thermal, polar ice, L-band SAR) are in development.
+
+* Intuition
+Copernicus replaced one-off scientific missions with an operational service: guaranteed continuity, open data, and constellations planned for decades.
+
+* Pitfall
+Sentinel-2 bands have different resolutions (10, 20, 60 m): band combinations and indices need resampling to a common grid first.

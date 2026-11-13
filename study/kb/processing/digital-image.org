@@ -1,0 +1,32 @@
+:PROPERTIES:
+:ID:       digital-image
+:DOMAIN:   processing
+:AREA:     images
+:KIND:     definition
+:REQUIRES: digital-number
+:SEE:      look-up-table image-histogram multispectral-hyperspectral-image image-formats
+:ALIASES:  digital image, pixel, matrix, gray level, image as matrix, NumPy array
+:END:
+#+title: Digital images
+#+summary: A digital image is an \(N\times M\) matrix \(I(y,x)\) of numbers (pixels); in remote sensing each value is the digital number of a ground cell in one band, and a multiband image is a stack of such matrices.
+
+* Definition
+\(I(y,x)\), \(1\le y\le N\) (rows), \(1\le x\le M\) (columns); value \(I(y,x)=\mathrm{DN}\in\{0,\dots,2^Q-1\}\). Multiband: \(I(y,x,b)\). Operations split into
+- *point* (radiometric): the new value depends only on the old value of the same pixel (look-up tables, stretching, band ratios);
+- *local* (spatial): it depends on a neighbourhood (filters, edges, texture);
+- *global*: it depends on the whole image (Fourier transform, histogram equalisation).
+
+* Example
+#+begin_src python
+  import numpy as np, rasterio
+  with rasterio.open("S2_scene.tif") as src:
+      img = src.read()                  # (bands, rows, cols), uint16
+  print(img.shape, img.dtype, img[3].min(), img[3].max())
+  red, nir = img[2].astype(float), img[3].astype(float)
+#+end_src
+
+* Intuition
+For the computer an image is just a table of measurements; "seeing" it requires mapping those numbers to screen brightness.
+
+* Pitfall
+Integer arithmetic on DNs overflows or truncates (\(\mathrm{uint16}\) differences, ratios): convert to floating point before computing indices or statistics.

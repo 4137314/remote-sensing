@@ -1,0 +1,41 @@
+:PROPERTIES:
+:ID:       moving-window-filters
+:DOMAIN:   processing
+:AREA:     filtering
+:KIND:     method
+:REQUIRES: digital-image
+:SEE:      frequency-domain-filtering statistical-filters edge-detection texture-features speckle-filtering
+:ALIASES:  convolution, kernel, moving window, mean filter, average filter, box filter, Gaussian smoothing, linear filter, mask
+:END:
+#+title: Moving-window (convolution) filters
+#+summary: A linear spatial filter moves a small kernel \(w\) over the image and replaces each pixel by the weighted sum of its neighbourhood, \(I'(y,x)=\sum_{i,j}w(i,j)\,I(y+i,x+j)\); averaging kernels smooth (low-pass), kernels with zero sum enhance differences (high-pass).
+
+* Method
+For a \((2a+1)\times(2b+1)\) kernel:
+\[ I'(y,x)=\sum_{i=-a}^{a}\sum_{j=-b}^{b}w(i,j)\,I(y+i,x+j). \]
+- *mean (box)* \(3\times3\): all weights \(1/9\): removes noise, blurs edges;
+- *Gaussian*: weights \(\propto e^{-(i^2+j^2)/2s^2}\): smooth, isotropic;
+- *high-pass*: identity minus low-pass, e.g. centre 8, others −1 (weights sum to 0);
+- *high-boost / sharpening*: \(I+k(I-I_{LP})\).
+Borders need a policy (replicate, mirror, zero, or discard). Cost \(O(NM\,K)\) for \(K\) kernel weights; large kernels are cheaper in the frequency domain.
+
+* Example
+#+begin_src python
+  from scipy import ndimage
+  mean3 = ndimage.uniform_filter(band.astype(float), size=3)
+  gauss = ndimage.gaussian_filter(band.astype(float), sigma=1.5)
+  hp = band - mean3
+#+end_src
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\foreach \i in {0,...,5} \foreach \j in {0,...,4} \draw[kbguide] (\i*0.5,\j*0.5) rectangle ++(0.5,0.5);
+\draw[kbcyan, line width=1.5pt] (1,0.5) rectangle (2.5,2); \fill[kbamber, opacity=0.5] (1.5,1) rectangle (2,1.5);
+\node[right] at (3.2,1.25) {$I'(y,x)=\sum w\,I$ over the window};
+\end{tikzpicture}
+
+* Intuition
+Each output pixel asks its neighbours for a weighted vote: equal votes smooth, opposing votes highlight differences.
+
+* Pitfall
+Linear smoothing cannot tell noise from edges: it blurs both. Edge-preserving filters ([[id:statistical-filters][median]], adaptive speckle filters) are nonlinear.

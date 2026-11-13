@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       planck-law
+:DOMAIN:   physics
+:AREA:     radiation
+:KIND:     theorem
+:REQUIRES: radiometric-quantities
+:SEE:      wien-stefan-boltzmann gray-body sun-earth-radiation
+:ALIASES:  Planck's law, black body, blackbody radiation, spectral exitance
+:END:
+#+title: Black body and Planck's law
+#+summary: A black body absorbs all incident radiation and emits, at temperature \(T\), the spectral exitance \(B(\lambda,T)=\dfrac{2\pi hc^2\lambda^{-5}}{e^{hc/\lambda kT}-1}\); every body above 0 K emits, and real bodies are described relative to this reference.
+
+* Statement
+Every body at \(T>0\) K emits electromagnetic radiation depending on \(T\) and on its surface, and reflects, absorbs or transmits radiation from outside. The *black body* is the ideal emitter and absorber:
+\[ B(\lambda,T)=\frac{2\pi c^2h\,\lambda^{-5}}{e^{\,ch/(\lambda kT)}-1}=\frac{c_1\lambda^{-5}}{e^{\,c_2/(\lambda T)}-1}\quad[\mathrm{W\,m^{-2}\,\mu m^{-1}}], \]
+with \(c=2.99\times10^8\) m s\(^{-1}\), \(h=6.62\times10^{-34}\) J s, \(k=1.38\times10^{-23}\) J K\(^{-1}\), \(c_1=2\pi c^2h\), \(c_2=hc/k\).
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=7.2cm, height=4.8cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$B/B_{\max}$}, xmin=0.1, xmax=20, ymin=0, ymax=1.1, xmode=log, legend pos=north east]
+\addplot+[domain=0.1:20, samples=200] {(1/(x^5*(exp(14388/(x*5778))-1))) / (1/(0.501^5*(exp(14388/(0.501*5778))-1)))}; \addlegendentry{5778 K}
+\addplot+[domain=2:20, samples=150] {(1/(x^5*(exp(14388/(x*300))-1))) / (1/(9.66^5*(exp(14388/(9.66*300))-1)))}; \addlegendentry{300 K}
+\end{axis}
+\end{tikzpicture}
+Normalised Planck curves of the Sun and the Earth: peaks near 0.5 µm and 9.7 µm.
+
+* Consequences
+- the area under the curve grows as \(T^4\) and the peak moves to shorter \(\lambda\) as \(T\) grows ([[id:wien-stefan-boltzmann][Stefan–Boltzmann and Wien]]);
+- curves for different \(T\) never cross: at every \(\lambda\) a hotter body emits more;
+- for \(\lambda T\gg c_2\) (microwaves) \(B\approx c_1\lambda^{-4}T/c_2\): radiance proportional to temperature (Rayleigh–Jeans), the basis of passive microwave radiometry.
+
+* Intuition
+Temperature fixes both how much a body glows and in what colour: a stove plate goes from invisible infrared to red to orange as it heats.
+
+* Pitfall
+Planck's law describes emission only. In the reflective bands what the sensor sees is reflected sunlight, governed by reflectance, not by the temperature of the ground.

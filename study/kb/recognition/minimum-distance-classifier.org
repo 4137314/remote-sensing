@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       minimum-distance-classifier
+:DOMAIN:   recognition
+:AREA:     classification
+:KIND:     method
+:REQUIRES: discriminant-functions
+:SEE:      kmeans-clustering gaussian-maximum-likelihood
+:ALIASES:  minimum distance to means, nearest mean, centroid classifier, Euclidean distance, Mahalanobis distance, parallelepiped classifier
+:END:
+#+title: Minimum-distance classifier
+#+summary: Each class is represented by the mean \(\boldsymbol\mu_i\) of its training pixels and every pixel goes to the nearest mean; with Euclidean distance the discriminants \(g_i=\boldsymbol\mu_i^\top\mathbf x-\tfrac12\|\boldsymbol\mu_i\|^2\) are linear and the boundaries are perpendicular bisectors, with Mahalanobis distance the class covariances are taken into account.
+
+* Method
+Training: \(\boldsymbol\mu_i=\frac{1}{n_i}\sum_{\mathbf x\in\omega_i}\mathbf x\). Classification: \(\omega^\ast=\arg\min_i\|\mathbf x-\boldsymbol\mu_i\|\). Expanding the square and dropping \(\|\mathbf x\|^2\), common to all classes:
+\[ g_i(\mathbf x)=\boldsymbol\mu_i^\top\mathbf x-\tfrac12\boldsymbol\mu_i^\top\boldsymbol\mu_i. \]
+Variants: *Mahalanobis* \((\mathbf x-\boldsymbol\mu_i)^\top\Sigma^{-1}(\mathbf x-\boldsymbol\mu_i)\) with a common covariance; *parallelepiped*: a box \(\boldsymbol\mu_i\pm k\boldsymbol\sigma_i\) per class, pixels outside every box left unclassified. A distance threshold can reject outliers ("unknown").
+
+* Example
+#+begin_src python
+  mu = np.stack([F_train[y_train == c].mean(0) for c in classes])
+  d = ((F[:, None, :] - mu[None]) ** 2).sum(-1)
+  labels = classes[d.argmin(1)]
+#+end_src
+
+* Intuition
+Each class is summarised by its centre of gravity, and every pixel joins the closest centre.
+
+* Pitfall
+Euclidean distance ignores spread: a wide class (urban) loses pixels to a compact neighbour (water) whose mean happens to be closer, which the [[id:gaussian-maximum-likelihood][maximum-likelihood]] classifier corrects.

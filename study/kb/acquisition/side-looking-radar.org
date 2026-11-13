@@ -1,0 +1,38 @@
+:PROPERTIES:
+:ID:       side-looking-radar
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     definition
+:REQUIRES: radar-equation
+:SEE:      radar-geometric-distortions range-resolution azimuth-resolution
+:ALIASES:  side-looking airborne radar, SLAR, slant range, ground range, azimuth, near range, far range, incidence angle, look angle, range ambiguity
+:END:
+#+title: Side-looking radar geometry
+#+summary: An imaging radar looks sideways, perpendicular to its track: points are separated in range by the delay of their echoes and in azimuth by the motion of the platform; looking straight down would be ambiguous, because points symmetric about the track return at the same time.
+
+* Definition
+- *Azimuth*: the flight direction (along track).
+- *Range*: across track. *Slant range* \(R\) is the distance along the line of sight; *ground range* its projection on the ground.
+- *Near range / far range*: the edges of the swath closest to and farthest from the track.
+- *Look angle* (at the antenna) and *incidence angle* \(\theta\) (at the ground, between the beam and the local normal) change across the swath.
+Hardware: transmitter, duplexer (switches the antenna between transmit and receive), receiver, antenna.
+
+* Why side-looking
+Range separation needs different delays. With a nadir-looking radar two points A and B at equal distance on the two sides of the track return simultaneously: ambiguity. Illuminating only one side removes it; points at different ground ranges have different slant ranges.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\fill[kbcyan] (0,2.5) circle (0.08); \node[above] at (0,2.55) {antenna};
+\draw[kbguide] (-0.5,0) -- (5,0);
+\draw[kbamber] (0,2.5) -- (1.5,0); \draw[kbamber] (0,2.5) -- (4.5,0);
+\fill[kbamber, opacity=0.25] (1.5,0) -- (0,2.5) -- (4.5,0) -- cycle;
+\node[below] at (1.5,0) {near}; \node[below] at (4.5,0) {far};
+\draw[dashed] (0,2.5) -- (0,0); \draw[kbmagenta, -{Stealth}] (0,2.5) -- (3,0.05) node[pos=0.5, above, sloped] {slant range $R$};
+\draw[kbmagenta] (3,0) -- (3,0.4); \draw (3,0.15) arc (90:140:0.25); \node at (2.6,0.45) {$\theta$};
+\end{tikzpicture}
+
+* Intuition
+The radar measures distances, not angles: the image is a map of "how far" against "when along the track".
+
+* Pitfall
+In slant-range geometry the ground is compressed at near range relative to far range; images must be projected to ground range before measuring distances.

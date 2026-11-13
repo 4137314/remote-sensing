@@ -1,0 +1,36 @@
+:PROPERTIES:
+:ID:       spectral-signature
+:DOMAIN:   physics
+:AREA:     signatures
+:KIND:     definition
+:REQUIRES: gray-body atmospheric-windows
+:SEE:      multispectral-hyperspectral-image ndvi feature-space homogeneous-area-statistics
+:ALIASES:  spectral signature, spectral reflectance curve, red edge, vegetation reflectance, water reflectance, soil reflectance
+:END:
+#+title: Spectral signature
+#+summary: The spectral signature of a surface is its reflectance as a function of wavelength, \(\rho(\lambda)\); different materials have different shapes — vegetation low in the red and high in the NIR, water dark beyond the visible, soil rising slowly — but each class is a random family of curves, so discrimination is statistical.
+
+* Definition
+\(\rho(\lambda)=E_r(\lambda)/E_i(\lambda)\) as a function of \(\lambda\) depends on the composition, structure and geometry of the surface. Typical shapes:
+- *green vegetation*: chlorophyll absorbs blue and red, small green peak (~0.55 µm), steep rise (red edge, ~0.7 µm) to a high NIR plateau due to leaf cell structure, dips at the water absorption bands 1.4 and 1.9 µm;
+- *water*: low in the visible, almost zero in NIR and SWIR;
+- *bare soil*: increases slowly with \(\lambda\), lower with moisture and organic matter;
+- *snow*: very high in the visible, dropping in the SWIR (snow and cloud separable there).
+
+* Picture
+\begin{tikzpicture}
+\begin{axis}[width=7.2cm, height=4.6cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$\rho$}, xmin=0.4, xmax=2.5, ymin=0, ymax=0.6, legend pos=north east]
+\addplot+[domain=0.4:2.5, samples=200] {(x<0.68) * (0.05+0.06*exp(-((x-0.55)/0.04)^2)) + (x>=0.68)*(0.05+0.45/(1+exp(-(x-0.72)/0.015))) - 0.25*exp(-((x-1.45)/0.07)^2) - 0.3*exp(-((x-1.95)/0.08)^2) - (x>1.3)*0.12*(x-1.3)}; \addlegendentry{vegetation}
+\addplot+[domain=0.4:2.5, samples=100] {0.08+0.12*(x-0.4)}; \addlegendentry{soil}
+\addplot+[domain=0.4:2.5, samples=100] {0.08*exp(-(x-0.4)/0.15)}; \addlegendentry{water}
+\end{axis}
+\end{tikzpicture}
+
+* Variability
+A given land cover shows many realisations: static factors (slope, exposure) and dynamic ones (soil moisture, growth stage, atmospheric transmittance) change the curve. The signature of a class is therefore a random process, and recognition must model its statistics ([[id:feature-space][feature space]], [[id:bayes-classifier][Bayes]]).
+
+* Intuition
+Materials have colours beyond the visible; the infrared "colour" of vegetation is its brightest feature.
+
+* Pitfall
+A multispectral sensor samples the signature in a few broad bands: two materials with different fine signatures can give identical band values. Hyperspectral sensors reduce this ambiguity.

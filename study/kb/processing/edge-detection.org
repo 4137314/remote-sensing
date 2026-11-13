@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       edge-detection
+:DOMAIN:   processing
+:AREA:     filtering
+:KIND:     method
+:REQUIRES: moving-window-filters
+:SEE:      image-thresholding frequency-domain-filtering
+:ALIASES:  edge detection, gradient, Sobel, Prewitt, Roberts, Laplacian, directional filter, gradient magnitude, contour extraction
+:END:
+#+title: Edge detection and directional filters
+#+summary: Edges are places of large local change, detected by derivative filters: Sobel or Prewitt kernels estimate the gradient components \(G_x\), \(G_y\), whose magnitude \(\sqrt{G_x^2+G_y^2}\) marks edges and whose angle gives their orientation; directional filters respond to one orientation only, the Laplacian to all, at zero crossings.
+
+* Method
+Sobel kernels:
+\[ w_x=\begin{pmatrix}-1&0&1\\-2&0&2\\-1&0&1\end{pmatrix},\quad w_y=\begin{pmatrix}-1&-2&-1\\0&0&0\\1&2&1\end{pmatrix}, \]
+\(|\nabla I|=\sqrt{G_x^2+G_y^2}\), \(\theta=\operatorname{atan2}(G_y,G_x)\). Prewitt uses 1 instead of 2 (less smoothing). Laplacian \(\begin{pmatrix}0&1&0\\1&-4&1\\0&1&0\end{pmatrix}\): second derivative, edges at zero crossings, very noise sensitive (often after Gaussian smoothing). *Directional* filters (e.g. \(w_x\) alone, or kernels rotated by 45°) highlight linear features of a given orientation: faults, field boundaries. Thresholding the gradient magnitude gives an edge map.
+
+* Example
+#+begin_src python
+  gx = ndimage.sobel(band.astype(float), axis=1)
+  gy = ndimage.sobel(band.astype(float), axis=0)
+  mag = np.hypot(gx, gy); edges = mag > np.percentile(mag, 95)
+#+end_src
+
+* Intuition
+Edge detectors are discrete derivatives: flat regions give zero, steps give large responses, and the direction of steepest change is perpendicular to the edge.
+
+* Pitfall
+Derivatives amplify noise; on SAR images, with multiplicative speckle, difference-based detectors fail and ratio-based detectors are used instead.

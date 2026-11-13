@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       radar-geometric-distortions
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     definition
+:REQUIRES: side-looking-radar
+:SEE:      geometric-correction backscattering-coefficient
+:ALIASES:  foreshortening, layover, radar shadow, terrain distortion, slant range distortion
+:END:
+#+title: Foreshortening, layover and shadow
+#+summary: Because a radar orders points by distance, relief distorts its images: slopes facing the radar appear compressed and bright (foreshortening), very steep ones have their top imaged before their foot (layover), and slopes facing away steeper than the beam receive no energy (shadow).
+
+* Definition
+Let \(\alpha\) be the terrain slope towards the radar and \(\theta\) the incidence angle on flat ground.
+- *Foreshortening* (\(0<\alpha<\theta\)): the slope facing the radar is mapped to fewer range cells than its ground length; energy from the whole slope is concentrated: bright, compressed.
+- *Layover* (\(\alpha>\theta\)): the top of the slope is closer to the radar than its foot, so it appears first: the slope is reversed and overlaps with other terrain.
+- *Shadow* (back slope steeper than \(90^\circ-\theta\)): no illumination, no signal: black areas, behind mountains and tall buildings.
+Small incidence angles (steep look) enhance foreshortening and layover; large ones enhance shadow.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\fill[kbguide, opacity=0.25] (0,0) -- (1.4,1.6) -- (2.4,0) -- cycle; \draw (0,0) -- (1.4,1.6) -- (2.4,0);
+\foreach \y in {0.3,0.9,1.5,2.1} \draw[kbamber, -{Stealth}] (-1.6,\y+1.2) -- ++(1.5,-1.2);
+\fill[kbmagenta, opacity=0.35] (2.4,0) -- (1.4,1.6) -- (3.6,0) -- cycle; \node[kbmagenta] at (3.2,0.5) {shadow};
+\node at (0.3,1.1) {foreshortening};
+\draw[kbguide] (-1,0) -- (4.2,0);
+\end{tikzpicture}
+
+* Intuition
+Mountains lean towards a radar, the opposite of an optical image where tall objects lean away from nadir.
+
+* Pitfall
+Layover and shadow areas carry no recoverable information: geometric correction with a DEM can place pixels correctly but cannot fill shadows or unfold layover.

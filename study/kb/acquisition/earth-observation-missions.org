@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       earth-observation-missions
+:DOMAIN:   acquisition
+:AREA:     missions
+:KIND:     example
+:REQUIRES: sensor-resolutions synthetic-aperture-radar sun-synchronous-orbit geostationary-orbit
+:SEE:      copernicus-sentinel radar-bands remote-sensing-applications
+:ALIASES:  Meteosat, Landsat, SPOT, IKONOS, QuickBird, WorldView, PRISMA, ERS, ENVISAT, COSMO-SkyMed, TerraSAR-X, TanDEM-X, Biomass, satellite missions
+:END:
+#+title: Main Earth-observation missions
+#+summary: Geostationary meteorological satellites (Meteosat) trade resolution for continuous coverage; the Landsat series gives the longest optical record at 30 m; SPOT, IKONOS, QuickBird and WorldView push to sub-metre commercial imaging; PRISMA brings hyperspectral data; ERS, ENVISAT, COSMO-SkyMed, TerraSAR-X and Biomass cover SAR from C to X to P band.
+
+* Example
+| mission | type | orbit | key instrument and resolution |
+|---+---+---+---|
+| Meteosat Second Generation (2002–) | meteorology | GEO ~35 800 km | SEVIRI: 12 channels, 3 km (1 km HRV), image every 15 min, spinning scan |
+| Landsat 8/9 | optical | SSO 705 km, 16 days | OLI: 9 bands (30 m, 15 m pan), TIRS: 2 thermal bands (100 m) |
+| SPOT 6/7 | optical | SSO 694 km | pushbroom (first used by SPOT), 1.5 m pan, 6 m MS |
+| IKONOS, QuickBird | optical VHR | SSO | first commercial sub-metre (1 m, 0.6 m pan) |
+| WorldView-3/4 | optical VHR | SSO ~617 km | 0.31 m pan, 8 VNIR + 8 SWIR bands |
+| PRISMA (ASI, 2019) | hyperspectral | SSO 615 km | ~240 bands 0.4–2.5 µm at 30 m, 5 m pan |
+| ERS-1/2 (ESA, 1991/95) | SAR | SSO ~780 km | C-band VV SAR, ~25 m; GOME ozone on ERS-2 |
+| ENVISAT (ESA, 2002–2012) | multi-sensor | SSO 800 km | ASAR (C band), MERIS, AATSR; X-band downlink or data relay |
+| COSMO-SkyMed (ASI) | SAR constellation | SSO 620 km | X band, up to 1 m spotlight, all polarizations, revisit of hours |
+| TerraSAR-X / TanDEM-X (DLR) | SAR | SSO 514 km, close formation | X band, 1 m spotlight; single-pass interferometry for a global DEM |
+| Biomass (ESA, 2025) | SAR | SSO ~666 km | first spaceborne P band, fully polarimetric, 12 m reflector: forest biomass |
+
+* Trends
+Geometric resolution of passive systems went from ~80 m (Landsat 1) to 0.3 m (WorldView) in fifty years; constellations of small satellites (PlanetScope, Capella, Umbra) trade size for daily or sub-daily revisit.
+
+* Intuition
+No single mission does everything: missions specialise in revisit, resolution, spectral detail or wavelength, and applications combine them.
+
+* Pitfall
+Comparing data across missions requires harmonising bands, resolutions, calibration and acquisition times; long time series (Landsat since 1972) are valuable precisely because they were kept consistent.

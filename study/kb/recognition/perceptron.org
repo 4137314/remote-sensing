@@ -1,0 +1,38 @@
+:PROPERTIES:
+:ID:       perceptron
+:DOMAIN:   recognition
+:AREA:     classification
+:KIND:     method
+:REQUIRES: discriminant-functions
+:SEE:      artificial-neuron multilayer-perceptron
+:ALIASES:  perceptron, perceptron algorithm, Rosenblatt, perceptron convergence theorem, linear separability, learning rate
+:END:
+#+title: Perceptron algorithm
+#+summary: The perceptron learns a linear discriminant \(g(\mathbf x)=\mathbf w^\top\mathbf x\) (with \(\mathbf x\) augmented by a 1) from labelled samples: whenever a sample is misclassified, \(\mathbf w\gets\mathbf w+\eta\,y\,\mathbf x\); if the classes are linearly separable the algorithm converges in a finite number of steps.
+
+* Method
+Two classes, labels \(y=\pm1\), augmented vectors \(\mathbf x=(x_1,\dots,x_p,1)\). Decide \(\omega_1\) if \(\mathbf w^\top\mathbf x>0\). A sample is correct iff \(y\,\mathbf w^\top\mathbf x>0\). The perceptron criterion \(J(\mathbf w)=-\sum_{\text{misclassified}}y\,\mathbf w^\top\mathbf x\) is minimised by gradient descent, one sample at a time.
+
+* Algorithm
+\begin{algorithmic}[1]
+\Require samples $(\mathbf x_k,y_k)$, learning rate $\eta>0$
+\State $\mathbf w\gets\mathbf 0$
+\Repeat
+\State $errors\gets0$
+\ForAll{$k$}
+\If{$y_k\,\mathbf w^\top\mathbf x_k\le0$}
+\State $\mathbf w\gets\mathbf w+\eta\,y_k\,\mathbf x_k$; $errors\gets errors+1$
+\EndIf
+\EndFor
+\Until{$errors=0$ or the epoch limit is reached}
+\State \Return $\mathbf w$
+\end{algorithmic}
+
+* Convergence
+If some \(\mathbf w^\ast\) separates the data with margin \(\gamma\) (\(y_k\mathbf w^{\ast\top}\mathbf x_k\ge\gamma\), \(\|\mathbf w^\ast\|=1\)) and \(\|\mathbf x_k\|\le R\), the number of updates is at most \((R/\gamma)^2\) (Novikoff). Multi-class: one weight vector per class, update the true class up and the wrongly winning class down.
+
+* Intuition
+Every mistake tilts the boundary a little towards the right side of the misclassified pixel.
+
+* Pitfall
+On non-separable data (almost always, in remote sensing) the perceptron never stops oscillating; one stops after a fixed number of epochs or uses a decreasing learning rate, or a multilayer network.

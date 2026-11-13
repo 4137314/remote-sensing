@@ -1,0 +1,37 @@
+:PROPERTIES:
+:ID:       backscattering-coefficient
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     definition
+:REQUIRES: radar-equation
+:SEE:      radar-bands sar-complex-image radar-geometric-distortions
+:ALIASES:  sigma nought, backscattering coefficient, polarization, HH, HV, VH, VV, incidence angle, roughness, Rayleigh criterion, dielectric constant, specular reflection, double bounce, volume scattering
+:END:
+#+title: Backscattering coefficient
+#+summary: \(\sigma^0\) is the radar cross section per unit area, usually in dB; it depends on the radar (wavelength, polarization, incidence angle) and on the surface (roughness relative to \(\lambda\), dielectric constant i.e. moisture, geometry and orientation): smooth surfaces mirror energy away and look dark, rough ones and corners look bright.
+
+* Definition
+\(\sigma^0=\sigma/A\), dimensionless, expressed as \(10\log_{10}\sigma^0\) dB (typically −25 to +5 dB).
+
+System parameters:
+- *wavelength*: longer waves penetrate deeper into vegetation and dry soil (X: canopy top; C: canopy; L and P: branches, trunks, ground);
+- *polarization*: transmit and receive horizontally (H) or vertically (V): HH, VV co-polarized; HV, VH cross-polarized, sensitive to volume scattering (vegetation);
+- *incidence angle* \(\theta\): \(\sigma^0\) decreases with \(\theta\), fast for smooth surfaces.
+Surface parameters:
+- *roughness*: smooth if height variations \(h<\lambda/(8\cos\theta)\) (Rayleigh criterion), giving specular reflection away from the sensor (calm water: black);
+- *dielectric constant*: water raises it, so wet soil and vegetation backscatter more;
+- *geometry*: slopes facing the radar are bright, dihedral corners (building–ground) give strong double-bounce returns.
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize, >={Stealth}]
+\draw[kbguide] (0,0) -- (2.2,0); \draw[->, kbamber] (0,1.2) -- (1,0.05); \draw[->, kbcyan] (1.1,0.05) -- (2.1,1.2); \node at (1.1,-0.35) {smooth: specular};
+\draw[kbguide, decorate, decoration={zigzag, amplitude=2pt, segment length=5pt}] (3,0) -- (5.2,0); \draw[->, kbamber] (3,1.2) -- (4,0.1);
+\foreach \a in {30,60,90,120,150} \draw[->, kbcyan] (4.1,0.1) -- ++(\a:0.7); \node at (4.1,-0.35) {rough: diffuse};
+\draw[kbguide] (6,0) -- (7.6,0) -- (7.6,1.2); \draw[->, kbamber] (6,0.9) -- (7.2,0.05) -- (7.55,0.6); \draw[->, kbcyan] (7.55,0.6) -- (6.1,1.15); \node at (6.8,-0.35) {corner: double bounce};
+\end{tikzpicture}
+
+* Intuition
+A radar image is a map of roughness, wetness and geometry seen from the side, not a map of colour.
+
+* Pitfall
+The same \(\sigma^0\) can come from different causes (a wet smooth field and a dry rough one): interpretation needs several bands, polarizations, angles or dates.

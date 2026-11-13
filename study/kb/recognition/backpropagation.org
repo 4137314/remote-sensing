@@ -1,0 +1,37 @@
+:PROPERTIES:
+:ID:       backpropagation
+:DOMAIN:   recognition
+:AREA:     neural-networks
+:KIND:     method
+:REQUIRES: multilayer-perceptron
+:SEE:      convolutional-neural-network
+:ALIASES:  backpropagation, error backpropagation, gradient descent, chain rule, delta rule, learning rate, epoch, stochastic gradient descent, cross-entropy, overfitting, early stopping
+:END:
+#+title: Backpropagation
+#+summary: An MLP is trained by gradient descent on an error (squared error or cross-entropy) between outputs and target labels; the chain rule lets the gradient be computed layer by layer backwards, each neuron's error \(\delta_j\) being its activation derivative times the weighted errors of the neurons it feeds, and every weight moves by \(-\eta\,\delta_j\,h_i\).
+
+* Method
+Error for one sample, squared form: \(E=\tfrac12\sum_c(y_c-t_c)^2\). With \(a_j=\sum_iw_{ji}h_i\), \(h_j=g(a_j)\):
+\[ \frac{\partial E}{\partial w_{ji}}=\delta_j\,h_i, \]
+\[ \delta_j=\begin{cases}g'(a_j)\,(y_j-t_j) & j \text{ output}\\[2pt] g'(a_j)\sum_kw_{kj}\delta_k & j \text{ hidden}\end{cases} \]
+Update \(w_{ji}\gets w_{ji}-\eta\,\delta_jh_i\) (plus momentum). With softmax and cross-entropy the output error simplifies to \(\delta_j=y_j-t_j\).
+
+* Algorithm
+\begin{algorithmic}[1]
+\Require training set, learning rate $\eta$, epochs
+\State initialise weights with small random values
+\For{each epoch}
+\ForAll{samples (or mini-batches) $(\mathbf x,\mathbf t)$}
+\State forward pass: compute all $a_j$, $h_j$ and outputs $\mathbf y$
+\State backward pass: compute $\delta_j$ from the output layer to the first hidden layer
+\State update every weight: $w_{ji}\gets w_{ji}-\eta\,\delta_jh_i$
+\EndFor
+\State compute the error on the validation set; stop if it has been rising
+\EndFor
+\end{algorithmic}
+
+* Intuition
+Blame flows backwards: each neuron receives a share of the output error proportional to how much it contributed, and adjusts its weights accordingly.
+
+* Pitfall
+Gradient descent finds local minima and is sensitive to the learning rate and to feature scaling; sigmoid networks with many layers suffer vanishing gradients, one reason deep networks use ReLU.
