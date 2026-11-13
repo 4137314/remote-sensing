@@ -11,11 +11,11 @@
 #+summary: Speckle is reduced by multilooking (averaging independent looks, at the cost of resolution) or by adaptive filters such as Lee, Kuan and Frost, which in homogeneous areas average strongly and near edges and point targets keep the original value, by comparing the local coefficient of variation with the speckle's.
 
 * Method
-- *Multilook*: average \(L\) looks (sub-apertures or neighbouring pixels): \(\sigma_I/\mu_I\to1/\sqrt L\), resolution worse by \(L\).
-- *Mean / median filters*: reduce speckle but blur edges and erase point targets.
+- *[[id:sar-complex-image][Multilook]]*: average \(L\) looks (sub-apertures or neighbouring pixels): \(\sigma_I/\mu_I\to1/\sqrt L\), resolution worse by \(L\).
+- *Mean / [[id:image-statistics][median]] filters*: reduce speckle but blur edges and erase point targets.
 - *Lee filter*: model \(I=R\,n\), \(E[n]=1\), \(\mathrm{Var}(n)=\sigma_n^2=1/L\). In a window with mean \(\bar I\) and variance \(\mathrm{Var}(I)\),
 \[ \hat R=\bar I+k\,(I-\bar I),\qquad k=\frac{\mathrm{Var}(R)}{\mathrm{Var}(I)},\quad \mathrm{Var}(R)=\frac{\mathrm{Var}(I)-\bar I^2\sigma_n^2}{1+\sigma_n^2}. \]
-In a homogeneous area \(\mathrm{Var}(I)\approx\bar I^2\sigma_n^2\Rightarrow k\approx0\): output the mean. On an edge or a strong target \(k\to1\): keep the pixel.
+In a [[id:homogeneous-area-statistics][homogeneous area]] \(\mathrm{Var}(I)\approx\bar I^2\sigma_n^2\Rightarrow k\approx0\): output the mean. On an edge or a strong target \(k\to1\): keep the pixel.
 - *Frost*: exponentially weighted kernel whose decay grows with the local coefficient of variation. *Gamma MAP*: Bayesian estimate with Gamma priors.
 - Modern: non-local means, multitemporal filtering, deep networks.
 

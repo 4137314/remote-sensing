@@ -4,7 +4,7 @@
 :AREA:     optical-sensors
 :KIND:     definition
 :REQUIRES: scanner-geometry digital-number
-:SEE:      multispectral-hyperspectral-image point-spread-function earth-observation-missions
+:SEE:      multispectral-hyperspectral-image point-spread-function earth-observation-missions radiometric-snr pansharpening
 :ALIASES:  geometric resolution, spatial resolution, radiometric resolution, spectral resolution, temporal resolution, signal to noise ratio, trade-off
 :END:
 #+title: Geometric, radiometric, spectral and temporal resolution
@@ -12,14 +12,14 @@
 
 * Definition
 - *Geometric*: size of the smallest ground cell resolved, the GIFOV (sub-metre to kilometres).
-- *Spectral*: number, position and width of the bands (panchromatic: 1 broad band; multispectral: 3–15 bands of ~50–200 nm; hyperspectral: hundreds of contiguous bands of ~10 nm).
+- *Spectral*: number, position and width of the bands ([[id:multispectral-hyperspectral-image][panchromatic]]: 1 broad band; multispectral: 3–15 bands of ~50–200 nm; hyperspectral: hundreds of contiguous bands of ~10 nm).
 - *Radiometric*: smallest difference in integrated radiance the sensor can distinguish above its noise; \(Q\) bits are chosen accordingly.
-- *Temporal*: revisit time.
+- *Temporal*: [[id:sun-synchronous-orbit][revisit time]].
 
 * Derivation
 The energy reaching a detector in one pixel is about
 \[ E\propto L_\lambda\,\Delta\lambda\;\mathrm{GIFOV}^2\;\frac{A_{optics}}{H^2}\;t_{int}. \]
-For fixed detector noise, halving the GIFOV divides \(E\) by four; to keep the SNR (radiometric resolution) one must widen \(\Delta\lambda\) (coarser spectral resolution), integrate longer or use larger optics. This is why the panchromatic band has the finest pixel (it is the widest band) and hyperspectral sensors have coarser pixels.
+For fixed detector noise, halving the GIFOV divides \(E\) by four; to keep the SNR (radiometric resolution) one must widen \(\Delta\lambda\) (coarser spectral resolution), integrate longer or use larger optics. This is why the [[id:pansharpening][panchromatic band]] has the finest pixel (it is the widest band) and hyperspectral sensors have coarser pixels.
 
 * Picture
 \begin{tikzpicture}[font=\scriptsize]

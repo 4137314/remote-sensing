@@ -15,7 +15,7 @@ Layer \(l\) computes \(\mathbf h^{(l)}=g\big(W^{(l)}\mathbf h^{(l-1)}+\mathbf b^
 - input layer: \(p\) neurons (features);
 - hidden layers: size chosen by the complexity of the problem;
 - output layer: \(C\) neurons (classes).
-Families: *feed-forward* (perceptron, MLP, RBF networks, probabilistic networks) vs *recurrent* (Hopfield, ART: bidirectional connections, dynamic).
+Families: *feed-forward* ([[id:perceptron][perceptron]], MLP, RBF networks, probabilistic networks) vs *recurrent* (Hopfield, ART: bidirectional connections, dynamic).
 
 Properties to balance: *capacity* (how many samples it can memorise, how complex a function it can represent), *pattern complexity* (training samples needed to generalise), *computational complexity* of training.
 
@@ -33,4 +33,4 @@ Properties to balance: *capacity* (how many samples it can memorise, how complex
 Hidden layers invent their own features — combinations of bands that make the classes easier to separate — instead of relying on hand-made indices.
 
 * Pitfall
-Too many hidden neurons for the training set overfit: perfect on training pixels, poor on the map. Use a validation set, early stopping and regularisation.
+Too many hidden neurons for the [[id:training-validation][training set]] overfit: perfect on training pixels, poor on the map. Use a [[id:accuracy-assessment][validation set]], [[id:backpropagation][early stopping]] and regularisation.

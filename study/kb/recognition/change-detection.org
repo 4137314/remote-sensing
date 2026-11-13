@@ -4,7 +4,7 @@
 :AREA:     applications
 :KIND:     method
 :REQUIRES: geometric-correction radiometric-correction image-thresholding
-:SEE:      ndvi remote-sensing-applications speckle-statistics
+:SEE:      ndvi remote-sensing-applications speckle-statistics unsupervised-change-detection
 :ALIASES:  change detection, image differencing, image ratioing, change vector analysis, CVA, post-classification comparison, multitemporal analysis, log-ratio
 :END:
 #+title: Change detection
@@ -15,7 +15,7 @@ Prerequisites: precise [[id:geometric-correction][co-registration]] (sub-pixel),
 - *Image differencing*: \(D=I_2-I_1\); unchanged pixels cluster around 0, changes in the tails.
 - *Log-ratio* (SAR): \(R=\log(I_2/I_1)\): turns multiplicative speckle into additive noise and makes the result independent of the absolute level.
 - *Change vector analysis*: \(\Delta\mathbf x=\mathbf x_2-\mathbf x_1\); magnitude \(\|\Delta\mathbf x\|\) says whether something changed, direction (angle) says what kind of change (vegetation loss, flooding).
-- *Thresholding*: on the magnitude, manually, by Otsu, or by Bayes with a two-component mixture (changed, unchanged).
+- *[[id:image-thresholding][Thresholding]]*: on the magnitude, manually, by Otsu, or by Bayes with a two-component mixture (changed, unchanged).
 - *Post-classification comparison*: classify both dates independently and compare labels: gives "from–to" classes but errors of both maps multiply.
 
 * Example

@@ -18,7 +18,7 @@
   H, xe, ye = np.histogram2d(red.ravel(), nir.ravel(), bins=256)
   plt.imshow(np.log1p(H.T), origin="lower", extent=[xe[0], xe[-1], ye[0], ye[-1]])
 #+end_src
-Selecting a region of the scattergram and highlighting the corresponding pixels in the image links feature space and geography.
+Selecting a region of the scattergram and highlighting the corresponding pixels in the image links [[id:feature-space][feature space]] and geography.
 
 * Intuition
 It is the image seen from inside the feature space: where the pixels pile up, there is a class.

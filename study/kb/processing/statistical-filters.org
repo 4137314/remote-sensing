@@ -4,7 +4,7 @@
 :AREA:     filtering
 :KIND:     method
 :REQUIRES: moving-window-filters
-:SEE:      speckle-filtering texture-features
+:SEE:      speckle-filtering texture-features morphological-operations
 :ALIASES:  median filter, mode filter, minimum filter, maximum filter, rank filter, order statistics, nonlinear filter, salt and pepper noise
 :END:
 #+title: Statistical (rank) filters
@@ -12,16 +12,17 @@
 
 * Method
 For each pixel, sort the \(K\) values of the window \(W(y,x)\) and output
-- *median*: middle value; an isolated outlier never wins, and a straight edge keeps its position;
+- *[[id:image-statistics][median]]*: middle value; an isolated outlier never wins, and a straight edge keeps its position;
 - *mode*: most frequent value; used on label maps (majority filter) to remove isolated misclassified pixels;
-- *min / max*: erosion / dilation in grey-level morphology;
+- *min / max*: erosion / [[id:morphological-operations][dilation]] in grey-level morphology;
 - *variance, range, entropy*: local texture measures (see [[id:texture-features][texture]]).
 Cost: \(O(K\log K)\) per pixel by sorting, \(O(K)\) with histogram updates.
 
 * Example
 #+begin_src python
   med = ndimage.median_filter(band, size=3)
-  majority = ndimage.generic_filter(labels, lambda w: np.bincount(w.astype(int)).argmax(), size=3)
+  vote = lambda w: np.bincount(w.astype(int)).argmax()
+  majority = ndimage.generic_filter(labels, vote, size=3)
 #+end_src
 A \(3\times3\) window with values \(\{10,11,12,10,250,11,12,10,11\}\): mean 37 (outlier spread around), median 11 (outlier removed).
 

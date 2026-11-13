@@ -21,7 +21,7 @@ Targets A and B at slant ranges \(R\) and \(R+\Delta R\): B's echo arrives \(2\D
 
 * Consequences
 - resolution does not degrade with altitude: it depends only on the pulse;
-- it degrades towards near range (small \(\theta\)) and is undefined at nadir (\(\theta=0\)), another reason to look sideways;
+- it degrades towards [[id:side-looking-radar][near range]] (small \(\theta\)) and is undefined at nadir (\(\theta=0\)), another reason to look sideways;
 - a finer resolution needs a shorter pulse, hence higher peak power for the same energy — solved by [[id:chirp-pulse-compression][chirp pulses]].
 
 * Intuition

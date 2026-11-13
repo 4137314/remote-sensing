@@ -4,7 +4,7 @@
 :AREA:     classification
 :KIND:     construction
 :REQUIRES: bayes-classifier homogeneous-area-statistics
-:SEE:      minimum-distance-classifier accuracy-assessment
+:SEE:      minimum-distance-classifier accuracy-assessment hughes-phenomenon
 :ALIASES:  maximum likelihood classifier, Gaussian classifier, quadratic discriminant, Mahalanobis distance, covariance matrix, parametric classifier
 :END:
 #+title: Gaussian maximum-likelihood classifier
@@ -18,9 +18,12 @@ Special cases: equal covariances \(\Sigma_i=\Sigma\) → linear boundaries (Maha
 * Example
 #+begin_src python
   from scipy.stats import multivariate_normal
-  models = [multivariate_normal(F_train[y_train == c].mean(0), np.cov(F_train[y_train == c].T))
-            for c in classes]
-  logp = np.stack([m.logpdf(F) + np.log(prior[c]) for c, m in zip(classes, models)], 1)
+  def fit(c):
+      Xc = F_train[y_train == c]
+      return multivariate_normal(Xc.mean(0), np.cov(Xc.T))
+  models = [fit(c) for c in classes]
+  logp = np.stack([m.logpdf(F) + np.log(prior[c])
+                   for c, m in zip(classes, models)], 1)
   labels = classes[logp.argmax(1)]
 #+end_src
 

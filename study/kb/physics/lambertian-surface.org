@@ -1,0 +1,26 @@
+:PROPERTIES:
+:ID:       lambertian-surface
+:DOMAIN:   physics
+:AREA:     signatures
+:KIND:     model
+:REQUIRES: radiometric-quantities gray-body
+:SEE:      toa-reflectance spectral-signature backscattering-coefficient
+:ALIASES:  Lambertian surface, Lambert's cosine law, BRDF, bidirectional reflectance, specular reflection, diffuse reflection, hot spot
+:END:
+#+title: Lambertian surfaces and the BRDF
+#+summary: A Lambertian surface reflects with the same radiance in every direction, so \(L=\rho E/\pi\) whatever the viewing angle; real surfaces are described by the bidirectional reflectance distribution function \(f_r(\theta_i,\phi_i;\theta_r,\phi_r)\), between the Lambertian (diffuse) and specular (mirror) extremes.
+
+* Model
+- *BRDF*: \(f_r=\dfrac{dL_r(\theta_r,\phi_r)}{dE_i(\theta_i,\phi_i)}\) [sr\(^{-1}\)], how much of the [[id:radiometric-quantities][irradiance]] coming from one direction leaves in another.
+- *Lambertian*: \(f_r=\rho/\pi\) constant. Radiance is independent of the view angle; the irradiance on the surface follows Lambert's cosine law \(E=E_0\cos\theta_i\).
+- *Specular*: all energy leaves at the mirror angle (calm water, sun glint).
+- Natural surfaces mix the two and show effects such as the *hot spot*: maximum brightness when Sun and sensor are aligned, because shadows are hidden.
+
+* Derivation
+For a Lambertian surface the exitance is \(M=\int_{2\pi}L\cos\theta\,d\Omega=L\int_0^{2\pi}\!\!\int_0^{\pi/2}\cos\theta\sin\theta\,d\theta\,d\phi=\pi L\). [[id:gray-body][Energy conservation]] \(M=\rho E\) gives \(L=\rho E/\pi\): the \(\pi\) in every reflectance formula comes from this hemispherical integral.
+
+* Intuition
+A matte wall looks equally bright from any angle; a mirror only from one. Most land surfaces are closer to the wall, water closer to the mirror.
+
+* Pitfall
+Assuming Lambertian behaviour for wide-swath or off-nadir images introduces brightness gradients across the scene (forests darker on one side of the swath); BRDF normalisation is needed for mosaics and time series.

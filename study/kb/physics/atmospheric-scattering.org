@@ -4,7 +4,7 @@
 :AREA:     atmosphere
 :KIND:     definition
 :REQUIRES: atmospheric-windows
-:SEE:      radiometric-correction
+:SEE:      radiometric-correction toa-reflectance
 :ALIASES:  Rayleigh scattering, Mie scattering, non-selective scattering, diffusion, path radiance, haze
 :END:
 #+title: Atmospheric scattering: Rayleigh and Mie
@@ -24,4 +24,4 @@ where \(L_p\) is *path radiance*: light scattered into the line of sight without
 Scattering is fog in the image: it adds light that carries no information about the ground, mostly at short wavelengths.
 
 * Pitfall
-Because scattering is strongest in the blue, the blue band of a multispectral image has the largest offset and the lowest contrast; dark-object subtraction exploits exactly this (see [[id:radiometric-correction][corrections]]).
+Because scattering is strongest in the blue, the blue band of a [[id:multispectral-hyperspectral-image][multispectral image]] has the largest offset and the lowest contrast; dark-object subtraction exploits exactly this (see [[id:radiometric-correction][corrections]]).

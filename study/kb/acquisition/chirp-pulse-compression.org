@@ -24,7 +24,7 @@ The compression ratio \(\tau B\) (time–bandwidth product, typically 100–1000
 A chirp: frequency grows linearly during the pulse.
 
 * Example
-Sentinel-1 uses chirps of up to 100 MHz bandwidth: \(c/(2B)=1.5\) m in slant range, a few metres on the ground, with pulses tens of microseconds long.
+[[id:copernicus-sentinel][Sentinel-1]] uses chirps of up to 100 MHz bandwidth: \(c/(2B)=1.5\) m in [[id:side-looking-radar][slant range]], a few metres on the ground, with pulses tens of microseconds long.
 
 * Intuition
 A long whistle that rises in pitch: each instant of the echo is labelled by its frequency, so the receiver can tell overlapping echoes apart and re-stack them into a sharp click.

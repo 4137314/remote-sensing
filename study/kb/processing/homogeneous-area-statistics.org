@@ -4,7 +4,7 @@
 :AREA:     sar-processing
 :KIND:     model
 :REQUIRES: image-statistics spectral-signature
-:SEE:      speckle-statistics gaussian-maximum-likelihood image-segmentation
+:SEE:      speckle-statistics gaussian-maximum-likelihood image-segmentation feature-space
 :ALIASES:  homogeneous area, Gaussian model, class distribution, thermal noise, natural variability, multivariate normal
 :END:
 #+title: Statistics of homogeneous areas in optical images
@@ -15,11 +15,11 @@ For a homogeneous region (e.g. one crop field), pixel values in band \(b\): \(x=
 \[ p(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\Big(-\frac{(x-\mu)^2}{2\sigma^2}\Big), \]
 and for a pixel vector \(\mathbf x\in\mathbb R^B\)
 \[ p(\mathbf x)=\frac{1}{(2\pi)^{B/2}|\Sigma|^{1/2}}\exp\!\Big(-\tfrac12(\mathbf x-\boldsymbol\mu)^\top\Sigma^{-1}(\mathbf x-\boldsymbol\mu)\Big), \]
-with covariance \(\Sigma\) capturing the correlation between bands. Noise is *additive*: its variance does not depend on the mean level.
+with covariance \(\Sigma\) capturing the correlation between bands. Noise is *additive*: its [[id:image-statistics][variance]] does not depend on the mean level.
 
 * Picture
 \begin{tikzpicture}
-\begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={DN}, ylabel={$p$}, xmin=0, xmax=200, ymin=0, ymax=0.045, ticks=none, legend pos=north east]
+\begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={DN}, ylabel={$p$}, xmin=0, xmax=200, ymin=0, ymax=0.045, ticks=none]
 \addplot+[domain=0:200, samples=120] {exp(-((x-60)^2)/(2*10^2))/(10*2.5066)}; \addlegendentry{water}
 \addplot+[domain=0:200, samples=120] {exp(-((x-130)^2)/(2*15^2))/(15*2.5066)}; \addlegendentry{forest}
 \end{axis}

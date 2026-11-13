@@ -11,7 +11,7 @@
 #+summary: A small antenna moving along the track illuminates each target during a whole stretch of path \(L_s=\lambda R/L\); recording amplitude and phase of all echoes and combining them coherently synthesizes an antenna of length \(L_s\), whose resolution is \(r_A=L/2\): finer for smaller antennas and independent of range and wavelength.
 
 * Construction
-A target T is in the beam while the antenna travels from A to B, a distance equal to the real beam footprint \(L_s=\lambda R/L\): this is the synthetic antenna. During that time its range \(R(t)\) varies quadratically and the echo phase \(4\pi R(t)/\lambda\) gives a Doppler history (a chirp in azimuth) unique to the target's along-track position. Correlating with the expected history (azimuth compression, the azimuth analogue of [[id:chirp-pulse-compression][pulse compression]]) focuses the target. A synthetic antenna of length \(L_s\) with two-way phase has beamwidth \(\lambda/(2L_s)\), so
+A target T is in the beam while the antenna travels from A to B, a distance equal to the real beam footprint \(L_s=\lambda R/L\): this is the synthetic antenna. During that time its range \(R(t)\) varies quadratically and the echo phase \(4\pi R(t)/\lambda\) gives a Doppler history (a chirp in [[id:side-looking-radar][azimuth]]) unique to the target's along-track position. Correlating with the expected history (azimuth compression, the azimuth analogue of [[id:chirp-pulse-compression][pulse compression]]) focuses the target. A synthetic antenna of length \(L_s\) with two-way phase has [[id:azimuth-resolution][beamwidth]] \(\lambda/(2L_s)\), so
 \[ r_A=\frac{\lambda}{2L_s}\,R=\frac{\lambda R}{2}\cdot\frac{L}{\lambda R}=\frac{L}{2}. \]
 
 * Picture

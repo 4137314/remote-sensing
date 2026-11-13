@@ -10,10 +10,10 @@ The course PDFs (parts 1–4b and the three laboratories) live in `asset/` and a
 
 | path | content |
 |---|---|
-| `study/kb/physics/` | 10 notes: remote sensing system, EM spectrum, radiometric quantities, Planck, Stefan–Boltzmann and Wien, emissivity and Kirchhoff, Sun and Earth as sources, atmospheric windows and scattering, spectral signatures |
-| `study/kb/acquisition/` | 26 notes: platforms, orbits (GEO, sun-synchronous, telecom), satellite architecture and data transmission, scanners (IFOV/GIFOV, DN, resolutions, PSF), multispectral and hyperspectral images, formats, radar equation, backscattering, radar bands, side-looking geometry and distortions, range and azimuth resolution, chirp, SAR, complex images, missions, Copernicus |
-| `study/kb/processing/` | 23 notes: digital images, LUTs, histogram and statistics, stretching, equalisation, false colour, radiometric and geometric corrections, DFT and frequency filtering, moving-window and rank filters, edges, texture, homogeneous-area and speckle statistics, speckle filters, segmentation (thresholding, split and merge, region growing) |
-| `study/kb/recognition/` | 19 notes: recognition systems, photointerpretation, features, NDVI, feature space, scattergram, discriminant functions, minimum distance, perceptron, Bayes, Gaussian maximum likelihood, k-means, accuracy assessment, neurons, MLP, backpropagation, CNNs, change detection, applications |
+| `study/kb/physics/` | 13 notes: Lambertian surfaces and BRDF, TOA and surface reflectance, brightness temperature, remote sensing system, EM spectrum, radiometric quantities, Planck, Stefan–Boltzmann and Wien, emissivity and Kirchhoff, Sun and Earth as sources, atmospheric windows and scattering, spectral signatures |
+| `study/kb/acquisition/` | 29 notes: SNR and NEΔT, SAR interferometry, SAR polarimetry, platforms, orbits (GEO, sun-synchronous, telecom), satellite architecture and data transmission, scanners (IFOV/GIFOV, DN, resolutions, PSF), multispectral and hyperspectral images, formats, radar equation, backscattering, radar bands, side-looking geometry and distortions, range and azimuth resolution, chirp, SAR, complex images, missions, Copernicus |
+| `study/kb/processing/` | 28 notes: convolution theorem, sampling and aliasing, morphology, PCA, pansharpening, digital images, LUTs, histogram and statistics, stretching, equalisation, false colour, radiometric and geometric corrections, DFT and frequency filtering, moving-window and rank filters, edges, texture, homogeneous-area and speckle statistics, speckle filters, segmentation (thresholding, split and merge, region growing) |
+| `study/kb/recognition/` | 24 notes: Hughes phenomenon, SVM, training/validation/test, spectral unmixing, unsupervised change detection with EM, recognition systems, photointerpretation, features, NDVI, feature space, scattergram, discriminant functions, minimum distance, perceptron, Bayes, Gaussian maximum likelihood, k-means, accuracy assessment, neurons, MLP, backpropagation, CNNs, change detection, applications |
 | `study/kb-config.el` | domains and areas in study order, forbidden words, LaTeX settings |
 | `study/study.mk` | `make study*` targets |
 | `study/remote-sensing.desktop.in` | launcher entry template |
@@ -22,6 +22,13 @@ The course PDFs (parts 1–4b and the three laboratories) live in `asset/` and a
 One note per concept, in English, with `REQUIRES` (prerequisites, an acyclic graph that
 gives the study order) and `SEE` (lateral links). Formulas, TikZ/pgfplots figures and
 `algorithmic` pseudocode are rendered to SVG; code examples are Python, as in the laboratories.
+
+## Reading conventions
+
+Tables are plain text (Unicode symbols instead of formulas), aligned and at most 86
+columns wide, so they line up in the reader's 90-column column; in a much narrower window
+Emacs wraps them. Plot legends sit above the axes (global pgfplots style in
+`study/kb-config.el`), and display formulas are rendered on a single line.
 
 ## Use
 

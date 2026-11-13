@@ -4,7 +4,7 @@
 :AREA:     radar
 :KIND:     definition
 :REQUIRES: synthetic-aperture-radar backscattering-coefficient
-:SEE:      speckle-statistics speckle-filtering
+:SEE:      speckle-statistics speckle-filtering sar-interferometry sar-polarimetry
 :ALIASES:  single look complex, SLC, in-phase, quadrature, amplitude image, intensity image, phase image, I/Q, multilook
 :END:
 #+title: SAR complex, amplitude and intensity images
@@ -13,10 +13,13 @@
 * Definition
 The transmitted sinusoid \(\cos(2\pi f_0t)\) comes back as \(A(x,y)\cos(2\pi f_0t+\phi(x,y))\), with \(A\) and \(\phi\) shaped by the target. Coherent demodulation yields
 \[ z(x,y)=\underbrace{A\cos\phi}_{\text{in phase}}+j\,\underbrace{A\sin\phi}_{\text{quadrature}}=A\,e^{j\phi}. \]
-Products: *single look complex* (SLC) \(z\); *amplitude* \(A=\sqrt{\mathrm{Re}^2+\mathrm{Im}^2}\); *intensity* \(I=A^2\), whose mean over a homogeneous area is proportional to \(\sigma^0\); *phase* \(\phi\).
+Products: *single look complex* (SLC) \(z\); *amplitude* \(A=\sqrt{\mathrm{Re}^2+\mathrm{Im}^2}\); *intensity* \(I=A^2\), whose mean over a [[id:homogeneous-area-statistics][homogeneous area]] is proportional to \(\sigma^0\); *phase* \(\phi\).
 
 * Uses of the phase
-In one image the phase of a pixel is the sum of many random scatterer phases and is uniform noise. The *difference* of phases between two acquisitions from slightly different positions (interferometry, InSAR) measures topography; between two dates from the same position (differential InSAR) it measures ground displacement with millimetre precision.
+In one image the phase of a pixel is the sum of many random scatterer phases and is uniform noise. The *difference* of phases between two acquisitions from slightly different positions ([[id:sar-interferometry][interferometry]], InSAR) measures topography; between two dates from the same position (differential InSAR) it measures ground displacement with millimetre precision.
+
+* Worked example
+A pixel with \(\mathrm{Re}=3\), \(\mathrm{Im}=-4\): amplitude \(A=5\), intensity \(I=25\), phase \(\phi=\operatorname{atan2}(-4,3)=-53.1^\circ\). Averaging the intensities of a \(4\times4\) homogeneous window gives a 16-look estimate of the mean backscatter, \(\sigma^0\propto\bar I\), with relative standard deviation \(1/\sqrt{16}=25\%\) instead of 100% for a single pixel.
 
 * Intuition
 A SAR pixel is a phasor: its length says how strongly the cell backscatters, its angle where, within a wavelength, the echo came from.

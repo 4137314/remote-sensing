@@ -17,7 +17,7 @@ The angular velocity equals the Earth's and the orbital plane is the equatorial 
 
 * Properties
 - continuous observation of one disc (images every 5–15 minutes: cloud motion, storms, volcanic plumes);
-- coverage up to about \(\pm70^\circ\) latitude, poor near the poles;
+- [[id:telecom-satellite-orbits][coverage]] up to about \(\pm70^\circ\) latitude, poor near the poles;
 - resolution of 1–3 km at nadir for passive sensors, since the distance is about 50 times that of LEO;
 - propagation delay \(2h/c\approx0.24\) s for a ground–satellite–ground hop.
 
@@ -25,4 +25,4 @@ The angular velocity equals the Earth's and the orbital plane is the equatorial 
 A camera nailed to the sky over the equator: always the same view, never close.
 
 * Pitfall
-"Geosynchronous" (period of one day) is not enough: with non-zero inclination the satellite traces a figure eight in the sky; only the equatorial circular case is geostationary.
+"Geosynchronous" (period of one day) is not enough: with non-zero [[id:satellite-orbits][inclination]] the satellite traces a figure eight in the sky; only the equatorial circular case is geostationary.

@@ -11,7 +11,7 @@
 #+summary: A SAR resolution cell contains many elementary scatterers whose echoes add with random phases; for many independent scatterers with uniform phases, real and imaginary parts are zero-mean Gaussian with variance \(\beta/2\), so the amplitude is Rayleigh distributed and the intensity negative exponential with mean \(\beta\propto\sigma^0\) and standard deviation equal to its mean: multiplicative noise.
 
 * Statement
-Hypotheses on a homogeneous area:
+Hypotheses on a [[id:homogeneous-area-statistics][homogeneous area]]:
 1. \(N\) elementary scatterers per cell, with independent amplitudes \(A_k\) and phases \(\phi_k\);
 2. phases uniform on \([-\pi,\pi]\), independent of amplitudes;
 3. \(N\) large.
@@ -23,7 +23,7 @@ Then with \(z=\sum_k A_ke^{j\phi_k}\), \(\beta=\sum_k E[A_k^2]\):
 
 * Picture
 \begin{tikzpicture}
-\begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={value}, ylabel={$p$}, xmin=0, xmax=4, ymin=0, ymax=1.05, legend pos=north east]
+\begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={value}, ylabel={$p$}, xmin=0, xmax=4, ymin=0, ymax=1.05]
 \addplot+[domain=0:4, samples=100] {2*x*exp(-x^2)}; \addlegendentry{amplitude (Rayleigh)}
 \addplot+[domain=0:4, samples=100] {exp(-x)}; \addlegendentry{intensity (exponential)}
 \end{axis}

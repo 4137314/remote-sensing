@@ -14,22 +14,31 @@
 - *Azimuth*: the flight direction (along track).
 - *Range*: across track. *Slant range* \(R\) is the distance along the line of sight; *ground range* its projection on the ground.
 - *Near range / far range*: the edges of the swath closest to and farthest from the track.
-- *Look angle* (at the antenna) and *incidence angle* \(\theta\) (at the ground, between the beam and the local normal) change across the swath.
+- *Look angle* (at the antenna) and *[[id:backscattering-coefficient][incidence angle]]* \(\theta\) (at the ground, between the beam and the local normal) change across the swath.
 Hardware: transmitter, duplexer (switches the antenna between transmit and receive), receiver, antenna.
 
 * Why side-looking
 Range separation needs different delays. With a nadir-looking radar two points A and B at equal distance on the two sides of the track return simultaneously: ambiguity. Illuminating only one side removes it; points at different ground ranges have different slant ranges.
 
 * Picture
-\begin{tikzpicture}[font=\scriptsize]
-\fill[kbcyan] (0,2.5) circle (0.08); \node[above] at (0,2.55) {antenna};
-\draw[kbguide] (-0.5,0) -- (5,0);
-\draw[kbamber] (0,2.5) -- (1.5,0); \draw[kbamber] (0,2.5) -- (4.5,0);
-\fill[kbamber, opacity=0.25] (1.5,0) -- (0,2.5) -- (4.5,0) -- cycle;
-\node[below] at (1.5,0) {near}; \node[below] at (4.5,0) {far};
-\draw[dashed] (0,2.5) -- (0,0); \draw[kbmagenta, -{Stealth}] (0,2.5) -- (3,0.05) node[pos=0.5, above, sloped] {slant range $R$};
-\draw[kbmagenta] (3,0) -- (3,0.4); \draw (3,0.15) arc (90:140:0.25); \node at (2.6,0.45) {$\theta$};
+\begin{tikzpicture}[font=\scriptsize, >={Stealth}]
+\fill[kbcyan] (0,3) circle (0.08); \node[above] at (0,3.1) {antenna (flight into the page)};
+\draw[kbguide] (-0.5,0) -- (6.5,0);
+\fill[kbamber, opacity=0.2] (0,3) -- (1.8,0) -- (5.6,0) -- cycle;
+\draw[kbamber] (0,3) -- (1.8,0); \draw[kbamber] (0,3) -- (5.6,0);
+\draw[dashed, kbguide] (0,3) -- (0,0) node[below] {nadir};
+\node[below] at (1.8,0) {near range}; \node[below] at (5.6,0) {far range};
+\draw[kbmagenta, ->] (0,3) -- (3.6,0.03);
+\node[kbmagenta, anchor=west] at (2.3,1.6) {slant range $R$};
+\draw[kbguide] (3.6,0) -- (3.6,0.9); \draw[kbmagenta] (3.6,0.55) arc (90:140:0.55); \node[kbmagenta] at (3.2,0.85) {$\theta$};
+\draw[<->, kbguide] (0,-0.75) -- node[below] {ground range} (3.6,-0.75);
 \end{tikzpicture}
+
+* Worked example
+Altitude \(H=700\) km, look angles from 20° (near) to 45° (far), flat Earth approximation:
+- near range: ground distance \(H\tan20^\circ=255\) km, slant range \(H/\cos20^\circ=745\) km;
+- far range: \(H\tan45^\circ=700\) km, slant range \(990\) km.
+Swath on the ground 445 km; echoes from the swath arrive between \(2\cdot745/c=4.97\) ms and \(6.60\) ms after each pulse, so the pulse repetition interval must exceed 1.6 ms to avoid range ambiguities.
 
 * Intuition
 The radar measures distances, not angles: the image is a map of "how far" against "when along the track".

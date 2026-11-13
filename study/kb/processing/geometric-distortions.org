@@ -30,4 +30,4 @@
 A scanner paints the image line by line from a moving, slightly wobbling platform over a rotating, curved, bumpy Earth; every one of those motions bends the picture.
 
 * Pitfall
-Relief displacement cannot be removed by a polynomial: it needs a digital elevation model (orthorectification).
+Relief displacement cannot be removed by a polynomial: it needs a digital elevation model ([[id:geometric-correction][orthorectification]]).

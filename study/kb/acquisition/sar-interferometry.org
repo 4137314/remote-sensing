@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       sar-interferometry
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     method
+:REQUIRES: sar-complex-image
+:SEE:      synthetic-aperture-radar earth-observation-missions remote-sensing-applications
+:ALIASES:  InSAR, interferometry, DInSAR, differential interferometry, interferogram, coherence, phase unwrapping, baseline, height of ambiguity, persistent scatterers
+:END:
+#+title: SAR interferometry (InSAR and DInSAR)
+#+summary: Multiplying one SLC image by the conjugate of another, \(z_1z_2^*\), gives an interferogram whose phase \(\Delta\phi=\frac{4\pi}{\lambda}\Delta R\) measures path differences to a fraction of the wavelength: across-track baselines turn it into topography, repeat passes from the same orbit into ground displacement with millimetre sensitivity; coherence says how reliable it is.
+
+* Method
+- *Interferogram*: \(z_1z_2^*=A_1A_2e^{j(\phi_1-\phi_2)}\). The random scatterer phase cancels if the two acquisitions see the same scatterers; what remains is the geometric phase.
+- *Topography*: with perpendicular baseline \(B_\perp\), a height change \(h\) changes the phase by \(\Delta\phi=\frac{4\pi B_\perp h}{\lambda R\sin\theta}\); the *height of ambiguity* \(h_{2\pi}=\frac{\lambda R\sin\theta}{2B_\perp}\) is the height giving one fringe ([[id:earth-observation-missions][TanDEM-X]]: single pass, no temporal change).
+- *Displacement (DInSAR)*: after removing topography with a DEM, a motion \(d\) along the line of sight gives \(\Delta\phi=\frac{4\pi}{\lambda}d\): one fringe is \(\lambda/2\) of motion (2.8 cm in [[id:radar-bands][C band]]).
+- *Coherence* \(\gamma=\dfrac{|E[z_1z_2^*]|}{\sqrt{E|z_1|^2E|z_2|^2}}\in[0,1]\): drops with vegetation growth, water, long time intervals (temporal [[id:principal-component-analysis][decorrelation]]) and large baselines.
+- *Phase unwrapping*: the phase is known modulo \(2\pi\); integrating it spatially recovers the absolute value, the hardest step.
+- *Time series* (persistent scatterers, SBAS): many acquisitions separate deformation from atmospheric delay: mm/year precision.
+
+* Example
+[[id:copernicus-sentinel][Sentinel-1]], \(\lambda=5.6\) cm: a fringe cycle in a differential interferogram is 2.8 cm of line-of-sight motion; earthquakes show tens of concentric fringes, subsiding cities a few per year.
+
+* Intuition
+The phase is a ruler graduated in half-wavelengths; comparing two readings of the same ruler shows how much the ground moved.
+
+* Pitfall
+Atmospheric water vapour delays the signal by centimetres and looks exactly like deformation in a single interferogram; only stacks of many dates separate the two.

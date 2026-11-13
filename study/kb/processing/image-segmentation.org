@@ -16,7 +16,7 @@ A segmentation is a partition \(\{R_1,\dots,R_n\}\) of the pixels with
 2. each \(R_i\) connected;
 3. \(P(R_i)=\) true for a homogeneity predicate \(P\);
 4. \(P(R_i\cup R_j)=\) false for adjacent \(R_i,R_j\).
-Homogeneity criteria: optical — region variance below a threshold, or means of adjacent regions within a tolerance; SAR — ratio of mean intensities close to 1, coefficient of variation compatible with speckle.
+Homogeneity criteria: optical — region [[id:image-statistics][variance]] below a threshold, or means of adjacent regions within a tolerance; SAR — ratio of mean intensities close to 1, coefficient of variation compatible with speckle.
 
 Methods:
 - [[id:image-thresholding][histogram thresholding]];
@@ -25,7 +25,7 @@ Methods:
 - [[id:region-growing][region growing]].
 
 * Uses
-Region-based classification (object-based image analysis): classify regions instead of pixels, using shape, size and texture features; reduces salt-and-pepper noise in maps, especially in very high resolution images where single pixels are parts of objects.
+[[id:feature-extraction][Region-based]] classification (object-based image analysis): classify regions instead of pixels, using shape, size and texture features; reduces salt-and-pepper noise in maps, especially in very high resolution images where single pixels are parts of objects.
 
 * Intuition
 Segmentation turns pixels into objects — fields, lakes, buildings — before anyone asks what the objects are.

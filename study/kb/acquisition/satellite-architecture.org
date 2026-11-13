@@ -12,11 +12,11 @@
 
 * Model
 - *Space segment*: satellite(s) and TT&C stations that control and monitor them. Links: *uplink* (ground to satellite, usually the higher frequency), *downlink*, *interlinks* between satellites (radio or optical).
-- *Ground segment*: for Earth observation, a *flight operations segment* (configuration, on-board software, orbit control) and a *data management segment* (processing, storage, dissemination to users).
+- *Ground segment*: for [[id:remote-sensing-system][Earth observation]], a *flight operations segment* (configuration, on-board software, orbit control) and a *data management segment* (processing, storage, dissemination to users).
 - *Payload module*: transponders and antennas (telecommunications) or remote sensing instruments and their management (Earth observation).
 - *Service module* (bus): power generation, attitude and orbit control, thrusters, TT&C, and for Earth observation the data transmission system.
 - *Power*: primary subsystem = solar arrays; secondary = electrochemical batteries, charged in sunlight, used in the shadow cone. In eclipse an Earth-observation satellite often cannot both acquire and transmit: sensors are switched off, or data are recorded on board and downlinked later.
-- *Launch*: a launch vehicle (Vega, Ariane, Falcon 9) places the satellite in orbit in minutes (about 24 min for Sentinel-2 on Vega) at very high cost; reusable stages reduce it.
+- *Launch*: a launch vehicle (Vega, Ariane, Falcon 9) places the satellite in orbit in minutes (about 24 min for [[id:copernicus-sentinel][Sentinel-2]] on Vega) at very high cost; reusable stages reduce it.
 
 * Picture
 \begin{tikzpicture}[font=\scriptsize, b/.style={draw, minimum height=0.55cm, align=center}]
@@ -28,6 +28,9 @@
 \draw[-{Stealth}] (s) to[bend left=15] node[right] {downlink} (g);
 \draw[-{Stealth}] (g) -- (u);
 \end{tikzpicture}
+
+* Worked example
+A satellite at 700 km (\(r=7078\) km) is in the Earth's shadow over an arc of about \(2\arcsin(R_\oplus/r)=2\arcsin(0.901)\approx128^\circ\) of the orbit in the worst season, i.e. up to 35% of the 99-minute period (≈ 35 min) for orbits whose plane contains the Sun direction; dawn–dusk sun-synchronous orbits avoid eclipses almost entirely, which is why some radar missions use them.
 
 * Intuition
 The instrument is the reason for the mission; everything else on board exists to keep it pointed, powered, warm and talking to the ground.

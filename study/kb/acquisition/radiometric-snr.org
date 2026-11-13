@@ -1,0 +1,25 @@
+:PROPERTIES:
+:ID:       radiometric-snr
+:DOMAIN:   acquisition
+:AREA:     optical-sensors
+:KIND:     definition
+:REQUIRES: sensor-resolutions
+:SEE:      digital-number homogeneous-area-statistics speckle-statistics
+:ALIASES:  signal to noise ratio, SNR, noise equivalent radiance, NEdL, NEdT, noise equivalent temperature difference, shot noise, dwell time
+:END:
+#+title: Signal-to-noise ratio and noise-equivalent quantities
+#+summary: Radiometric resolution is limited by noise: the noise-equivalent radiance difference (NEΔL) or temperature difference (NEΔT) is the change that produces a signal equal to the noise; with photon (shot) noise \(\mathrm{SNR}\propto\sqrt{N_{photons}}\), so longer dwell time, larger optics or wider bands improve it.
+
+* Definition
+\(\mathrm{SNR}=\bar S/\sigma_n\). Noise sources: photon shot noise (\(\sigma=\sqrt N\) for \(N\) collected electrons), dark current, read-out noise, quantization (\(\sigma_q=\Delta/\sqrt{12}\) for step \(\Delta\)).
+- \(\mathrm{NE\Delta L}=\sigma_n/(\partial S/\partial L)\): the radiance change equal to one noise [[id:image-statistics][standard deviation]].
+- \(\mathrm{NE\Delta T}=\mathrm{NE\Delta L}/(\partial L/\partial T)\) for thermal bands (typical 0.05–0.1 K).
+
+* Derivation
+Collected photo-electrons \(N\propto L\,\Delta\lambda\,A_{optics}\,\Omega_{pixel}\,t_{dwell}\,\eta\). With shot noise only, \(\mathrm{SNR}=N/\sqrt N=\sqrt N\). A pushbroom has dwell time equal to the line time (ground pixel / ground speed), a [[id:scanner-geometry][whiskbroom]] only that divided by the number of pixels per line: for 6000 pixels per line the pushbroom collects 6000 times more photons, \(\sqrt{6000}\approx77\) times better SNR.
+
+* Intuition
+Measurement precision is a photon count: the more photons per pixel, the smaller their random fluctuation relative to the signal.
+
+* Pitfall
+Quantizing with more bits than the SNR supports only records noise more finely; conversely a sensor with excellent SNR but 8-bit [[id:digital-number][quantization]] wastes it.

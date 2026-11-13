@@ -11,14 +11,17 @@
 #+summary: Sensors fly on platforms at very different altitudes — UAVs below 1 km, aircraft at 5–15 km, stratospheric platforms at 15–36 km, polar satellites at 500–800 km, the ISS at 400 km, geostationary satellites at 36 000 km — trading resolution and flexibility against coverage, stability and cost.
 
 * Definition
-| platform | altitude | strengths | weaknesses |
-|---+---+---+---|
-| UAV, helicopter | < 1–5 km | centimetric resolution, on demand | small areas, regulations |
-| aircraft | 5–15 km | high resolution, rapid response (disasters), heavy sensors | turbulence distorts images, each flight is a costly mission |
-| stratospheric platform | 15–36 km | persistent regional view | technology still maturing |
-| LEO / polar satellite | 500–800 km | global, regular, stable geometry | fixed revisit, launch cost |
-| ISS | ~400 km | crewed servicing | non-polar orbit, vibrations |
-| geostationary satellite | 35 786 km | continuous view of one hemisphere | coarse resolution |
+| platform        | altitude   | strengths                | weaknesses            |
+|-----------------+------------+--------------------------+-----------------------|
+| UAV, helicopter | < 1–5 km   | cm pixels, on demand     | small areas           |
+| aircraft        | 5–15 km    | high resolution, rapid   | turbulence, cost      |
+| stratospheric   | 15–36 km   | persistent regional view | still maturing        |
+| polar satellite | 500–800 km | global, regular, stable  | fixed revisit         |
+| ISS             | ≈ 400 km   | crewed servicing         | non-polar, vibrations |
+| geostationary   | 35 786 km  | continuous view          | coarse pixels         |
+
+* Worked example
+Same camera (detector 10 µm, focal length 0.1 m, IFOV 0.1 mrad) on different platforms: drone at 100 m → 1 cm pixels; aircraft at 5 km → 0.5 m; satellite at 700 km → 70 m. A satellite needs a focal length 70 times longer (7 m, folded optics) to reach the aircraft's 0.5 m.
 
 * Intuition
 Lower means sharper but smaller and more expensive per square kilometre; higher means coarser but wider, more regular and stable.

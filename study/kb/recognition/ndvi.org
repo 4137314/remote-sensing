@@ -19,7 +19,7 @@ A shadow or a slope multiplies both bands by the same factor \(k\): \((k\rho_N-k
 
 * Picture
 \begin{tikzpicture}
-\begin{axis}[width=6.4cm, height=4cm, axis lines=left, xlabel={NDVI}, ylabel={}, xmin=-1, xmax=1, ymin=0, ymax=1.2, ticks=none, extra x ticks={-1,0,1}, extra x tick labels={$-1$,$0$,$1$}]
+\begin{axis}[width=6.4cm, height=4cm, axis lines=left, xlabel={NDVI}, ylabel={}, xmin=-1, xmax=1, ymin=0, ymax=1.2, xtick={-1,-0.5,0,0.5,1}, ytick=\empty]
 \addplot+[domain=-1:1, samples=100] {exp(-((x+0.4)/0.12)^2)}; \node at (axis cs:-0.4,1.1) {\scriptsize water};
 \addplot+[domain=-1:1, samples=100] {exp(-((x-0.15)/0.07)^2)}; \node at (axis cs:0.15,1.1) {\scriptsize soil};
 \addplot+[domain=-1:1, samples=100] {exp(-((x-0.75)/0.1)^2)}; \node at (axis cs:0.75,1.1) {\scriptsize vegetation};
@@ -27,7 +27,7 @@ A shadow or a slope multiplies both bands by the same factor \(k\): \((k\rho_N-k
 \end{tikzpicture}
 
 * Example
-Sentinel-2: \(\mathrm{NDVI}=(B8-B4)/(B8+B4)\), on reflectances. NDVI time series track crop phenology: green-up, peak, senescence, harvest.
+[[id:copernicus-sentinel][Sentinel-2]]: \(\mathrm{NDVI}=(B8-B4)/(B8+B4)\), on reflectances. NDVI time series track crop phenology: green-up, peak, senescence, harvest.
 
 * Intuition
 Vegetation is the only common surface that is dark red and bright infrared at the same time; NDVI measures exactly that contrast.

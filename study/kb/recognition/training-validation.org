@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       training-validation
+:DOMAIN:   recognition
+:AREA:     classification
+:KIND:     method
+:REQUIRES: recognition-system accuracy-assessment
+:SEE:      support-vector-machine backpropagation hughes-phenomenon
+:ALIASES:  training set, validation set, test set, cross-validation, k-fold, overfitting, spatial autocorrelation, stratified sampling, hyperparameters, ground truth
+:END:
+#+title: Training, validation and test samples
+#+summary: Labelled samples are split into a training set (fit parameters), a validation set (choose hyperparameters and features, stop training) and a test set (estimate accuracy once, at the end); k-fold cross-validation reuses small sets, and in remote sensing the split must be spatially independent — whole fields or blocks, not random pixels — or accuracy is overestimated.
+
+* Method
+- *Hold-out*: e.g. 60/20/20. The [[id:accuracy-assessment][test set]] is never used to make decisions.
+- *k-fold cross-validation*: split the training data into \(k\) folds; train on \(k-1\), validate on the remaining one, rotate, average. Used to choose \(C,\gamma\) of an [[id:support-vector-machine][SVM]], the network size of an [[id:multilayer-perceptron][MLP]], the number of features.
+- *Stratification*: keep class proportions in every fold, or sample rare classes deliberately and weight the accuracy.
+- *Spatial independence*: neighbouring pixels are nearly identical (spatial autocorrelation). Assign whole polygons (fields, buildings) or spatial blocks to one set only.
+- *[[id:backpropagation][Overfitting]] signal*: training accuracy keeps rising while validation accuracy falls.
+
+* Example
+#+begin_src python
+  from sklearn.model_selection import GroupKFold, GridSearchCV
+  from sklearn.svm import SVC
+  grid = GridSearchCV(SVC(kernel="rbf"), {"C": [1, 10, 100], "gamma": [0.01, 0.1, 1]},
+                      # groups = field id of each pixel
+                      cv=GroupKFold(n_splits=5))
+  grid.fit(X_train, y_train, groups=field_id)
+  print(grid.best_params_, grid.score(X_test, y_test))   # test set used once
+#+end_src
+
+* Intuition
+Do not mark your own homework: the data used to make choices cannot also judge them.
+
+* Pitfall
+Random pixel splits from the same fields routinely report 99% accuracy for models that fail on a new region; reporting how the samples were split is as important as the accuracy itself.

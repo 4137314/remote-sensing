@@ -4,7 +4,7 @@
 :AREA:     optical-sensors
 :KIND:     definition
 :REQUIRES: scanner-geometry
-:SEE:      sensor-resolutions digital-image look-up-table radiometric-quantities
+:SEE:      sensor-resolutions digital-image look-up-table radiometric-quantities radiometric-correction
 :ALIASES:  DN, digital number, detector, quantization, A/D conversion, radiometric calibration, gain, offset, bits per pixel
 :END:
 #+title: Detector, quantization and digital numbers
@@ -18,7 +18,7 @@ Linear quantization with \(Q\) bits over the range \([L_{min},L_{max}]\):
 Gains and offsets come from pre-launch and on-board calibration (lamps, solar diffusers, deep space views) and are distributed in the image metadata.
 
 * Example
-Landsat 8 OLI quantizes at 12 bits (4096 levels, delivered in 16-bit words); Sentinel-2 delivers 16-bit products; older sensors used 8 bits (256 levels).
+[[id:earth-observation-missions][Landsat]] 8 OLI quantizes at 12 bits (4096 levels, delivered in 16-bit words); [[id:copernicus-sentinel][Sentinel-2]] delivers 16-bit products; older sensors used 8 bits (256 levels).
 
 * Intuition
 A DN is a measurement in arbitrary units: meaningful within one band of one image, comparable across images only after conversion to radiance or reflectance.

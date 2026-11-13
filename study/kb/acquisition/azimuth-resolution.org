@@ -17,7 +17,7 @@
 The beam illuminates along-track a strip of width \(\beta R\). Two targets within that strip return echoes during the same pulses and cannot be distinguished by timing. With diffraction-limited beamwidth \(\beta\approx\lambda/L\) the result follows.
 
 * Example
-C band, \(\lambda=5.6\) cm, \(R=850\) km, \(L=10\) m: \(r_A\approx4.8\) km. To get 5 m one would need \(L\approx9.5\) km. Airborne at \(R=10\) km with \(L=3\) m: about 190 m.
+[[id:radar-bands][C band]], \(\lambda=5.6\) cm, \(R=850\) km, \(L=10\) m: \(r_A\approx4.8\) km. To get 5 m one would need \(L\approx9.5\) km. Airborne at \(R=10\) km with \(L=3\) m: about 190 m.
 
 * Intuition
 A real antenna is a torch: the farther the wall, the wider the spot, and everything inside the spot looks like one point.

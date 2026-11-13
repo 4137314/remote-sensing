@@ -11,20 +11,27 @@
 #+summary: Because a radar orders points by distance, relief distorts its images: slopes facing the radar appear compressed and bright (foreshortening), very steep ones have their top imaged before their foot (layover), and slopes facing away steeper than the beam receive no energy (shadow).
 
 * Definition
-Let \(\alpha\) be the terrain slope towards the radar and \(\theta\) the incidence angle on flat ground.
+Let \(\alpha\) be the terrain slope towards the radar and \(\theta\) the [[id:backscattering-coefficient][incidence angle]] on flat ground.
 - *Foreshortening* (\(0<\alpha<\theta\)): the slope facing the radar is mapped to fewer range cells than its ground length; energy from the whole slope is concentrated: bright, compressed.
 - *Layover* (\(\alpha>\theta\)): the top of the slope is closer to the radar than its foot, so it appears first: the slope is reversed and overlaps with other terrain.
 - *Shadow* (back slope steeper than \(90^\circ-\theta\)): no illumination, no signal: black areas, behind mountains and tall buildings.
 Small incidence angles (steep look) enhance foreshortening and layover; large ones enhance shadow.
 
 * Picture
-\begin{tikzpicture}[font=\scriptsize]
-\fill[kbguide, opacity=0.25] (0,0) -- (1.4,1.6) -- (2.4,0) -- cycle; \draw (0,0) -- (1.4,1.6) -- (2.4,0);
-\foreach \y in {0.3,0.9,1.5,2.1} \draw[kbamber, -{Stealth}] (-1.6,\y+1.2) -- ++(1.5,-1.2);
-\fill[kbmagenta, opacity=0.35] (2.4,0) -- (1.4,1.6) -- (3.6,0) -- cycle; \node[kbmagenta] at (3.2,0.5) {shadow};
-\node at (0.3,1.1) {foreshortening};
-\draw[kbguide] (-1,0) -- (4.2,0);
+\begin{tikzpicture}[font=\scriptsize, >={Stealth}]
+\draw[kbguide] (-0.5,0) -- (10,0);
+\foreach \x in {0,2.4,4.8,7.2} \draw[->, kbamber] (\x-1.6,3.0) -- ++(1.1,-0.9);
+\node[kbamber, anchor=west] at (-1.6,3.25) {radar beam (from the left)};
+\fill[kbguide, opacity=0.25] (0.3,0) -- (1.9,1.0) -- (2.6,0) -- cycle; \draw (0.3,0) -- (1.9,1.0) -- (2.6,0);
+\draw[kbcyan, line width=1.2pt] (0.3,0) -- (1.9,1.0); \node[kbcyan, below] at (1.4,-0.1) {foreshortening};
+\fill[kbguide, opacity=0.25] (4.0,0) -- (4.5,1.6) -- (5.6,0) -- cycle; \draw (4.0,0) -- (4.5,1.6) -- (5.6,0);
+\draw[kbamber, line width=1.2pt] (4.0,0) -- (4.5,1.6); \node[kbamber, below] at (4.7,-0.1) {layover};
+\fill[kbguide, opacity=0.25] (6.6,0) -- (7.4,1.4) -- (7.9,0) -- cycle; \draw (6.6,0) -- (7.4,1.4) -- (7.9,0);
+\fill[kbmagenta, opacity=0.35] (7.4,1.4) -- (7.9,0) -- (9.2,0) -- cycle; \node[kbmagenta, below] at (8.3,-0.1) {shadow};
 \end{tikzpicture}
+
+* Worked example
+Incidence angle on flat ground \(\theta=23^\circ\) (ERS). A slope of 30° facing the radar exceeds \(\theta\): layover — its top is imaged before its foot. A slope of 15° facing the radar: foreshortening, local incidence \(\theta-\alpha=8^\circ\), very bright. A back slope steeper than \(90^\circ-23^\circ=67^\circ\) is in shadow; with Sentinel-1 at \(\theta=40^\circ\) layover needs slopes above 40° but shadow starts at 50°.
 
 * Intuition
 Mountains lean towards a radar, the opposite of an optical image where tall objects lean away from nadir.

@@ -4,7 +4,7 @@
 :AREA:     images
 :KIND:     definition
 :REQUIRES: image-histogram
-:SEE:      homogeneous-area-statistics texture-features
+:SEE:      homogeneous-area-statistics texture-features principal-component-analysis
 :ALIASES:  mean, variance, standard deviation, mode, median, skewness, kurtosis, moments, contrast
 :END:
 #+title: Image statistics: moments, mode, median

@@ -4,7 +4,7 @@
 :AREA:     radiation
 :KIND:     theorem
 :REQUIRES: radiometric-quantities
-:SEE:      wien-stefan-boltzmann gray-body sun-earth-radiation
+:SEE:      wien-stefan-boltzmann gray-body sun-earth-radiation brightness-temperature
 :ALIASES:  Planck's law, black body, blackbody radiation, spectral exitance
 :END:
 #+title: Black body and Planck's law
@@ -17,7 +17,7 @@ with \(c=2.99\times10^8\) m s\(^{-1}\), \(h=6.62\times10^{-34}\) J s, \(k=1.38\t
 
 * Picture
 \begin{tikzpicture}
-\begin{axis}[width=7.2cm, height=4.8cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$B/B_{\max}$}, xmin=0.1, xmax=20, ymin=0, ymax=1.1, xmode=log, legend pos=north east]
+\begin{axis}[width=7.2cm, height=4.8cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$B/B_{\max}$}, xmin=0.1, xmax=20, ymin=0, ymax=1.1, xmode=log]
 \addplot+[domain=0.1:20, samples=200] {(1/(x^5*(exp(14388/(x*5778))-1))) / (1/(0.501^5*(exp(14388/(0.501*5778))-1)))}; \addlegendentry{5778 K}
 \addplot+[domain=2:20, samples=150] {(1/(x^5*(exp(14388/(x*300))-1))) / (1/(9.66^5*(exp(14388/(9.66*300))-1)))}; \addlegendentry{300 K}
 \end{axis}
@@ -27,7 +27,10 @@ Normalised Planck curves of the Sun and the Earth: peaks near 0.5 µm and 9.7 µ
 * Consequences
 - the area under the curve grows as \(T^4\) and the peak moves to shorter \(\lambda\) as \(T\) grows ([[id:wien-stefan-boltzmann][Stefan–Boltzmann and Wien]]);
 - curves for different \(T\) never cross: at every \(\lambda\) a hotter body emits more;
-- for \(\lambda T\gg c_2\) (microwaves) \(B\approx c_1\lambda^{-4}T/c_2\): radiance proportional to temperature (Rayleigh–Jeans), the basis of passive microwave radiometry.
+- for \(\lambda T\gg c_2\) (microwaves) \(B\approx c_1\lambda^{-4}T/c_2\): radiance proportional to temperature (Rayleigh–Jeans), the basis of passive [[id:electromagnetic-spectrum][microwave]] radiometry.
+
+* Worked example
+Total solar exitance: \(\sigma T^4=5.67\times10^{-8}\cdot5778^4\approx6.3\times10^7\) W m\(^{-2}\). At the Earth this is diluted by \((R_\odot/d)^2=(6.96\times10^8/1.496\times10^{11})^2\approx2.16\times10^{-5}\): \(\approx1360\) W m\(^{-2}\), the solar constant. The Earth at 288 K emits \(\sigma T^4\approx390\) W m\(^{-2}\), mostly beyond 4 µm.
 
 * Intuition
 Temperature fixes both how much a body glows and in what colour: a stove plate goes from invisible infrared to red to orange as it heats.

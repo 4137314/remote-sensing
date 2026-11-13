@@ -13,16 +13,19 @@
 * Definition
 The DN of band \(b\) at pixel \((x_0,y_0)\) is, up to calibration,
 \[ \mathrm{DN}_b(x_0,y_0)\propto\int\!\!\int\!\!\int L(x,y,\lambda)\,\mathrm{PSF}(x-x_0,y-y_0)\,R_b(\lambda)\,dx\,dy\,d\lambda, \]
-with \(\mathrm{PSF}\) the spatial response (optics diffraction, detector size, image motion, electronics) and \(R_b\) the relative spectral response of band \(b\). Ideal integration would use rectangles; real ones are bell-shaped with tails. The Fourier transform of the PSF is the modulation transfer function (MTF): how much contrast survives at each spatial frequency.
+with \(\mathrm{PSF}\) the spatial response (optics diffraction, detector size, image motion, electronics) and \(R_b\) the relative spectral response of band \(b\). Ideal integration would use rectangles; real ones are bell-shaped with tails. The [[id:discrete-fourier-transform][Fourier transform]] of the PSF is the modulation transfer function (MTF): how much contrast survives at each spatial frequency.
 
 * Picture
 \begin{tikzpicture}
-\begin{axis}[width=6.8cm, height=4cm, axis lines=left, xlabel={$x$ (pixels)}, ylabel={response}, xmin=-2.5, xmax=2.5, ymin=0, ymax=1.15, legend pos=north east]
+\begin{axis}[width=6.8cm, height=4cm, axis lines=left, xlabel={$x$ (pixels)}, ylabel={response}, xmin=-2.5, xmax=2.5, ymin=0, ymax=1.15]
 \addplot+[const plot, no marks] coordinates {(-2.5,0) (-0.5,1) (0.5,0) (2.5,0)}; \addlegendentry{ideal}
 \addplot+[domain=-2.5:2.5, samples=100] {exp(-x^2/(2*0.45^2))}; \addlegendentry{real PSF}
 \end{axis}
 \end{tikzpicture}
 The real response reaches into the neighbouring pixels.
+
+* Worked example
+A Gaussian PSF with \(\sigma=0.42\) pixel has full width at half maximum \(2\sqrt{2\ln2}\,\sigma\approx1\) pixel. Its MTF \(e^{-2\pi^2\sigma^2f^2}\) at the Nyquist frequency \(f=0.5\) cycles/pixel is \(e^{-2\pi^2\cdot0.176\cdot0.25}\approx0.42\): patterns at the finest resolvable scale keep 42% of their contrast.
 
 * Intuition
 Every pixel is a little blurred mixture of its neighbours, and every band a little mixture of nearby colours.

@@ -13,14 +13,14 @@
 * Definition
 The aim of a sensor is to measure reflected or emitted radiance. Every measurement integrates the radiation over a range of wavelengths, an area on the ground and a time interval, which limits its accuracy.
 
-| | measures (non-imaging) | imaging |
-|---+---+---|
-| passive | radiometers, spectrometers, passive microwave | photo camera, thermal camera, multispectral and hyperspectral scanners |
-| active | radar altimeter, scatterometer, lidar profiler | camera with flash, side-looking radar, SAR, imaging lidar, GPR |
+|         | measures (non-imaging)            | imaging                             |
+|---------+-----------------------------------+-------------------------------------|
+| passive | radiometers, spectrometers        | cameras, thermal cameras, scanners  |
+| active  | altimeters, scatterometers, lidar | side-looking radar, SAR, lidar, GPR |
 
 * Comparison
 - passive optical: rich spectral information, needs sunlight (reflective bands) and clear sky;
-- active microwave: day and night, through clouds, sensitive to geometry, roughness and moisture; harder to interpret (speckle, side-looking geometry);
+- active [[id:electromagnetic-spectrum][microwave]]: day and night, through clouds, sensitive to geometry, [[id:backscattering-coefficient][roughness]] and moisture; harder to interpret (speckle, side-looking geometry);
 - lidar: precise 3-D structure (canopy height, terrain), small swaths.
 
 * Intuition

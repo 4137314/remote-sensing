@@ -16,7 +16,7 @@
 *Co-occurrence matrix* (Haralick): for an offset \((d,\theta)\), \(P(i,j)\) = normalised count of pixel pairs with values \(i\) and \(j\) at that offset (levels usually requantized to 16–64). Features:
 \[ \mathrm{Contrast}=\sum_{i,j}(i-j)^2P(i,j),\quad \mathrm{Homogeneity}=\sum_{i,j}\frac{P(i,j)}{1+|i-j|},\]
 \[ \mathrm{Entropy}=-\sum_{i,j}P(i,j)\log P(i,j),\quad \mathrm{Energy}=\sum_{i,j}P(i,j)^2. \]
-Computed in a moving window, each feature becomes a new band for classification.
+Computed in a [[id:moving-window-filters][moving window]], each feature becomes a new band for classification.
 
 * Example
 #+begin_src python

@@ -26,7 +26,7 @@
 \end{algorithmic}
 
 * Choices
-- initialisation: manual seeds, pixels with the lowest local variance, or atomic regions from a split step;
+- initialisation: manual seeds, pixels with the lowest local [[id:image-statistics][variance]], or [[id:split-and-merge][atomic regions]] from a split step;
 - criterion: distance from the region mean (optical), ratio to the region mean (SAR), multiband distance;
 - connectivity: 4- or 8-neighbours.
 

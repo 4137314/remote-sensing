@@ -4,7 +4,7 @@
 :AREA:     classification
 :KIND:     method
 :REQUIRES: discriminant-functions
-:SEE:      artificial-neuron multilayer-perceptron
+:SEE:      artificial-neuron multilayer-perceptron support-vector-machine
 :ALIASES:  perceptron, perceptron algorithm, Rosenblatt, perceptron convergence theorem, linear separability, learning rate
 :END:
 #+title: Perceptron algorithm
@@ -35,4 +35,4 @@ If some \(\mathbf w^\ast\) separates the data with margin \(\gamma\) (\(y_k\math
 Every mistake tilts the boundary a little towards the right side of the misclassified pixel.
 
 * Pitfall
-On non-separable data (almost always, in remote sensing) the perceptron never stops oscillating; one stops after a fixed number of epochs or uses a decreasing learning rate, or a multilayer network.
+On non-separable data (almost always, in [[id:remote-sensing-system][remote sensing]]) the perceptron never stops oscillating; one stops after a fixed number of epochs or uses a decreasing [[id:backpropagation][learning rate]], or a multilayer network.

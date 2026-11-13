@@ -4,7 +4,7 @@
 :AREA:     corrections
 :KIND:     method
 :REQUIRES: geometric-distortions
-:SEE:      radar-geometric-distortions change-detection
+:SEE:      radar-geometric-distortions change-detection pansharpening
 :ALIASES:  geocoding, georeferencing, image registration, ground control points, GCP, polynomial warping, resampling, nearest neighbour, bilinear, cubic convolution, orthorectification, RMSE
 :END:
 #+title: Geometric correction, geocoding and registration
@@ -17,7 +17,7 @@
 4. *Resampling*: for each output pixel compute \((u,v)\) (inverse mapping, so no holes) and interpolate:
    - *nearest neighbour*: keeps original DNs (good before classification), blocky;
    - *bilinear*: 4 neighbours, smooth, slightly blurred;
-   - *cubic convolution*: 16 neighbours, sharper, may overshoot.
+   - *cubic [[id:moving-window-filters][convolution]]*: 16 neighbours, sharper, may overshoot.
 *Geocoding*: to map coordinates. *Registration*: to another image (co-registration for change detection). *Orthorectification*: with a DEM, removing relief.
 
 * Example

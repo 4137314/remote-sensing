@@ -4,7 +4,7 @@
 :AREA:     classification
 :KIND:     method
 :REQUIRES: recognition-system
-:SEE:      gaussian-maximum-likelihood multilayer-perceptron photointerpretation
+:SEE:      gaussian-maximum-likelihood multilayer-perceptron photointerpretation training-validation
 :ALIASES:  confusion matrix, error matrix, overall accuracy, kappa coefficient, producer accuracy, user accuracy, omission error, commission error, validation set, test set
 :END:
 #+title: Accuracy assessment and the confusion matrix
@@ -19,11 +19,12 @@ Confusion matrix \(C_{ij}\) (rows: map, columns: reference), total \(n\).
 
 * Example
 | map \ reference | water | forest | urban | total |
-|---+---+---+---+---|
-| water | 48 | 1 | 1 | 50 |
-| forest | 0 | 45 | 5 | 50 |
-| urban | 2 | 4 | 44 | 50 |
-| total | 50 | 50 | 50 | 150 |
+|-----------------+-------+--------+-------+-------|
+| water           | 48    | 1      | 1     | 50    |
+| forest          | 0     | 45     | 5     | 50    |
+| urban           | 2     | 4      | 44    | 50    |
+|-----------------+-------+--------+-------+-------|
+| total           | 50    | 50     | 50    | 150   |
 OA \(=137/150=91.3\%\); \(p_e=3\cdot(50\cdot50)/150^2=1/3\); \(\kappa=(0.913-0.333)/(0.667)=0.87\). Urban: producer's \(44/50=88\%\), user's \(44/50=88\%\).
 
 * Intuition

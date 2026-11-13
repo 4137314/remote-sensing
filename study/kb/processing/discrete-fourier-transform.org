@@ -4,14 +4,14 @@
 :AREA:     filtering
 :KIND:     definition
 :REQUIRES: digital-image
-:SEE:      frequency-domain-filtering moving-window-filters point-spread-function
+:SEE:      frequency-domain-filtering moving-window-filters point-spread-function convolution-theorem sampling-aliasing
 :ALIASES:  DFT, 2-D DFT, Fourier transform, spatial frequency, magnitude spectrum, FFT, fftshift, IDFT
 :END:
 #+title: Two-dimensional discrete Fourier transform
 #+summary: The 2-D DFT writes an \(N\times M\) image as a sum of sinusoidal patterns, \(I_F(k_y,k_x)=\sum_{y,x}I(y,x)\,e^{-j2\pi(k_yy/N+k_xx/M)}\); it is periodic, Hermitian-symmetric for real images, its value at the origin is \(NM\) times the mean, low frequencies hold smooth variations and high frequencies edges and details.
 
 * Definition
-1-D: \(D(k)=\sum_{x=0}^{M-1}d(x)e^{-j2\pi kx/M}\), \(d(x)=\frac1M\sum_k D(k)e^{j2\pi kx/M}\), periodic with period \(M\); the largest representable frequency (Nyquist) is \(k=M/2\).
+1-D: \(D(k)=\sum_{x=0}^{M-1}d(x)e^{-j2\pi kx/M}\), \(d(x)=\frac1M\sum_k D(k)e^{j2\pi kx/M}\), periodic with period \(M\); the largest representable frequency ([[id:sampling-aliasing][Nyquist]]) is \(k=M/2\).
 2-D:
 \[ I_F(k_y,k_x)=\sum_{y=0}^{N-1}\sum_{x=0}^{M-1}I(y,x)\,e^{-j2\pi\left(\frac{k_yy}{N}+\frac{k_xx}{M}\right)}, \]
 \[ I(y,x)=\frac{1}{NM}\sum_{k_y,k_x}I_F(k_y,k_x)\,e^{j2\pi\left(\frac{k_yy}{N}+\frac{k_xx}{M}\right)}. \]

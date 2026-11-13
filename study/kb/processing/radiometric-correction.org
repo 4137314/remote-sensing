@@ -4,7 +4,7 @@
 :AREA:     corrections
 :KIND:     method
 :REQUIRES: digital-number atmospheric-scattering
-:SEE:      geometric-distortions geometric-correction atmospheric-windows
+:SEE:      geometric-distortions geometric-correction atmospheric-windows change-detection
 :ALIASES:  radiometric distortion, radiometric correction, atmospheric correction, dark object subtraction, striping, line dropout, destriping, calibration, top of atmosphere reflectance, surface reflectance
 :END:
 #+title: Radiometric errors and corrections
@@ -12,12 +12,12 @@
 
 * Method
 *Sensor errors*
-- *striping*: detectors of a whiskbroom or pushbroom with slightly different gains; corrected by matching each detector's mean and variance to the global ones (histogram matching per detector line);
+- *striping*: detectors of a [[id:scanner-geometry][whiskbroom]] or pushbroom with slightly different gains; corrected by matching each detector's mean and [[id:image-statistics][variance]] to the global ones (histogram matching per detector line);
 - *line dropouts*: missing lines, replaced by the average of the neighbouring lines;
-- *calibration*: DN to at-sensor radiance with gain and offset from the metadata.
+- *calibration*: DN to [[id:toa-reflectance][at-sensor radiance]] with gain and offset from the metadata.
 *Atmosphere and illumination*
 - top-of-atmosphere reflectance: \(\rho_{TOA}=\dfrac{\pi L\,d^2}{E_{sun}\cos\theta_s}\), removing sun angle \(\theta_s\) and Earth–Sun distance \(d\);
-- *dark object subtraction*: deep water or shadow should have near-zero reflectance; the minimum DN of each band estimates the path radiance and is subtracted (larger in the blue);
+- *dark object subtraction*: deep water or shadow should have near-zero reflectance; the minimum DN of each band estimates the [[id:atmospheric-scattering][path radiance]] and is subtracted (larger in the blue);
 - radiative transfer models (6S, MODTRAN, Sen2Cor) estimate aerosol and water vapour to obtain surface reflectance;
 - topographic correction: \(\cos i\) of the local illumination angle on slopes.
 
@@ -35,4 +35,4 @@
 First make all pixels of a band measure the same thing in the same units; then remove what the air added and subtracted.
 
 * Pitfall
-Multi-date analyses (change detection, time series) are the most sensitive to radiometric inconsistencies: an uncorrected haze difference looks exactly like a change on the ground.
+Multi-date analyses ([[id:change-detection][change detection]], time series) are the most sensitive to radiometric inconsistencies: an uncorrected haze difference looks exactly like a change on the ground.

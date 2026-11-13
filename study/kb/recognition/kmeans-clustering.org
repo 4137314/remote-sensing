@@ -4,7 +4,7 @@
 :AREA:     classification
 :KIND:     method
 :REQUIRES: feature-space minimum-distance-classifier
-:SEE:      scattergram recognition-system
+:SEE:      scattergram recognition-system unsupervised-change-detection
 :ALIASES:  k-means, clustering, unsupervised classification, ISODATA, centroid, within-cluster variance
 :END:
 #+title: k-means clustering

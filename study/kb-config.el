@@ -22,3 +22,7 @@
 ;; Display formulas are rendered as inline $\displaystyle ...$: a wide text block keeps
 ;; them on one line instead of letting TeX break them at relations.
 (kb-preamble-add "\\setlength{\\textwidth}{40cm}")
+
+;; Plots: legend in one row above the axes, never on top of the curves; a little more room
+;; between tick labels and axis labels.
+(kb-preamble-add "\\pgfplotsset{every axis/.append style={legend style={at={(0.5,1.04)}, anchor=south, legend columns=-1, /tikz/every even column/.append style={column sep=8pt}}, xlabel style={yshift=-2pt}, ylabel style={yshift=2pt}}}")

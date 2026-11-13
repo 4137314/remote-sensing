@@ -14,7 +14,7 @@
 Error for one sample, squared form: \(E=\tfrac12\sum_c(y_c-t_c)^2\). With \(a_j=\sum_iw_{ji}h_i\), \(h_j=g(a_j)\):
 \[ \frac{\partial E}{\partial w_{ji}}=\delta_j\,h_i, \]
 \[ \delta_j=\begin{cases}g'(a_j)\,(y_j-t_j) & j \text{ output}\\[2pt] g'(a_j)\sum_kw_{kj}\delta_k & j \text{ hidden}\end{cases} \]
-Update \(w_{ji}\gets w_{ji}-\eta\,\delta_jh_i\) (plus momentum). With softmax and cross-entropy the output error simplifies to \(\delta_j=y_j-t_j\).
+Update \(w_{ji}\gets w_{ji}-\eta\,\delta_jh_i\) (plus momentum). With [[id:multilayer-perceptron][softmax]] and cross-entropy the output error simplifies to \(\delta_j=y_j-t_j\).
 
 * Algorithm
 \begin{algorithmic}[1]
@@ -34,4 +34,4 @@ Update \(w_{ji}\gets w_{ji}-\eta\,\delta_jh_i\) (plus momentum). With softmax an
 Blame flows backwards: each neuron receives a share of the output error proportional to how much it contributed, and adjusts its weights accordingly.
 
 * Pitfall
-Gradient descent finds local minima and is sensitive to the learning rate and to feature scaling; sigmoid networks with many layers suffer vanishing gradients, one reason deep networks use ReLU.
+Gradient descent finds local minima and is sensitive to the [[id:perceptron][learning rate]] and to feature scaling; sigmoid networks with many layers suffer vanishing gradients, one reason deep networks use ReLU.

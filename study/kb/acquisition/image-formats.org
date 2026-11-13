@@ -12,11 +12,11 @@
 
 * Definition
 Offset of sample \((b,y,x)\) in a flat array:
-| format | order | offset |
-|---+---+---|
-| BSQ, band sequential | band, line, pixel | \(b\,NM+y\,M+x\) |
-| BIL, band interleaved by line | line, band, pixel | \(y\,BM+b\,M+x\) |
-| BIP/BIS, band interleaved by pixel | line, pixel, band | \((y\,M+x)B+b\) |
+| format                   | order on disk     | offset of sample (b, y, x) |
+|--------------------------+-------------------+----------------------------|
+| BSQ, band sequential     | band, line, pixel | b·N·M + y·M + x            |
+| BIL, interleaved by line | line, band, pixel | y·B·M + b·M + x            |
+| BIP/BIS, by pixel        | line, pixel, band | (y·M + x)·B + b            |
 
 * Example
 #+begin_src python
@@ -27,7 +27,7 @@ Offset of sample \((b,y,x)\) in a flat array:
 #+end_src
 
 * Intuition
-BSQ is a stack of single-band pictures; BIP is a list of spectra; BIL is in between and matches how a pushbroom acquires a line.
+BSQ is a stack of single-band pictures; BIP is a list of spectra; BIL is in between and matches how a [[id:scanner-geometry][pushbroom]] acquires a line.
 
 * Pitfall
 Reading a pixel's spectrum from a large BSQ file touches \(B\) distant locations on disk; reading one band from BIP touches every pixel. Pick the layout for the dominant operation or convert once.

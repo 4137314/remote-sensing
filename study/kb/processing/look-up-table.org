@@ -16,7 +16,7 @@ A LUT is a function \(f:\{0,\dots,2^Q-1\}\to\{0,\dots,255\}\), stored as an arra
 the slope \(255/(\mathrm{DN}_b-\mathrm{DN}_a)\) fixes the contrast.
 
 * Example
-Sentinel-2 delivers 16-bit data (\(0\)–\(65535\)); a natural scene occupies maybe \(0\)–\(4000\). Mapping the full 16-bit range to 256 levels would squeeze the scene into the first 16 gray levels: almost black. A LUT on \([\mathrm{DN}_a,\mathrm{DN}_b]=[0,3000]\) uses the whole display range.
+[[id:copernicus-sentinel][Sentinel-2]] delivers 16-bit data (\(0\)–\(65535\)); a natural scene occupies maybe \(0\)–\(4000\). Mapping the full 16-bit range to 256 levels would squeeze the scene into the first 16 gray levels: almost black. A LUT on \([\mathrm{DN}_a,\mathrm{DN}_b]=[0,3000]\) uses the whole display range.
 #+begin_src python
   lut = np.clip(np.round(255 * np.arange(65536) / 3000), 0, 255).astype(np.uint8)
   gl = lut[img[3]]                      # one memory access per pixel

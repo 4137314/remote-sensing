@@ -4,7 +4,7 @@
 :AREA:     radar
 :KIND:     definition
 :REQUIRES: radar-equation
-:SEE:      radar-bands sar-complex-image radar-geometric-distortions
+:SEE:      radar-bands sar-complex-image radar-geometric-distortions sar-polarimetry
 :ALIASES:  sigma nought, backscattering coefficient, polarization, HH, HV, VH, VV, incidence angle, roughness, Rayleigh criterion, dielectric constant, specular reflection, double bounce, volume scattering
 :END:
 #+title: Backscattering coefficient
@@ -15,10 +15,10 @@
 
 System parameters:
 - *wavelength*: longer waves penetrate deeper into vegetation and dry soil (X: canopy top; C: canopy; L and P: branches, trunks, ground);
-- *polarization*: transmit and receive horizontally (H) or vertically (V): HH, VV co-polarized; HV, VH cross-polarized, sensitive to volume scattering (vegetation);
-- *incidence angle* \(\theta\): \(\sigma^0\) decreases with \(\theta\), fast for smooth surfaces.
+- *polarization*: transmit and receive horizontally (H) or vertically (V): HH, VV co-polarized; HV, VH cross-polarized, sensitive to [[id:sar-polarimetry][volume scattering]] (vegetation);
+- *[[id:side-looking-radar][incidence angle]]* \(\theta\): \(\sigma^0\) decreases with \(\theta\), fast for smooth surfaces.
 Surface parameters:
-- *roughness*: smooth if height variations \(h<\lambda/(8\cos\theta)\) (Rayleigh criterion), giving specular reflection away from the sensor (calm water: black);
+- *roughness*: smooth if height variations \(h<\lambda/(8\cos\theta)\) (Rayleigh criterion), giving [[id:lambertian-surface][specular reflection]] away from the sensor (calm water: black);
 - *dielectric constant*: water raises it, so wet soil and vegetation backscatter more;
 - *geometry*: slopes facing the radar are bright, dihedral corners (building–ground) give strong double-bounce returns.
 
@@ -29,6 +29,9 @@ Surface parameters:
 \foreach \a in {30,60,90,120,150} \draw[->, kbcyan] (4.1,0.1) -- ++(\a:0.7); \node at (4.1,-0.35) {rough: diffuse};
 \draw[kbguide] (6,0) -- (7.6,0) -- (7.6,1.2); \draw[->, kbamber] (6,0.9) -- (7.2,0.05) -- (7.55,0.6); \draw[->, kbcyan] (7.55,0.6) -- (6.1,1.15); \node at (6.8,-0.35) {corner: double bounce};
 \end{tikzpicture}
+
+* Worked example
+\(\sigma^0\) values are compared in dB: a field at −8 dB and a lake at −22 dB differ by 14 dB, a factor \(10^{1.4}\approx25\) in power. Averaging must be done in linear units: the mean of −10 dB and −20 dB is \(10\log_{10}((0.1+0.01)/2)=-12.6\) dB, not −15 dB. Rayleigh criterion in C band (\(\lambda=5.6\) cm) at \(\theta=35^\circ\): smooth if \(h<5.6/(8\cos35^\circ)\approx0.85\) cm — a ploughed field (several cm) is rough, a calm lake smooth.
 
 * Intuition
 A radar image is a map of roughness, wetness and geometry seen from the side, not a map of colour.

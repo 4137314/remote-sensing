@@ -1,0 +1,46 @@
+:PROPERTIES:
+:ID:       principal-component-analysis
+:DOMAIN:   processing
+:AREA:     enhancement
+:KIND:     method
+:REQUIRES: multispectral-hyperspectral-image image-statistics
+:SEE:      feature-extraction hughes-phenomenon pansharpening change-detection
+:ALIASES:  PCA, principal components, Karhunen-Loeve transform, eigenvectors, covariance matrix, decorrelation, dimensionality reduction, MNF
+:END:
+#+title: Principal component analysis of multispectral images
+#+summary: Adjacent bands are strongly correlated; rotating pixel vectors onto the eigenvectors of the band covariance matrix, \(\mathbf y=W^\top(\mathbf x-\boldsymbol\mu)\), gives uncorrelated components ordered by variance — the first few hold almost all the information, the last ones mostly noise — used for compression, visualisation, feature reduction and change detection.
+
+* Method
+1. covariance \(\Sigma=\frac1{n-1}\sum(\mathbf x-\boldsymbol\mu)(\mathbf x-\boldsymbol\mu)^\top\) over the pixels;
+2. eigen-decomposition \(\Sigma=W\Lambda W^\top\), \(\lambda_1\ge\dots\ge\lambda_B\);
+3. components \(\mathbf y=W^\top(\mathbf x-\boldsymbol\mu)\): \(\mathrm{Cov}(\mathbf y)=\Lambda\) diagonal;
+4. keep the first \(k\) with \(\sum_{i\le k}\lambda_i/\sum_i\lambda_i\ge\) e.g. 99%.
+
+* Derivation
+Maximise the [[id:image-statistics][variance]] of a projection \(\mathbf w^\top\mathbf x\), \(\mathrm{Var}=\mathbf w^\top\Sigma\mathbf w\), with \(\|\mathbf w\|=1\). The Lagrangian \(\mathbf w^\top\Sigma\mathbf w-\lambda(\mathbf w^\top\mathbf w-1)\) gives \(\Sigma\mathbf w=\lambda\mathbf w\): the optimum is the eigenvector of the largest eigenvalue, and the variance equals \(\lambda\). Repeating orthogonally to the previous directions gives the other components.
+
+* Example
+#+begin_src python
+  X = cube.reshape(B, -1).T.astype(float)           # pixels x bands
+  Xc = X - X.mean(0)
+  lam, W = np.linalg.eigh(np.cov(Xc.T)); order = lam.argsort()[::-1]
+  lam, W = lam[order], W[:, order]
+  pcs = (Xc @ W).T.reshape(B, rows, cols)
+  print(np.cumsum(lam) / lam.sum())                 # e.g. 0.91, 0.98, 0.995, ...
+#+end_src
+For a 6-band image PC1 is roughly overall brightness, PC2 the contrast between visible and NIR (vegetation), later components noise and [[id:radiometric-correction][striping]].
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize, >={Stealth}]
+\draw[->] (0,0) -- (4,0) node[right] {band 1}; \draw[->] (0,0) -- (0,3) node[above] {band 2};
+\draw[kbcyan, fill=kbcyan, fill opacity=0.15, rotate around={35:(2,1.4)}] (2,1.4) ellipse (1.6 and 0.45);
+\draw[->, kbamber, line width=1pt] (2,1.4) -- ++(35:1.5) node[right] {PC1};
+\draw[->, kbmagenta, line width=1pt] (2,1.4) -- ++(125:0.6) node[above left] {PC2};
+\end{tikzpicture}
+Correlated bands form an elongated cloud; PC1 runs along it, PC2 across.
+
+* Intuition
+Turn the axes of the [[id:feature-space][feature space]] until they line up with the shape of the data cloud: then each new axis says something the others do not.
+
+* Pitfall
+PCA ranks by variance, not by class separability: a small but discriminant signal (a rare crop, a subtle change) may sit in a low-variance component that gets discarded.

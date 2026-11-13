@@ -1,0 +1,27 @@
+:PROPERTIES:
+:ID:       sar-polarimetry
+:DOMAIN:   acquisition
+:AREA:     radar
+:KIND:     definition
+:REQUIRES: backscattering-coefficient sar-complex-image
+:SEE:      radar-bands earth-observation-missions
+:ALIASES:  polarimetry, PolSAR, scattering matrix, Sinclair matrix, Pauli decomposition, surface scattering, double bounce, volume scattering, quad-pol, dual-pol
+:END:
+#+title: SAR polarimetry
+#+summary: A fully polarimetric radar measures the complex scattering matrix \(S=\begin{pmatrix}S_{HH}&S_{HV}\\S_{VH}&S_{VV}\end{pmatrix}\) of each cell; decompositions such as Pauli separate surface (single-bounce), double-bounce and volume scattering, which map naturally onto bare soil and water, buildings and tree trunks, and vegetation canopies.
+
+* Definition
+The scattering matrix relates transmitted and received fields in the H/V basis; in the monostatic case \(S_{HV}=S_{VH}\). Acquisition modes: single-pol (one channel), dual-pol (e.g. VV+VH, [[id:copernicus-sentinel][Sentinel-1]]), quad-pol (all four, RADARSAT-2, [[id:earth-observation-missions][Biomass]]).
+
+*Pauli decomposition*:
+\[ \mathbf k=\frac{1}{\sqrt2}\big(S_{HH}+S_{VV},\ S_{HH}-S_{VV},\ 2S_{HV}\big). \]
+- \(|S_{HH}+S_{VV}|^2\): odd-bounce (surface) scattering — blue;
+- \(|S_{HH}-S_{VV}|^2\): even-bounce (dihedral) scattering — red;
+- \(|2S_{HV}|^2\): [[id:backscattering-coefficient][volume scattering]] (random orientations) — green.
+The [[id:false-color-composite][RGB composite]] reads directly as soil/water, buildings, vegetation.
+
+* Intuition
+A wave hitting a flat surface keeps its polarization; bouncing twice in a corner flips the sign between H and V; a tangle of branches scrambles it. Measuring all combinations tells the mechanisms apart.
+
+* Pitfall
+A building rotated with respect to the radar's look direction no longer acts as a clean dihedral and shows up as "volume" scattering; orientation-angle compensation is needed before interpreting decompositions.

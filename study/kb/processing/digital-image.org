@@ -4,7 +4,7 @@
 :AREA:     images
 :KIND:     definition
 :REQUIRES: digital-number
-:SEE:      look-up-table image-histogram multispectral-hyperspectral-image image-formats
+:SEE:      look-up-table image-histogram multispectral-hyperspectral-image image-formats discrete-fourier-transform moving-window-filters
 :ALIASES:  digital image, pixel, matrix, gray level, image as matrix, NumPy array
 :END:
 #+title: Digital images
@@ -13,8 +13,8 @@
 * Definition
 \(I(y,x)\), \(1\le y\le N\) (rows), \(1\le x\le M\) (columns); value \(I(y,x)=\mathrm{DN}\in\{0,\dots,2^Q-1\}\). Multiband: \(I(y,x,b)\). Operations split into
 - *point* (radiometric): the new value depends only on the old value of the same pixel (look-up tables, stretching, band ratios);
-- *local* (spatial): it depends on a neighbourhood (filters, edges, texture);
-- *global*: it depends on the whole image (Fourier transform, histogram equalisation).
+- *local* (spatial): it depends on a neighbourhood (filters, edges, [[id:texture-features][texture]]);
+- *global*: it depends on the whole image ([[id:discrete-fourier-transform][Fourier transform]], histogram [[id:histogram-equalization][equalisation]]).
 
 * Example
 #+begin_src python

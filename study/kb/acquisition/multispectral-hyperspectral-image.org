@@ -4,7 +4,7 @@
 :AREA:     optical-sensors
 :KIND:     model
 :REQUIRES: sensor-resolutions spectral-signature
-:SEE:      image-formats false-color-composite feature-space digital-image
+:SEE:      image-formats false-color-composite feature-space digital-image principal-component-analysis spectral-unmixing
 :ALIASES:  multispectral image, hyperspectral image, image cube, panchromatic, multispectral scanner, imaging spectrometer, bands
 :END:
 #+title: Multispectral and hyperspectral images
@@ -13,19 +13,26 @@
 * Model
 \[ I(x,y,b)=\int\!\!\int\!\!\int_{\text{cell}(x,y)\times\text{band }b} L(x',y',\lambda)\,dx'\,dy'\,d\lambda, \]
 for \(b=1,\dots,B\).
-- *Multispectral*: \(B\approx4\)–15, bands of 30–200 nm placed in atmospheric windows and on key features (red, NIR, SWIR). Example: Landsat TM, Sentinel-2 (13 bands).
+- *Multispectral*: \(B\approx4\)–15, bands of 30–200 nm placed in atmospheric windows and on key features (red, NIR, SWIR). Example: [[id:earth-observation-missions][Landsat]] TM, [[id:copernicus-sentinel][Sentinel-2]] (13 bands).
 - *Hyperspectral* (imaging spectrometers, since the 1980s): \(B\approx100\)–400 contiguous bands of ~10 nm over 0.4–2.5 µm (AVIRIS, PRISMA). Fine sampling of the signature allows identifying materials (minerals, pigments) and estimating physical parameters, at the cost of huge data volumes, redundancy between bands and lower SNR per band.
 
 * Picture
-\begin{tikzpicture}[font=\scriptsize]
-\foreach \k in {4,3,2,1,0} {\draw[fill=white, fill opacity=0.0, draw=kbcyan] (\k*0.25,\k*0.25) rectangle (2+\k*0.25,2+\k*0.25);}
-\node at (1,-0.25) {$x$}; \node at (-0.25,1) {$y$}; \draw[-{Stealth}] (2.2,0.1) -- (3.2,1.1) node[right] {$b$};
-\draw[kbamber, line width=1.5pt] (1.4,1.2) -- (2.4,2.2); \node[kbamber, right] at (2.5,2.1) {pixel vector $\mathbf{x}\in\mathbb{R}^B$};
+\begin{tikzpicture}[font=\scriptsize, >={Stealth}]
+\draw[kbcyan, fill=kbcyan, fill opacity=0.12] (0,0) rectangle (2.2,2.2);
+\draw[kbcyan] (0,2.2) -- (1.0,3.0) -- (3.2,3.0) -- (2.2,2.2); \draw[kbcyan] (2.2,0) -- (3.2,0.8) -- (3.2,3.0);
+\foreach \k in {0.25,0.5,0.75} \draw[kbcyan, opacity=0.5] (2.2+\k*1.0,\k*0.8) -- (2.2+\k*1.0,2.2+\k*0.8);
+\draw[kbamber, line width=1.6pt] (1.2,1.3) -- (2.2,2.1);
+\fill[kbamber] (1.2,1.3) circle (0.05);
+\node[below] at (1.1,0) {$x$}; \node[left] at (0,1.1) {$y$}; \draw[->] (3.35,0.9) -- (3.85,1.3) node[right] {band $b$};
+\draw[kbamber, ->] (2.0,3.5) node[above] {pixel vector $\mathbf x\in\mathbb R^B$} -- (1.8,1.85);
 \end{tikzpicture}
 Two spatial axes and one spectral axis; a pixel is a line through the cube.
+
+* Worked example
+A \(1000\times1000\) scene: Sentinel-2-like with 13 bands at 12 bits: \(1.56\times10^8\) bits ≈ 19.5 MB; PRISMA-like with 240 bands at 12 bits: 360 MB for the same area. A Gaussian classifier needs \(p(p+3)/2\) parameters per class: 104 for 13 bands, 29 160 for 240 — the root of the [[id:hughes-phenomenon][Hughes phenomenon]].
 
 * Intuition
 A colour photo has three bands; a hyperspectral image is a photo with a spectrometer behind every pixel.
 
 * Pitfall
-More bands do not automatically give better classification: with few training samples, high dimensionality makes estimates unreliable (Hughes phenomenon), so feature selection or extraction is needed.
+More bands do not automatically give better classification: with few training samples, high dimensionality makes estimates unreliable ([[id:hughes-phenomenon][Hughes phenomenon]]), so [[id:feature-extraction][feature selection]] or extraction is needed.

@@ -1,0 +1,38 @@
+:PROPERTIES:
+:ID:       spectral-unmixing
+:DOMAIN:   recognition
+:AREA:     features
+:KIND:     method
+:REQUIRES: multispectral-hyperspectral-image feature-space
+:SEE:      ndvi hughes-phenomenon
+:ALIASES:  spectral unmixing, linear mixing model, endmember, abundance, mixed pixel, sub-pixel classification, fully constrained least squares
+:END:
+#+title: Linear spectral unmixing
+#+summary: A pixel larger than the objects it contains is a mixture: the linear mixing model writes its spectrum as \(\mathbf x=E\mathbf a+\mathbf n\), a combination of the endmember spectra \(E\) weighted by abundances \(a_j\ge0\), \(\sum a_j=1\); solving the constrained least-squares problem gives sub-pixel fractions instead of a single label.
+
+* Method
+With \(B\) bands and \(q\) endmembers (\(q\le B+1\)), \(E\in\mathbb R^{B\times q}\):
+\[ \hat{\mathbf a}=\arg\min_{\mathbf a}\|\mathbf x-E\mathbf a\|^2\quad\text{s.t.}\quad a_j\ge0,\ \textstyle\sum_ja_j=1. \]
+- unconstrained solution \(\hat{\mathbf a}=(E^\top E)^{-1}E^\top\mathbf x\);
+- sum-to-one only: closed form with a Lagrange multiplier;
+- fully constrained (FCLS): quadratic programming.
+Endmembers come from libraries, field spectra, or the image itself (pure pixels at the vertices of the data cloud's simplex, e.g. N-FINDR, vertex component analysis). The residual \(\|\mathbf x-E\hat{\mathbf a}\|\) flags missing endmembers.
+
+* Example
+A 30 m pixel with 60% grass, 30% soil, 10% road: \(\mathbf x\approx0.6\,\mathbf e_{grass}+0.3\,\mathbf e_{soil}+0.1\,\mathbf e_{asphalt}\). Fraction maps of impervious surfaces or vegetation cover are produced this way from [[id:earth-observation-missions][Landsat]].
+
+* Picture
+\begin{tikzpicture}[font=\scriptsize]
+\draw[-{Stealth}] (0,0) -- (4,0) node[right] {band 1}; \draw[-{Stealth}] (0,0) -- (0,3) node[above] {band 2};
+\coordinate (g) at (0.6,2.6); \coordinate (s) at (3.4,1.6); \coordinate (r) at (1.2,0.4);
+\fill[kbcyan, opacity=0.15] (g) -- (s) -- (r) -- cycle; \draw[kbcyan] (g) -- (s) -- (r) -- cycle;
+\fill[kbgreen] (g) circle (0.07) node[above] {grass}; \fill[kbamber] (s) circle (0.07) node[right] {soil}; \fill[kbmagenta] (r) circle (0.07) node[below] {asphalt};
+\fill (1.6,1.6) circle (0.06) node[below] {mixed pixel};
+\end{tikzpicture}
+Mixed pixels lie inside the simplex of the endmembers; their barycentric coordinates are the abundances.
+
+* Intuition
+A pixel is a smoothie: knowing the taste of each fruit, the taste of the mix tells the proportions.
+
+* Pitfall
+Mixing is linear only when materials sit side by side; intimate mixtures (sand grains) and multiple scattering in canopies are non-linear, and endmember variability (many "grasses") blurs the estimates.

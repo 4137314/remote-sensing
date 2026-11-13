@@ -1,0 +1,27 @@
+:PROPERTIES:
+:ID:       pansharpening
+:DOMAIN:   processing
+:AREA:     enhancement
+:KIND:     method
+:REQUIRES: sensor-resolutions geometric-correction
+:SEE:      principal-component-analysis false-color-composite
+:ALIASES:  pansharpening, image fusion, IHS fusion, Brovey transform, Gram-Schmidt, high-pass filter fusion, panchromatic band
+:END:
+#+title: Pansharpening
+#+summary: Sensors pair a fine panchromatic band with coarser multispectral bands; pansharpening injects the spatial detail of the pan band into the co-registered, upsampled multispectral image — by component substitution (IHS, PCA, Gram–Schmidt) or by adding the pan's high-pass detail — trading some spectral fidelity for resolution.
+
+* Method
+Co-register and resample the multispectral bands \(M_b\) to the pan grid.
+- *Brovey*: \(\hat M_b=M_b\,\dfrac{P}{\frac1B\sum_kM_k}\): each band rescaled by the ratio of pan to mean intensity.
+- *IHS substitution* (3 bands): transform RGB to intensity–hue–saturation, replace \(I\) with the pan (histogram-matched), transform back. Equivalent to \(\hat M_b=M_b+(P-I)\).
+- *PCA / Gram–Schmidt*: replace the first component (or a synthetic low-resolution pan) with the pan.
+- *High-pass injection*: \(\hat M_b=M_b+g_b\,(P-P_{LP})\), where \(P_{LP}\) is the pan blurred to the multispectral resolution: only detail is added, preserving the spectra.
+
+* Example
+WorldView-3: pan 0.31 m, multispectral 1.24 m: pansharpened RGB at 0.31 m. Quality is assessed spectrally (spectral angle, ERGAS against degraded references) and spatially (correlation of high-pass details with the pan).
+
+* Intuition
+Take the colours from the blurry photo and the sharpness from the black-and-white one.
+
+* Pitfall
+The pan band's spectral range does not match the sum of the multispectral bands (it often extends into the NIR): substitution methods then distort colours, especially of vegetation. Sharpened products are for viewing and object delineation; radiometric analysis should use the original bands.

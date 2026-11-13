@@ -21,16 +21,19 @@ Activation functions:
 The weights are the network's memory: learning means adapting them.
 
 * Machine learning
-A learning system maps a data space into a decision space; it works in a *training* phase (estimate the function from examples) and a *test* phase (apply it). Training can be *supervised* (input–label pairs), *unsupervised* (no labels, the network organises the data), or *hybrid*. Compared with a von Neumann computer, biological networks are massively parallel, distributed, adaptive, fault tolerant and energy-efficient; computers are fast at numerical computation over large data — neural networks borrow the former's organisation and run on the latter.
+A learning system maps a data space into a decision space; it works in a *training* phase (estimate the function from examples) and a *test* phase (apply it). Training can be *supervised* (input–label pairs), *[[id:recognition-system][unsupervised]]* (no labels, the network organises the data), or *hybrid*. Compared with a von Neumann computer, biological networks are massively parallel, distributed, adaptive, fault tolerant and energy-efficient; computers are fast at numerical computation over large data — neural networks borrow the former's organisation and run on the latter.
 
 * Picture
 \begin{tikzpicture}
-\begin{axis}[width=6.6cm, height=4cm, axis lines=middle, xlabel={$a$}, ylabel={$g(a)$}, xmin=-4, xmax=4, ymin=-1.2, ymax=2, legend pos=south east]
+\begin{axis}[width=6.6cm, height=4cm, axis lines=middle, xlabel={$a$}, ylabel={$g(a)$}, xmin=-4, xmax=4, ymin=-1.2, ymax=1.8, xlabel style={at={(1,0.42)}, anchor=west}]
 \addplot+[domain=-4:4, samples=100] {1/(1+exp(-x))}; \addlegendentry{sigmoid}
 \addplot+[domain=-4:4, samples=100] {tanh(x)}; \addlegendentry{tanh}
 \addplot+[domain=-4:4, samples=100] {max(0,x)/2}; \addlegendentry{ReLU (scaled)}
 \end{axis}
 \end{tikzpicture}
+
+* Worked example
+Inputs \(\mathbf x=(0.5,0.2)\), weights \(\mathbf w=(1.2,-0.8)\), bias \(w_0=0.1\): \(a=0.6-0.16+0.1=0.54\). Outputs: step \(1\), sigmoid \(1/(1+e^{-0.54})=0.632\), tanh \(0.493\), ReLU \(0.54\). The sigmoid derivative there is \(0.632\cdot0.368=0.233\): a weight update by backpropagation is scaled by it.
 
 * Intuition
 A neuron is a soft vote: it sums weighted evidence and answers more or less strongly depending on how much the sum exceeds its threshold.

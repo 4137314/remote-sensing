@@ -4,7 +4,7 @@
 :AREA:     atmosphere
 :KIND:     definition
 :REQUIRES: electromagnetic-spectrum
-:SEE:      atmospheric-scattering radiometric-correction radar-bands
+:SEE:      atmospheric-scattering radiometric-correction radar-bands spectral-signature
 :ALIASES:  atmospheric window, transmittance, absorption bands, water vapour absorption, CO2 absorption
 :END:
 #+title: Atmospheric transmittance and windows

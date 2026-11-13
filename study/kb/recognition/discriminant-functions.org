@@ -4,14 +4,14 @@
 :AREA:     classification
 :KIND:     definition
 :REQUIRES: feature-space
-:SEE:      minimum-distance-classifier perceptron bayes-classifier
+:SEE:      minimum-distance-classifier perceptron bayes-classifier support-vector-machine
 :ALIASES:  discriminant function, decision rule, decision region, decision boundary, linear discriminant, hyperplane
 :END:
 #+title: Discriminant functions and decision regions
 #+summary: A classifier for \(C\) classes is a set of discriminant functions \(g_1(\mathbf x),\dots,g_C(\mathbf x)\): the pixel goes to the class with the largest value; the decision boundary between \(\omega_i\) and \(\omega_j\) is \(g_i=g_j\), a hyperplane when the \(g_i\) are linear.
 
 * Definition
-Decision rule: \(\mathbf x\in\omega_i\iff g_i(\mathbf x)>g_j(\mathbf x)\ \forall j\ne i\). Decision regions \(\mathcal R_i\) partition the feature space. For two classes a single \(g=g_1-g_2\) suffices: \(\omega_1\) if \(g>0\).
+Decision rule: \(\mathbf x\in\omega_i\iff g_i(\mathbf x)>g_j(\mathbf x)\ \forall j\ne i\). Decision regions \(\mathcal R_i\) partition the [[id:feature-space][feature space]]. For two classes a single \(g=g_1-g_2\) suffices: \(\omega_1\) if \(g>0\).
 
 Linear discriminants: \(g_i(\mathbf x)=\mathbf w_i^\top\mathbf x+w_{i0}\); the boundary \((\mathbf w_i-\mathbf w_j)^\top\mathbf x+(w_{i0}-w_{j0})=0\) is a hyperplane. Any monotonic transformation \(f(g_i)\) gives the same classifier (e.g. \(\log\) of probabilities).
 
@@ -20,9 +20,12 @@ Linear discriminants: \(g_i(\mathbf x)=\mathbf w_i^\top\mathbf x+w_{i0}\); the b
 \draw[-{Stealth}] (0,0) -- (4,0) node[right] {$x_1$}; \draw[-{Stealth}] (0,0) -- (0,3) node[above] {$x_2$};
 \foreach \p in {(0.6,2.2),(0.9,2.5),(0.5,1.8),(1.1,2.0),(0.8,2.7)} \fill[kbcyan] \p circle (0.06);
 \foreach \p in {(2.6,0.8),(3.0,1.1),(2.8,0.5),(3.3,0.9),(2.4,1.2)} \fill[kbamber] \p circle (0.06);
-\draw[kbmagenta, line width=1pt] (0.6,0.2) -- (3.4,2.8); \node[kbmagenta] at (3.7,2.6) {$g(\mathbf x)=0$};
+\draw[kbmagenta, line width=1pt] (0.6,0.2) -- (3.4,2.8); \node[kbmagenta, anchor=west] at (3.45,2.85) {$g(\mathbf x)=0$};
 \node[kbcyan] at (0.6,2.95) {$g>0$}; \node[kbamber] at (3.3,0.2) {$g<0$};
 \end{tikzpicture}
+
+* Worked example
+Two classes with means \(\boldsymbol\mu_1=(2,4)\), \(\boldsymbol\mu_2=(5,1)\) and minimum-distance discriminants \(g_i=\boldsymbol\mu_i^\top\mathbf x-\frac12\|\boldsymbol\mu_i\|^2\): \(g_1=2x_1+4x_2-10\), \(g_2=5x_1+x_2-13\). Boundary \(g_1=g_2\): \(-3x_1+3x_2+3=0\), i.e. \(x_2=x_1-1\), the perpendicular bisector of the two means. The pixel \((3,3)\): \(g_1=8\), \(g_2=5\): class 1.
 
 * Intuition
 Each class has a scoring function; a pixel goes to whichever class scores it highest. Classifiers differ only in how they build the scores.

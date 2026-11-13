@@ -4,7 +4,7 @@
 :AREA:     segmentation
 :KIND:     method
 :REQUIRES: image-segmentation image-histogram
-:SEE:      change-detection bayes-classifier
+:SEE:      change-detection bayes-classifier morphological-operations
 :ALIASES:  thresholding, histogram threshold, Otsu method, bimodal histogram, binary mask, water mask
 :END:
 #+title: Histogram thresholding
@@ -13,7 +13,7 @@
 * Method
 For a threshold \(T\): class 0 = \(\{\mathrm{DN}\le T\}\), class 1 = \(\{\mathrm{DN}>T\}\), with weights \(\omega_0(T)=H(T)\), \(\omega_1=1-\omega_0\), means \(\mu_0,\mu_1\). Otsu:
 \[ T^\ast=\arg\max_T\ \sigma_B^2(T)=\omega_0\,\omega_1\,(\mu_0-\mu_1)^2, \]
-equivalent to minimising the within-class variance; computed in one pass over the histogram. Bayesian alternative: fit two densities and put \(T\) where \(P_0p_0(T)=P_1p_1(T)\) (minimum error).
+equivalent to minimising the within-class [[id:image-statistics][variance]]; computed in one pass over the histogram. Bayesian alternative: fit two densities and put \(T\) where \(P_0p_0(T)=P_1p_1(T)\) ([[id:bayes-classifier][minimum error]]).
 
 * Example
 Water mapping: water is dark in NIR and in SAR intensity, land bright; one threshold gives a binary water mask.

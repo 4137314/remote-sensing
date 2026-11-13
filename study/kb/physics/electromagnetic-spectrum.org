@@ -4,7 +4,7 @@
 :AREA:     radiation
 :KIND:     definition
 :REQUIRES: remote-sensing-system
-:SEE:      atmospheric-windows radar-bands planck-law spectral-signature
+:SEE:      atmospheric-windows radar-bands planck-law spectral-signature radiometric-quantities
 :ALIASES:  EM spectrum, wavelength, frequency, visible, NIR, SWIR, MWIR, TIR, thermal infrared, microwave, spectral regions
 :END:
 #+title: Electromagnetic spectrum and spectral regions
@@ -13,30 +13,34 @@
 * Definition
 \(\lambda f=c\), \(c\approx3\times10^8\) m/s; photon energy \(E=hf\). From short to long: gamma rays, X rays, ultraviolet, visible (380–750 nm), infrared, microwaves, radio waves. No source or sensor covers the whole range.
 
-| region | \(\lambda\) (µm) | source | surface property |
-|---+---+---+---|
-| Visible (V) | 0.4–0.7 | Sun | reflectance |
-| Near infrared (NIR) | 0.7–1.1 | Sun | reflectance |
-| Short-wave IR (SWIR) | 1.1–1.35, 1.4–1.8, 2–2.5 | Sun | reflectance |
-| Mid-wave IR (MWIR) | 3–4, 4.5–5 | Sun and Earth | reflectance and temperature |
-| Thermal IR (TIR) | 8–9.5, 10–14 | Earth | temperature, emissivity |
-| Microwave | \(10^3\)–\(10^6\) | Earth (passive), sensor (active) | temperature, roughness, moisture |
+| region    | λ (μm)             | source        | property                         |
+|-----------+--------------------+---------------+----------------------------------|
+| visible   | 0.4–0.7            | Sun           | reflectance                      |
+| NIR       | 0.7–1.1            | Sun           | reflectance                      |
+| SWIR      | 1.1–2.5, 3 windows | Sun           | reflectance                      |
+| MWIR      | 3–4, 4.5–5         | Sun, Earth    | reflectance, temperature         |
+| TIR       | 8–9.5, 10–14       | Earth         | temperature, emissivity          |
+| microwave | 10³–10⁶            | Earth, sensor | temperature, roughness, moisture |
 
 The gaps between the intervals are absorption bands of water vapour and CO\(_2\): see [[id:atmospheric-windows][atmospheric windows]].
 
 * Picture
-\begin{tikzpicture}[font=\scriptsize]
-\draw[-{Stealth}] (0,0) -- (9.5,0) node[right] {$\lambda$};
-\foreach \x/\l in {0.5/1 nm,2.5/1\,$\mu$m,5/1 mm,7/1 m,9/1 km} {\draw (\x,-0.1) -- (\x,0.1); \node[below] at (\x,-0.1) {\l};}
-\fill[kbviolet, opacity=0.5] (2.2,0.15) rectangle (2.45,0.5); \node[above] at (2.3,0.5) {VIS};
-\fill[kbmagenta, opacity=0.4] (2.45,0.15) rectangle (4.5,0.5); \node[above] at (3.5,0.5) {infrared};
-\fill[kbcyan, opacity=0.4] (4.5,0.15) rectangle (7,0.5); \node[above] at (5.8,0.5) {microwave};
-\fill[kbguide, opacity=0.3] (0.5,0.15) rectangle (2.2,0.5); \node[above] at (1.3,0.5) {UV, X};
+\begin{tikzpicture}[font=\scriptsize, x=0.62cm]
+\draw[->] (-12.4,0) -- (3.6,0) node[right] {$\lambda$};
+\foreach \e/\l in {-12/1 pm,-9/1 nm,-6/1\,$\mu$m,-3/1 mm,0/1 m,3/1 km} {\draw (\e,-0.08) -- (\e,0.08); \node[below] at (\e,-0.1) {\l};}
+\fill[kbguide, opacity=0.35] (-12.4,0.15) rectangle (-8,0.55); \node at (-10.2,0.35) {$\gamma$, X};
+\fill[kbviolet, opacity=0.45] (-8,0.15) rectangle (-6.42,0.55); \node at (-7.2,0.35) {UV};
+\fill[kbgreen, opacity=0.8] (-6.42,0.15) rectangle (-6.12,0.55);
+\draw[kbgreen, ->] (-6.27,1.3) node[above] {visible 0.38--0.75\,$\mu$m} -- (-6.27,0.6);
+\fill[kbmagenta, opacity=0.4] (-6.12,0.15) rectangle (-3,0.55); \node at (-4.56,0.35) {infrared};
+\fill[kbcyan, opacity=0.4] (-3,0.15) rectangle (0,0.55); \node at (-1.5,0.35) {microwave};
+\fill[kbamber, opacity=0.35] (0,0.15) rectangle (3.4,0.55); \node at (1.7,0.35) {radio};
+\draw[decorate, decoration={brace, amplitude=4pt, mirror}] (-6.42,-0.6) -- (0,-0.6) node[midway, below=4pt] {used in Earth remote sensing};
 \end{tikzpicture}
-Logarithmic wavelength axis: the visible is a thin slice.
+Logarithmic wavelength axis, one tick per factor 1000: the visible is a thin slice of the range used by [[id:remote-sensing-system][remote sensing]].
 
 * Intuition
 Each region answers a different question: colour and vegetation in the reflective bands, temperature in the thermal ones, geometry and moisture in the microwaves.
 
 * Pitfall
-Bands are named differently by different missions (Landsat "SWIR1", Sentinel-2 "B11"); always reason with the wavelength interval, not the label.
+Bands are named differently by different missions ([[id:earth-observation-missions][Landsat]] "SWIR1", [[id:copernicus-sentinel][Sentinel-2]] "B11"); always reason with the wavelength interval, not the label.

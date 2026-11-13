@@ -13,19 +13,22 @@
 * Definition
 A composite \((b_R,b_G,b_B)\) displays band \(b_R\) in red, \(b_G\) in green, \(b_B\) in blue, each through its own stretch (LUT).
 - *True colour*: (red, green, blue): as the eye would see, with haze in the blue.
-- *Colour infrared* (NIR, red, green): healthy vegetation red, urban areas cyan-grey, water dark blue-black, bare soil brown.
+- *Colour infrared* (NIR, red, green): healthy vegetation red, [[id:remote-sensing-applications][urban areas]] cyan-grey, water dark blue-black, bare soil brown.
 - *SWIR composites* (SWIR2, NIR, red or SWIR, NIR, green): burn scars, moisture, geology, snow (dark in SWIR) vs cloud (bright).
 - *SAR*: multi-polarization (VV, VH, VV/VH) or multi-temporal (date 1, date 2, date 1) composites show change as colour.
 
 * Example
 #+begin_src python
-  def stretch(b): lo, hi = np.percentile(b, [2, 98]); return np.clip((b - lo) / (hi - lo), 0, 1)
-  cir = np.dstack([stretch(nir), stretch(red), stretch(green)])   # Sentinel-2 B8, B4, B3
+  def stretch(b):
+      lo, hi = np.percentile(b, [2, 98])
+      return np.clip((b - lo) / (hi - lo), 0, 1)
+  # Sentinel-2 B8, B4, B3
+  cir = np.dstack([stretch(nir), stretch(red), stretch(green)])
   plt.imshow(cir)
 #+end_src
 
 * Intuition
-False colour translates invisible wavelengths into visible colours, so the eye can use its excellent pattern recognition on information it cannot see.
+False colour translates invisible wavelengths into visible colours, so the eye can use its excellent [[id:recognition-system][pattern recognition]] on information it cannot see.
 
 * Pitfall
 Colours in a false-colour image are not physical colours; interpretation requires knowing which band is in which channel and how each was stretched.

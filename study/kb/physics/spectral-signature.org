@@ -12,14 +12,14 @@
 
 * Definition
 \(\rho(\lambda)=E_r(\lambda)/E_i(\lambda)\) as a function of \(\lambda\) depends on the composition, structure and geometry of the surface. Typical shapes:
-- *green vegetation*: chlorophyll absorbs blue and red, small green peak (~0.55 µm), steep rise (red edge, ~0.7 µm) to a high NIR plateau due to leaf cell structure, dips at the water absorption bands 1.4 and 1.9 µm;
+- *green vegetation*: chlorophyll absorbs blue and red, small green peak (~0.55 µm), steep rise (red edge, ~0.7 µm) to a high NIR plateau due to leaf cell structure, dips at the water [[id:atmospheric-windows][absorption bands]] 1.4 and 1.9 µm;
 - *water*: low in the visible, almost zero in NIR and SWIR;
 - *bare soil*: increases slowly with \(\lambda\), lower with moisture and organic matter;
 - *snow*: very high in the visible, dropping in the SWIR (snow and cloud separable there).
 
 * Picture
 \begin{tikzpicture}
-\begin{axis}[width=7.2cm, height=4.6cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$\rho$}, xmin=0.4, xmax=2.5, ymin=0, ymax=0.6, legend pos=north east]
+\begin{axis}[width=7.2cm, height=4.6cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$\rho$}, xmin=0.4, xmax=2.5, ymin=0, ymax=0.6]
 \addplot+[domain=0.4:2.5, samples=200] {(x<0.68) * (0.05+0.06*exp(-((x-0.55)/0.04)^2)) + (x>=0.68)*(0.05+0.45/(1+exp(-(x-0.72)/0.015))) - 0.25*exp(-((x-1.45)/0.07)^2) - 0.3*exp(-((x-1.95)/0.08)^2) - (x>1.3)*0.12*(x-1.3)}; \addlegendentry{vegetation}
 \addplot+[domain=0.4:2.5, samples=100] {0.08+0.12*(x-0.4)}; \addlegendentry{soil}
 \addplot+[domain=0.4:2.5, samples=100] {0.08*exp(-(x-0.4)/0.15)}; \addlegendentry{water}
@@ -28,6 +28,9 @@
 
 * Variability
 A given land cover shows many realisations: static factors (slope, exposure) and dynamic ones (soil moisture, growth stage, atmospheric transmittance) change the curve. The signature of a class is therefore a random process, and recognition must model its statistics ([[id:feature-space][feature space]], [[id:bayes-classifier][Bayes]]).
+
+* Worked example
+Reflectances: grass red 0.05, NIR 0.45; soil red 0.20, NIR 0.28; water red 0.04, NIR 0.01. NDVI \(=(N-R)/(N+R)\): grass 0.80, soil 0.17, water −0.60. The red band alone barely separates grass from water (0.05 vs 0.04); the NIR band or the index separates all three.
 
 * Intuition
 Materials have colours beyond the visible; the infrared "colour" of vegetation is its brightest feature.

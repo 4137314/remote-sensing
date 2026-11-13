@@ -11,21 +11,21 @@
 #+summary: Optical and radar remote sensing with automatic image analysis serve environmental monitoring, risk analysis and civil protection, climate change, natural resources, agriculture and food security, forestry, urban areas, the cryosphere, meteorology and planetary exploration; each pairs specific sensors with specific processing.
 
 * Example
-| application | data | processing |
-|---+---+---|
-| floods | SAR (Sentinel-1, COSMO-SkyMed): calm water is dark, through clouds | thresholding, log-ratio change detection |
-| fires and burnt areas | MWIR/TIR (fire detection), SWIR+NIR (burn scars, NBR) | thresholds, multitemporal indices |
-| landslides, subsidence | SAR interferometry | phase differences over time series |
-| agriculture | multispectral time series (Sentinel-2), SAR | NDVI phenology, crop classification, yield estimation |
-| forestry | optical, lidar, L/P-band SAR (Biomass) | classification, canopy height, biomass regression |
-| urban areas | very high resolution optical, X-band SAR | object-based classification, CNNs, change detection |
-| cryosphere | SAR, optical (NDSI), altimetry | snow cover, glacier velocity, sea ice |
-| climate and atmosphere | thermal, spectrometers (Sentinel-5P), altimeters | sea-surface temperature, trace gases, sea level |
-| meteorology | geostationary imagers (Meteosat) | cloud tracking, nowcasting |
-| planetary exploration | radar sounders, cameras on probes (Mars, icy moons) | subsurface detection, mapping |
+| application        | data                    | processing                |
+|--------------------+-------------------------+---------------------------|
+| floods             | SAR (water is dark)     | thresholds, log-ratio     |
+| fires, burnt areas | MWIR, TIR, SWIR + NIR   | thresholds, NBR in time   |
+| landslides         | SAR interferometry      | phase time series         |
+| agriculture        | Sentinel-2 series, SAR  | NDVI phenology, crop maps |
+| forestry           | optical, lidar, L/P SAR | classes, height, biomass  |
+| urban areas        | VHR optical, X-band SAR | objects, CNNs, change     |
+| cryosphere         | SAR, NDSI, altimetry    | snow, glacier speed, ice  |
+| climate            | thermal, spectrometers  | SST, gases, sea level     |
+| meteorology        | geostationary imagers   | cloud tracking            |
+| planets            | radar sounders, cameras | subsurface, mapping       |
 
 * Intuition
 The same chain — acquisition, processing, recognition — answers very different questions; what changes is the choice of wavelength, revisit, resolution and algorithm for the phenomenon at hand.
 
 * Pitfall
-A product is only useful if validated against ground truth in the area and season where it is used: maps transferred to new regions without validation can be confidently wrong.
+A product is only useful if validated against [[id:training-validation][ground truth]] in the area and season where it is used: maps transferred to new regions without validation can be confidently wrong.

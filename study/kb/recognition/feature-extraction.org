@@ -4,7 +4,7 @@
 :AREA:     features
 :KIND:     method
 :REQUIRES: recognition-system
-:SEE:      ndvi texture-features feature-space image-segmentation
+:SEE:      ndvi texture-features feature-space image-segmentation hughes-phenomenon
 :ALIASES:  feature extraction, feature selection, pixel-based, region-based, object-based, normalization, feature vector, spectral indices
 :END:
 #+title: Feature extraction
@@ -14,7 +14,7 @@
 Input: multispectral and/or multiband, multipolarization images, pre-processed. Features:
 - unaltered bands;
 - indices from band ratios and differences ([[id:ndvi][NDVI]], water and snow indices) that enhance a property and reduce illumination effects;
-- [[id:texture-features][texture]] (variance, entropy, co-occurrence measures).
+- [[id:texture-features][texture]] ([[id:image-statistics][variance]], entropy, co-occurrence measures).
 Approaches:
 - *pixel-based*: one feature vector per pixel; the output is a set of feature images, one per feature. Suitable when classes are internally homogeneous at the image resolution.
 - *region-based*: segment first, then compute region descriptors (mean DN, area, perimeter, compactness, texture). Suitable for very high resolution images where objects span many heterogeneous pixels.
@@ -33,4 +33,4 @@ Approaches:
 Features are the questions the classifier is allowed to ask about a pixel; good questions make the answer easy.
 
 * Pitfall
-More features are not always better: with few training samples, adding weak features lowers accuracy (Hughes phenomenon).
+More features are not always better: with few training samples, adding weak features lowers accuracy ([[id:hughes-phenomenon][Hughes phenomenon]]).

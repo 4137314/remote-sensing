@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       morphological-operations
+:DOMAIN:   processing
+:AREA:     segmentation
+:KIND:     method
+:REQUIRES: statistical-filters image-thresholding
+:SEE:      region-growing image-segmentation change-detection
+:ALIASES:  mathematical morphology, erosion, dilation, opening, closing, structuring element, morphological profile, top-hat
+:END:
+#+title: Mathematical morphology
+#+summary: With a small structuring element \(B\), erosion shrinks objects (a pixel stays only if \(B\) fits inside), dilation grows them, opening (erosion then dilation) removes objects and protrusions smaller than \(B\), closing (dilation then erosion) fills gaps and holes smaller than \(B\): the standard clean-up of binary masks and a source of shape features.
+
+* Method
+For a binary image \(X\) and structuring element \(B\) (e.g. a \(3\times3\) square or a disk):
+- *erosion* \(X\ominus B=\{p: B_p\subseteq X\}\) — grey-level version: [[id:statistical-filters][minimum filter]];
+- *dilation* \(X\oplus B=\{p: B_p\cap X\neq\emptyset\}\) — maximum filter;
+- *opening* \(X\circ B=(X\ominus B)\oplus B\): removes small bright objects, keeps the shape of large ones;
+- *closing* \(X\bullet B=(X\oplus B)\ominus B\): fills small dark holes and gaps.
+Opening and closing are idempotent; *morphological profiles* (openings and closings with growing \(B\)) describe the size of structures around each pixel and are strong spatial features for classifying very high resolution images.
+
+* Example
+#+begin_src python
+  from scipy import ndimage
+  water = nir < T                                         # noisy threshold mask
+  # drop isolated pixels
+  clean = ndimage.binary_opening(water, structure=np.ones((3, 3)))
+  # fill gaps in the river
+  clean = ndimage.binary_closing(clean, structure=np.ones((5, 5)))
+#+end_src
+
+* Intuition
+Roll a coin of the size of \(B\) inside the objects (opening) or outside them (closing): whatever the coin cannot reach is erased or filled.
+
+* Pitfall
+The structuring element encodes a scale and a shape: a square \(B\) removes a one-pixel-wide river together with the noise. Choose \(B\) smaller than the narrowest structure to keep.

@@ -1,0 +1,30 @@
+:PROPERTIES:
+:ID:       brightness-temperature
+:DOMAIN:   physics
+:AREA:     radiation
+:KIND:     definition
+:REQUIRES: planck-law gray-body
+:SEE:      sun-earth-radiation electromagnetic-spectrum
+:ALIASES:  brightness temperature, kinetic temperature, inverse Planck, land surface temperature, thermal infrared, split window, emissivity correction
+:END:
+#+title: Brightness temperature and surface temperature
+#+summary: The brightness temperature is the temperature a black body would need to emit the measured radiance, obtained by inverting Planck's law \(T_B=c_2/\big(\lambda\ln(1+c_1\lambda^{-5}/L)\big)\); it underestimates the kinetic temperature of a real surface because \(\varepsilon<1\), so land-surface temperature retrieval corrects for emissivity and atmosphere.
+
+* Definition
+From [[id:radiometric-quantities][spectral radiance]] \(L_\lambda\) (in the form \(L=B/\pi\) for radiance):
+\[ T_B=\frac{c_2}{\lambda\,\ln\!\left(1+\dfrac{c_1'}{\lambda^5L_\lambda}\right)},\qquad c_1'=2hc^2,\ c_2=\frac{hc}{k}=14388\ \mu\mathrm{m\,K}. \]
+[[id:earth-observation-missions][Landsat]] provides it per band as \(T_B=K_2/\ln(1+K_1/L)\) with tabulated \(K_1,K_2\).
+For a [[id:gray-body][gray body]] at kinetic temperature \(T\): \(\varepsilon B(\lambda,T)=B(\lambda,T_B)\), hence \(T_B<T\). In the Rayleigh–Jeans regime (microwaves) \(T_B\approx\varepsilon T\) exactly.
+
+* Example
+At 11 µm, a surface at 300 K with \(\varepsilon=0.95\): \(\partial\ln B/\partial T=c_2/(\lambda T^2)\approx0.0145\) K\(^{-1}\), so a 5% radiance deficit is \(\Delta T\approx-\ln(0.95)/0.0145\approx3.5\) K: \(T_B\approx296.5\) K. Neglecting emissivity costs several kelvin.
+
+* Corrections
+- *emissivity*: from land-cover class or NDVI-based estimates;
+- *atmosphere*: water vapour absorbs and emits; *split-window* algorithms combine two thermal bands (e.g. 11 and 12 µm) whose different absorption cancels most of the effect.
+
+* Intuition
+Brightness temperature is "how hot it looks"; kinetic temperature is "how hot it is". They coincide only for a perfect emitter.
+
+* Pitfall
+Comparing thermal images of surfaces with different emissivity (water, rock, metal roofs) as if they were temperatures mislabels cool materials as hot and vice versa.

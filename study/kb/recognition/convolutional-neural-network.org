@@ -14,7 +14,7 @@
 - *Convolution layer*: \(K\) kernels of size \(k\times k\times C_{in}\), each slid over the input like a [[id:moving-window-filters][moving-window filter]] but with learned weights, producing \(K\) feature maps; weight sharing makes the number of parameters independent of the image size.
 - *Activation*: ReLU.
 - *Pooling*: max or average over \(2\times2\) windows: downsampling, invariance to small shifts.
-- *Head*: fully connected layers + softmax (scene/patch classification) or an upsampling decoder with skip connections (U-Net: pixel-wise maps).
+- *Head*: fully connected layers + [[id:multilayer-perceptron][softmax]] (scene/patch classification) or an upsampling decoder with skip connections (U-Net: pixel-wise maps).
 Trained end to end by [[id:backpropagation][backpropagation]] on large labelled sets; transfer learning reuses networks pre-trained on other images; data augmentation (rotations, flips) compensates for few labels.
 
 * Picture
@@ -27,7 +27,7 @@ Trained end to end by [[id:backpropagation][backpropagation]] on large labelled 
 \end{tikzpicture}
 
 * Intuition
-Instead of choosing texture measures and indices by hand, the network learns which local patterns matter, starting from edges and ending with fields, roofs and roads.
+Instead of choosing [[id:texture-features][texture]] measures and indices by hand, the network learns which local patterns matter, starting from edges and ending with fields, roofs and roads.
 
 * Pitfall
 Deep networks need many labels and generalise poorly to other sensors, regions and seasons than those they were trained on (domain shift); a high test accuracy on patches from the training scene says little about a new country.

@@ -3,7 +3,7 @@
 :DOMAIN:   physics
 :AREA:     systems
 :KIND:     model
-:REQUIRES:
+:REQUIRES: 
 :SEE:      electromagnetic-spectrum passive-active-sensors acquisition-platforms recognition-system remote-sensing-applications
 :ALIASES:  remote sensing, Earth observation, remote sensing process, acquisition processing recognition
 :END:
@@ -13,7 +13,7 @@
 * Definition
 - *General*: acquisition of information about an object with a sensor not in contact with it.
 - *Operational*: acquisition of information about an object by detecting and measuring the electromagnetic field emitted and/or reflected/scattered by it.
-It began with photography and today works in the visible, infrared and microwave regions.
+It began with photography and today works in the visible, infrared and [[id:electromagnetic-spectrum][microwave]] regions.
 
 * Model
 Passive scenario: the Sun irradiates the surface through the atmosphere ([[id:atmospheric-windows][transmittance]]); the surface absorbs, transmits and reflects according to its [[id:spectral-signature][spectral signature]]; the reflected radiance crosses the atmosphere again and reaches the sensor. Active scenario: the sensor (radar, lidar) is its own source.
@@ -32,10 +32,10 @@ Three phases:
 \draw[->, kbamber] (0.3,2.7) -- (2.1,0.35); \draw[->, kbcyan] (2.3,0.35) -- (3.9,2.8);
 \draw[->, kbviolet, dashed] (4.6,3.1) -- (5.6,2.2) node[right] {ground station};
 \end{tikzpicture}
-Source, two passes through the atmosphere, surface interaction, sensor, downlink.
+Source, two passes through the atmosphere, surface interaction, sensor, [[id:satellite-architecture][downlink]].
 
 * Why from space
-Synoptic view at local and global scale, regular revisits, homogeneous measurements over areas with no access. Applications range from urban growth and deforestation to ozone monitoring, civil protection, agriculture, meteorology and planetary exploration.
+Synoptic view at local and global scale, regular revisits, homogeneous measurements over areas with no access. Applications range from urban growth and deforestation to ozone monitoring, civil protection, agriculture, meteorology and [[id:remote-sensing-applications][planetary exploration]].
 
 * Intuition
 A remote sensing image is a physical measurement before it is a picture: every pixel is radiance integrated over a patch of ground, a band of wavelengths and a short time.

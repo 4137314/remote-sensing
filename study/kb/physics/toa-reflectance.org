@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       toa-reflectance
+:DOMAIN:   physics
+:AREA:     atmosphere
+:KIND:     method
+:REQUIRES: lambertian-surface atmospheric-scattering
+:SEE:      radiometric-correction digital-number ndvi
+:ALIASES:  top of atmosphere reflectance, TOA, surface reflectance, at-sensor radiance, radiance to reflectance, solar zenith, Earth-Sun distance, ESUN
+:END:
+#+title: From DN to top-of-atmosphere and surface reflectance
+#+summary: Calibration turns DN into at-sensor radiance \(L=g\,\mathrm{DN}+o\); dividing by the solar irradiance on a horizontal surface gives the top-of-atmosphere reflectance \(\rho_{TOA}=\pi L d^2/(E_{sun}\cos\theta_s)\); removing path radiance and transmittance with an atmospheric model gives surface reflectance, the quantity comparable across dates and sensors.
+
+* Method
+1. *Radiance*: \(L_\lambda=g_\lambda\,\mathrm{DN}+o_\lambda\) (W m\(^{-2}\) sr\(^{-1}\) µm\(^{-1}\)), gain and offset from the metadata.
+2. *TOA reflectance*:
+\[ \rho_{TOA}=\frac{\pi\,L_\lambda\,d^2}{E_{sun,\lambda}\cos\theta_s}, \]
+with \(E_{sun,\lambda}\) the mean exo-atmospheric solar [[id:radiometric-quantities][irradiance]] of the band, \(d\) the Earth–Sun distance in astronomical units, \(\theta_s\) the solar zenith angle.
+3. *[[id:radiometric-correction][Surface reflectance]]*: inverting the at-sensor model of a [[id:lambertian-surface][Lambertian]] surface,
+\[ L_s=\frac{\tau_\uparrow\,\rho\,(E_{sun}\cos\theta_s\,\tau_\downarrow/d^2+E_{sky})}{\pi}+L_p \;\Rightarrow\; \rho=\frac{\pi\,(L_s-L_p)}{\tau_\uparrow(E_{sun}\cos\theta_s\,\tau_\downarrow/d^2+E_{sky})}, \]
+with \(\tau_\downarrow,\tau_\uparrow\) the transmittances, \(E_{sky}\) diffuse sky irradiance, \(L_p\) [[id:atmospheric-scattering][path radiance]], estimated by radiative transfer codes or by dark-object subtraction.
+
+* Example
+Red band, \(L=60\) W m\(^{-2}\) sr\(^{-1}\) µm\(^{-1}\), \(E_{sun}=1550\), \(\theta_s=40^\circ\), \(d=1\): \(\rho_{TOA}=\pi\cdot60/(1550\cdot0.766)\approx0.16\). [[id:copernicus-sentinel][Sentinel-2]] Level-1C products are TOA reflectance (scaled by 10 000), Level-2A surface reflectance.
+
+* Intuition
+Reflectance answers "what fraction of the light that arrived came back?", which removes the Sun's strength, angle and distance from the measurement.
+
+* Pitfall
+TOA reflectance still contains the atmosphere: indices and thresholds tuned on surface reflectance shift when applied to TOA data, most in the blue.

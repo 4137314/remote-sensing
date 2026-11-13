@@ -4,7 +4,7 @@
 :AREA:     filtering
 :KIND:     method
 :REQUIRES: digital-image
-:SEE:      frequency-domain-filtering statistical-filters edge-detection texture-features speckle-filtering
+:SEE:      frequency-domain-filtering statistical-filters edge-detection texture-features speckle-filtering convolution-theorem convolutional-neural-network
 :ALIASES:  convolution, kernel, moving window, mean filter, average filter, box filter, Gaussian smoothing, linear filter, mask
 :END:
 #+title: Moving-window (convolution) filters

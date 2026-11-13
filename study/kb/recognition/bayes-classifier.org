@@ -4,14 +4,14 @@
 :AREA:     classification
 :KIND:     theorem
 :REQUIRES: discriminant-functions
-:SEE:      gaussian-maximum-likelihood image-thresholding spectral-signature
+:SEE:      gaussian-maximum-likelihood image-thresholding spectral-signature unsupervised-change-detection
 :ALIASES:  Bayes rule, Bayes classifier, maximum a posteriori, MAP, minimum error, prior probability, posterior probability, class-conditional density, likelihood
 :END:
 #+title: Bayes decision rule
 #+summary: Assigning each pixel to the class with the largest posterior probability \(P(\omega_i\mid\mathbf x)\propto p(\mathbf x\mid\omega_i)P(\omega_i)\) minimises the probability of error; it needs the class-conditional densities and the prior probabilities, and gives the discriminants \(g_i(\mathbf x)=\ln p(\mathbf x\mid\omega_i)+\ln P(\omega_i)\).
 
 * Statement
-Bayes' theorem: \(P(\omega_i\mid\mathbf x)=\dfrac{p(\mathbf x\mid\omega_i)P(\omega_i)}{p(\mathbf x)}\), \(p(\mathbf x)=\sum_jp(\mathbf x\mid\omega_j)P(\omega_j)\). Decision rule (MAP):
+Bayes' theorem: \(P(\omega_i\mid\mathbf x)=\dfrac{p(\mathbf x\mid\omega_i)P(\omega_i)}{p(\mathbf x)}\), \(p(\mathbf x)=\sum_jp(\mathbf x\mid\omega_j)P(\omega_j)\). [[id:discriminant-functions][Decision rule]] (MAP):
 \[ \mathbf x\in\omega_i\iff p(\mathbf x\mid\omega_i)P(\omega_i)>p(\mathbf x\mid\omega_j)P(\omega_j)\quad\forall j\ne i. \]
 Among all rules, it has the minimum probability of error \(P_e=\int\big(1-\max_iP(\omega_i\mid\mathbf x)\big)p(\mathbf x)\,d\mathbf x\).
 
@@ -32,4 +32,4 @@ The threshold sits where the weighted densities cross, shifted towards the less 
 Pick the most believable explanation of the pixel, weighing how typical the measurement is for each class and how common each class is.
 
 * Pitfall
-Priors matter: estimating them from the training set, where classes are sampled in arbitrary proportions, biases the map; and the rule is only as good as the estimated densities.
+Priors matter: estimating them from the [[id:training-validation][training set]], where classes are sampled in arbitrary proportions, biases the map; and the rule is only as good as the estimated densities.
