@@ -31,6 +31,7 @@ Maximise the [[id:image-statistics][variance]] of a projection \(\mathbf w^\top\
 For a 6-band image PC1 is roughly overall brightness, PC2 the contrast between visible and NIR (vegetation), later components noise and [[id:radiometric-correction][striping]].
 
 * Picture
+#+CAPTION: Principal components of two correlated bands: PC1 lies along the direction of maximum variance and PC2 orthogonal to it.
 \begin{tikzpicture}[font=\scriptsize, >={Stealth}]
 \draw[->] (0,0) -- (4,0) node[right] {band 1}; \draw[->] (0,0) -- (0,3) node[above] {band 2};
 \draw[kbcyan, fill=kbcyan, fill opacity=0.15, rotate around={35:(2,1.4)}] (2,1.4) ellipse (1.6 and 0.45);

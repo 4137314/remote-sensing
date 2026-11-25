@@ -16,6 +16,7 @@ Every body at \(T>0\) K emits electromagnetic radiation depending on \(T\) and o
 with \(c=2.99\times10^8\) m s\(^{-1}\), \(h=6.62\times10^{-34}\) J s, \(k=1.38\times10^{-23}\) J K\(^{-1}\), \(c_1=2\pi c^2h\), \(c_2=hc/k\).
 
 * Picture
+#+CAPTION: Planck spectra normalised to their peaks for the Sun (5778 K) and the Earth (300 K): Wien's law moves the peak from about 0.5 µm to about 10 µm.
 \begin{tikzpicture}
 \begin{axis}[width=7.2cm, height=4.8cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$B/B_{\max}$}, xmin=0.1, xmax=20, ymin=0, ymax=1.1, xmode=log]
 \addplot+[domain=0.1:20, samples=200] {(1/(x^5*(exp(14388/(x*5778))-1))) / (1/(0.501^5*(exp(14388/(0.501*5778))-1)))}; \addlegendentry{5778 K}

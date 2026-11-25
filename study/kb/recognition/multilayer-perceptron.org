@@ -20,6 +20,7 @@ Families: *feed-forward* ([[id:perceptron][perceptron]], MLP, RBF networks, prob
 Properties to balance: *capacity* (how many samples it can memorise, how complex a function it can represent), *pattern complexity* (training samples needed to generalise), *computational complexity* of training.
 
 * Picture
+#+CAPTION: A multilayer perceptron: input features, a hidden layer and one output per class, every layer fully connected to the next.
 \begin{tikzpicture}[font=\scriptsize, n/.style={draw, circle, minimum size=0.45cm, inner sep=0}]
 \foreach \i in {1,...,4} \node[n, draw=kbcyan] (x\i) at (0,-\i*0.7) {};
 \foreach \i in {1,...,5} \node[n, draw=kbamber] (h\i) at (2,-\i*0.7+0.35) {};

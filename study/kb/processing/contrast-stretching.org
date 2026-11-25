@@ -17,6 +17,7 @@
 - *Nonlinear*: \(\mathrm{GL}=c\log(1+\mathrm{DN})\) expands dark tones (useful for SAR amplitude); power laws (gamma) or exponentials expand bright tones; [[id:histogram-equalization][equalisation]] is the data-driven nonlinear case.
 
 * Picture
+#+CAPTION: Contrast-stretching functions mapping digital numbers (DN) to grey levels (GL): identity, linear stretch with saturation, and logarithmic.
 \begin{tikzpicture}
 \begin{axis}[width=6cm, height=4.8cm, axis lines=left, xlabel={DN}, ylabel={GL}, xmin=0, xmax=1000, ymin=0, ymax=270]
 \addplot+[domain=0:1000, samples=2] {0.255*x}; \addlegendentry{identity}

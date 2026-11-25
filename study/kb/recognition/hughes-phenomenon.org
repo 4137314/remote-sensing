@@ -17,6 +17,7 @@ For a [[id:training-validation][training set]] of size \(n\) per class, the expe
 A [[id:gaussian-maximum-likelihood][Gaussian maximum-likelihood classifier]] estimates per class a mean (\(p\) values) and a covariance (\(p(p+1)/2\)): \(p(p+3)/2\) parameters. For \(p=200\) bands that is 20 300 per class; with a few hundred samples \(\hat\Sigma\) is singular (rank \(\le n-1\)) and its inverse meaningless. Estimation error grows with parameters/samples, while the [[id:feature-space][separability]] gained by each new band shrinks: the two curves cross at the peak.
 
 * Picture
+#+CAPTION: The Hughes phenomenon: classification accuracy versus number of features peaks and then falls, earlier with few training samples \(n\) than with many.
 \begin{tikzpicture}
 \begin{axis}[width=7cm, height=4.4cm, axis lines=left, xlabel={number of features $p$}, ylabel={accuracy}, xmin=0, xmax=60, ymin=0.4, ymax=1, ytick=\empty]
 \addplot+[domain=1:60, samples=80] {0.95-0.5*exp(-x/6)-0.004*max(0,x-12)^1.05}; \addlegendentry{$n$ small}

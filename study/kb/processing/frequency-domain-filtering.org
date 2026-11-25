@@ -19,6 +19,7 @@ With \(D=\sqrt{k_x^2+k_y^2}\) the distance from the (centred) origin and cut-off
 Every image equals its low-pass plus its high-pass part.
 
 * Picture
+#+CAPTION: Transfer functions \(H\) versus distance \(D\) from the origin of the spectrum: ideal and Gaussian low-pass, and Gaussian high-pass.
 \begin{tikzpicture}
 \begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={$D$}, ylabel={$H$}, xmin=0, xmax=3, ymin=0, ymax=1.15]
 \addplot+[const plot, no marks] coordinates {(0,1) (1,0) (3,0)}; \addlegendentry{ideal LP}

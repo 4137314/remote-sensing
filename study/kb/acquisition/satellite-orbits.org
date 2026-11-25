@@ -21,6 +21,7 @@
 For a circular orbit of radius \(r\), gravity provides the centripetal force: \(\mu/r^2=\omega^2r\), so \(\omega=\sqrt{\mu/r^3}\) and \(T=2\pi/\omega\). At 700 km altitude, \(r=7078\) km: \(T\approx5930\) s \(\approx99\) min, about 14.5 orbits per day.
 
 * Picture
+#+CAPTION: Orbital elements: the orbit crosses the equatorial plane at the ascending node, with inclination \(i\).
 \begin{tikzpicture}[font=\scriptsize, >={Stealth}]
 \fill[kbcyan, opacity=0.25] (0,0) circle (0.9);
 \draw[kbguide] (0,0) ellipse (2.6 and 0.6); \node[kbguide, anchor=west] at (2.7,0) {equatorial plane};

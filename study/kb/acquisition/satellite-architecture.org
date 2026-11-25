@@ -19,6 +19,7 @@
 - *Launch*: a launch vehicle (Vega, Ariane, Falcon 9) places the satellite in orbit in minutes (about 24 min for [[id:copernicus-sentinel][Sentinel-2]] on Vega) at very high cost; reusable stages reduce it.
 
 * Picture
+#+CAPTION: Architecture of an Earth-observation system: the satellite (payload and service module) commanded by a TT&C station, data downlinked to ground stations for processing and archiving, and the users.
 \begin{tikzpicture}[font=\scriptsize, b/.style={draw, minimum height=0.55cm, align=center}]
 \node[b, draw=kbcyan] (s) at (0,2) {satellite\\payload + service};
 \node[b] (tt) at (-2.4,0) {TT\&C\\station};

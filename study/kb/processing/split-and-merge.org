@@ -11,6 +11,7 @@
 #+summary: Split: starting from the whole image, recursively divide every square block that fails the homogeneity test into four, building a quadtree whose leaves are homogeneous "atomic" regions; merge: join adjacent regions whose union is still homogeneous, removing the artificial square boundaries.
 
 * Algorithm
+#+CAPTION: Split and merge: split every block that fails the homogeneity predicate \(P\) into quadrants, then merge adjacent regions whose union satisfies it.
 \begin{algorithmic}[1]
 \Function{Split}{$B$}
 \If{$P(B)$ true or $B$ is a single pixel} \State \Return $\{B\}$ \EndIf
@@ -29,6 +30,7 @@
 \(P\): homogeneity predicate, e.g. \(\max-\min<\delta\) or variance below a threshold (optical), coefficient of variation compatible with speckle (SAR).
 
 * Picture
+#+CAPTION: A split-and-merge segmentation: the quadtree split refines only where the image is not uniform, and leaves of the same colour are then merged.
 \begin{tikzpicture}[font=\scriptsize]
 \draw (0,0) rectangle (3.2,3.2); \draw (1.6,0) -- (1.6,3.2) (0,1.6) -- (3.2,1.6);
 \draw (2.4,1.6) -- (2.4,3.2) (1.6,2.4) -- (3.2,2.4); \draw (2.8,2.4) -- (2.8,3.2) (2.4,2.8) -- (3.2,2.8);

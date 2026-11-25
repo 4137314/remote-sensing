@@ -20,6 +20,7 @@
 - *relief displacement*: a point at height \(h\) seen at off-nadir angle \(\alpha\) is displaced by about \(h\tan\alpha\) away from nadir (towards the sensor for radar).
 
 * Picture
+#+CAPTION: Systematic geometric distortions of a scanned image: the ideal grid, the skew from the Earth's rotation, and the warping from attitude variations.
 \begin{tikzpicture}[font=\scriptsize]
 \draw[kbcyan] (0,0) rectangle (1.6,1.6); \node[below] at (0.8,0) {ideal};
 \draw[kbamber] (2.4,0) -- (4.0,0) -- (4.4,1.6) -- (2.8,1.6) -- cycle; \node[below] at (3.4,0) {Earth rotation};

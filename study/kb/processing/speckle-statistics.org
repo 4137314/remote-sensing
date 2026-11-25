@@ -22,6 +22,7 @@ Then with \(z=\sum_k A_ke^{j\phi_k}\), \(\beta=\sum_k E[A_k^2]\):
 \(E[\cos\phi_k]=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos\phi\,d\phi=0\), so \(E[\mathrm{Re}\,z]=E[\mathrm{Im}\,z]=0\). Cross terms vanish by independence, and \(E[\cos^2\phi]=\tfrac12\): \(\mathrm{Var}(\mathrm{Re}\,z)=\mathrm{Var}(\mathrm{Im}\,z)=\beta/2\), uncorrelated. With \(N\) large, by the central limit theorem \(\mathrm{Re}\,z\) and \(\mathrm{Im}\,z\) are independent Gaussians; the modulus of a 2-D isotropic Gaussian is Rayleigh, its square exponential (chi-square with 2 degrees of freedom). The intensity can be written \(I=\beta\cdot n\) with \(n\) unit-mean exponential noise: the noise multiplies the signal.
 
 * Picture
+#+CAPTION: Speckle statistics of fully developed speckle: Rayleigh-distributed amplitude and exponentially distributed intensity.
 \begin{tikzpicture}
 \begin{axis}[width=6.6cm, height=4cm, axis lines=left, xlabel={value}, ylabel={$p$}, xmin=0, xmax=4, ymin=0, ymax=1.05]
 \addplot+[domain=0:4, samples=100] {2*x*exp(-x^2)}; \addlegendentry{amplitude (Rayleigh)}

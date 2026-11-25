@@ -18,6 +18,7 @@ Same pattern for other surfaces: NDWI \(=(\rho_{green}-\rho_{NIR})/(\rho_{green}
 A shadow or a slope multiplies both bands by the same factor \(k\): \((k\rho_N-k\rho_R)/(k\rho_N+k\rho_R)\) is unchanged. A ratio-based index is therefore robust to illumination, unlike the simple difference \(\rho_N-\rho_R\).
 
 * Picture
+#+CAPTION: Typical NDVI ranges: water negative, bare soil near zero and vegetation strongly positive.
 \begin{tikzpicture}
 \begin{axis}[width=6.4cm, height=4cm, axis lines=left, xlabel={NDVI}, ylabel={}, xmin=-1, xmax=1, ymin=0, ymax=1.2, xtick={-1,-0.5,0,0.5,1}, ytick=\empty]
 \addplot+[domain=-1:1, samples=100] {exp(-((x+0.4)/0.12)^2)}; \node at (axis cs:-0.4,1.1) {\scriptsize water};

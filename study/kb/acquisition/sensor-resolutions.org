@@ -22,6 +22,7 @@ The energy reaching a detector in one pixel is about
 For fixed detector noise, halving the GIFOV divides \(E\) by four; to keep the SNR (radiometric resolution) one must widen \(\Delta\lambda\) (coarser spectral resolution), integrate longer or use larger optics. This is why the [[id:pansharpening][panchromatic band]] has the finest pixel (it is the widest band) and hyperspectral sensors have coarser pixels.
 
 * Picture
+#+CAPTION: With a fixed energy budget per pixel, geometric, spectral and radiometric resolution compete: improving one costs the others.
 \begin{tikzpicture}[font=\scriptsize]
 \draw[kbcyan, line width=1pt] (0,0) -- (2,1.6) -- (4,0) -- cycle;
 \node[above] at (2,1.6) {geometric}; \node[left] at (0,0) {spectral}; \node[right] at (4,0) {radiometric};

@@ -20,6 +20,7 @@ Design cycle: data acquisition â†’ [[id:hughes-phenomenon][feature selection]] â
 - *Photointerpretation vs automatic*: the human uses context and experience but is slow, qualitative and subjective; automatic recognition is fast, quantitative, objective, but cannot exploit all the perceptual knowledge of an expert.
 
 * Picture
+#+CAPTION: A recognition system: pre-processing, feature extraction and a classifier trained on samples turn an image into a thematic map.
 \begin{tikzpicture}[font=\scriptsize, node distance=0.3cm, b/.style={draw, minimum height=0.55cm}]
 \node[b, draw=kbcyan] (a) {image}; \node[b, right=of a] (p) {pre-processing}; \node[b, right=of p] (f) {features};
 \node[b, right=of f, draw=kbamber] (c) {classifier}; \node[b, right=of c] (m) {thematic map};

@@ -11,6 +11,7 @@
 #+summary: Starting from seed pixels or small atomic regions, each region repeatedly absorbs adjacent pixels that satisfy the homogeneity criterion with respect to it (e.g. difference from the region mean below a tolerance), until no region can grow; seeds come from user clicks, local minima of variance or a regular grid.
 
 * Algorithm
+#+CAPTION: Region growing: from seed pixels, each region repeatedly absorbs unlabelled neighbours whose value is within \(\delta\) of the region's mean.
 \begin{algorithmic}[1]
 \Require image $I$, seeds $s_1,\dots,s_n$, tolerance $\delta$
 \ForAll{seeds $s_r$} \State $R_r\gets\{s_r\}$; $\mu_r\gets I(s_r)$; push neighbours of $s_r$ in queue $Q_r$ \EndFor

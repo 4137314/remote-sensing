@@ -24,6 +24,7 @@ The weights are the network's memory: learning means adapting them.
 A learning system maps a data space into a decision space; it works in a *training* phase (estimate the function from examples) and a *test* phase (apply it). Training can be *supervised* (input–label pairs), *[[id:recognition-system][unsupervised]]* (no labels, the network organises the data), or *hybrid*. Compared with a von Neumann computer, biological networks are massively parallel, distributed, adaptive, fault tolerant and energy-efficient; computers are fast at numerical computation over large data — neural networks borrow the former's organisation and run on the latter.
 
 * Picture
+#+CAPTION: Activation functions \(g(a)\) of an artificial neuron: sigmoid, hyperbolic tangent and (scaled) rectified linear unit.
 \begin{tikzpicture}
 \begin{axis}[width=6.6cm, height=4cm, axis lines=middle, xlabel={$a$}, ylabel={$g(a)$}, xmin=-4, xmax=4, ymin=-1.2, ymax=1.8, xlabel style={at={(1,0.42)}, anchor=west}]
 \addplot+[domain=-4:4, samples=100] {1/(1+exp(-x))}; \addlegendentry{sigmoid}

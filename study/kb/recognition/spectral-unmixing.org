@@ -22,6 +22,7 @@ Endmembers come from libraries, field spectra, or the image itself (pure pixels 
 A 30 m pixel with 60% grass, 30% soil, 10% road: \(\mathbf x\approx0.6\,\mathbf e_{grass}+0.3\,\mathbf e_{soil}+0.1\,\mathbf e_{asphalt}\). Fraction maps of impervious surfaces or vegetation cover are produced this way from [[id:earth-observation-missions][Landsat]].
 
 * Picture
+#+CAPTION: Linear spectral unmixing in two bands: a mixed pixel inside the triangle of the endmembers grass, soil and asphalt is a convex combination of them.
 \begin{tikzpicture}[font=\scriptsize]
 \draw[-{Stealth}] (0,0) -- (4,0) node[right] {band 1}; \draw[-{Stealth}] (0,0) -- (0,3) node[above] {band 2};
 \coordinate (g) at (0.6,2.6); \coordinate (s) at (3.4,1.6); \coordinate (r) at (1.2,0.4);

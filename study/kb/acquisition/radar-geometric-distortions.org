@@ -18,6 +18,7 @@ Let \(\alpha\) be the terrain slope towards the radar and \(\theta\) the [[id:ba
 Small incidence angles (steep look) enhance foreshortening and layover; large ones enhance shadow.
 
 * Picture
+#+CAPTION: Terrain distortions of side-looking radar, beam from the left: foreshortening of slopes facing the radar, layover when the top returns before the base, and shadow behind steep slopes.
 \begin{tikzpicture}[font=\scriptsize, >={Stealth}]
 \draw[kbguide] (-0.5,0) -- (10,0);
 \foreach \x in {0,2.4,4.8,7.2} \draw[->, kbamber] (\x-1.6,3.0) -- ++(1.1,-0.9);

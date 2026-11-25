@@ -21,6 +21,7 @@ Hardware: transmitter, duplexer (switches the antenna between transmit and recei
 Range separation needs different delays. With a nadir-looking radar two points A and B at equal distance on the two sides of the track return simultaneously: ambiguity. Illuminating only one side removes it; points at different ground ranges have different slant ranges.
 
 * Picture
+#+CAPTION: Side-looking radar geometry: the antenna flies into the page and looks sideways at incidence \(\theta\), from near to far range; slant range \(R\) projects onto ground range.
 \begin{tikzpicture}[font=\scriptsize, >={Stealth}]
 \fill[kbcyan] (0,3) circle (0.08); \node[above] at (0,3.1) {antenna (flight into the page)};
 \draw[kbguide] (-0.5,0) -- (6.5,0);

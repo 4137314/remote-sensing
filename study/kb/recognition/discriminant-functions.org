@@ -16,6 +16,7 @@ Decision rule: \(\mathbf x\in\omega_i\iff g_i(\mathbf x)>g_j(\mathbf x)\ \forall
 Linear discriminants: \(g_i(\mathbf x)=\mathbf w_i^\top\mathbf x+w_{i0}\); the boundary \((\mathbf w_i-\mathbf w_j)^\top\mathbf x+(w_{i0}-w_{j0})=0\) is a hyperplane. Any monotonic transformation \(f(g_i)\) gives the same classifier (e.g. \(\log\) of probabilities).
 
 * Picture
+#+CAPTION: A linear discriminant \(g(\mathbf x)\): the boundary \(g=0\) divides the feature plane into the decision regions \(g>0\) and \(g<0\).
 \begin{tikzpicture}[font=\scriptsize]
 \draw[-{Stealth}] (0,0) -- (4,0) node[right] {$x_1$}; \draw[-{Stealth}] (0,0) -- (0,3) node[above] {$x_2$};
 \foreach \p in {(0.6,2.2),(0.9,2.5),(0.5,1.8),(1.1,2.0),(0.8,2.7)} \fill[kbcyan] \p circle (0.06);

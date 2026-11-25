@@ -15,6 +15,7 @@
 for radiation crossing the atmosphere, on the way down (Sun–ground) and on the way up (ground–sensor). Low-transmittance regions are absorption bands of H\(_2\)O, CO\(_2\), O\(_3\), O\(_2\). \(\tau_a\) also varies with weather: clouds bring it to almost zero in the visible and infrared, while microwaves (except near the 1.36 cm water-vapour line) cross clouds, fog and rain.
 
 * Picture
+#+CAPTION: Atmospheric transmittance \(\tau_a\) versus wavelength: the windows where remote sensing can see the surface, between the absorption bands of water vapour, CO\(_2\) and ozone.
 \begin{tikzpicture}
 \begin{axis}[width=7.4cm, height=4cm, axis lines=left, xlabel={$\lambda$ ($\mu$m)}, ylabel={$\tau_a$}, xmin=0.3, xmax=3, ymin=0, ymax=1]
 \addplot+[domain=0.3:3, samples=300, fill=kbcyan, fill opacity=0.15] {0.85 - 0.8*exp(-((x-1.4)/0.06)^2) - 0.85*exp(-((x-1.9)/0.08)^2) - 0.8*exp(-((x-2.7)/0.12)^2) - 0.3*exp(-((x-1.13)/0.03)^2) - 0.25*exp(-((x-0.94)/0.03)^2) - 0.6*exp(-((x-0.3)/0.05)^2)} \closedcycle;

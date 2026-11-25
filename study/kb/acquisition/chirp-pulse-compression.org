@@ -16,6 +16,7 @@ Chirp of duration \(\tau\) and rate \(k\): \(s(t)=\mathrm{rect}(t/\tau)\cos\!\bi
 The compression ratio \(\tau B\) (time–bandwidth product, typically 100–1000) is the gain in peak-to-energy ratio.
 
 * Picture
+#+CAPTION: A linear frequency-modulated pulse (chirp) \(s(t)\): its frequency sweeps over the bandwidth, which matched filtering compresses into a short pulse.
 \begin{tikzpicture}
 \begin{axis}[width=7cm, height=3.4cm, axis lines=left, xlabel={$t$}, ylabel={$s(t)$}, xmin=0, xmax=1, ymin=-1.2, ymax=1.2, ticks=none]
 \addplot+[domain=0:1, samples=600] {cos(deg(2*pi*(5*x+25*x^2)))};

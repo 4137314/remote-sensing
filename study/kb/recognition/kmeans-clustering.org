@@ -11,6 +11,7 @@
 #+summary: Unsupervised classification groups pixels without labels: k-means alternates assigning each pixel to the nearest of \(k\) centroids and moving each centroid to the mean of its pixels, monotonically decreasing the within-cluster sum of squares; the analyst then labels the spectral clusters as information classes.
 
 * Algorithm
+#+CAPTION: k-means: assign each sample to the nearest centre, move each centre to the mean of its samples, and repeat until the assignments stop changing.
 \begin{algorithmic}[1]
 \Require feature vectors $\mathbf x_n$, number of clusters $k$
 \State initialise centroids $\boldsymbol\mu_1,\dots,\boldsymbol\mu_k$ (random pixels or a grid in feature space)

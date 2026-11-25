@@ -18,6 +18,7 @@
 Cluster shape and size depend on the features used, on the cover type, on noise and on topographic effects. Classification amounts to partitioning the feature space into decision regions, one per class.
 
 * Picture
+#+CAPTION: Pixels in the red–near-infrared feature space: clusters of vegetation, soil (along the soil line) and water.
 \begin{tikzpicture}[font=\scriptsize]
 \draw[-{Stealth}] (0,0) -- (4.6,0) node[right] {red}; \draw[-{Stealth}] (0,0) -- (0,3.4) node[above] {NIR};
 \draw[kbgreen, fill=kbgreen, fill opacity=0.2, rotate around={20:(1.0,2.5)}] (1.0,2.5) ellipse (0.6 and 0.3); \node[kbgreen, anchor=south] at (1.0,2.85) {vegetation};

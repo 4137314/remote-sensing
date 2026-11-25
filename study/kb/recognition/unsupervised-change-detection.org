@@ -21,6 +21,7 @@
 5. *[[id:photointerpretation][Context]]*: Markov random fields or majority filtering add the prior that changes form compact regions.
 
 * Picture
+#+CAPTION: Change detection on the magnitude \(d\) of the difference image: the weighted densities of the no-change and change classes, estimated by EM, and the Bayes threshold where they cross.
 \begin{tikzpicture}
 \begin{axis}[width=7cm, height=4cm, axis lines=left, xlabel={$d$ (change magnitude)}, ylabel={}, xmin=0, xmax=10, ymin=0, ymax=0.43, ytick=\empty]
 \addplot+[domain=0:10, samples=150] {0.85*exp(-((x-2)^2)/(2*0.9^2))/(0.9*2.5066)}; \addlegendentry{$P_np(d\mid\omega_n)$}

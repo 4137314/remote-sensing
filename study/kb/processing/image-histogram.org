@@ -16,6 +16,7 @@ For an image of \(NM\) pixels:
 \(H\) is non-decreasing and reaches 1. \(h\) is associated with the probability density of the DNs, \(H\) with the cumulative distribution, an approximation since DNs are discrete.
 
 * Picture
+#+CAPTION: Histogram \(h\) of an image: the number of pixels at each digital number (DN).
 \begin{tikzpicture}
 \begin{axis}[width=7cm, height=4.2cm, axis lines=left, xlabel={DN}, ylabel={$h$}, xmin=0, xmax=255, ymin=0, ymax=0.03, ybar, bar width=1.5pt, axis y line*=left, ticks=none]
 \addplot+[domain=0:255, samples=60, fill=kbcyan, draw=none] {0.6*exp(-((x-60)/18)^2)/(18*1.77)+0.4*exp(-((x-150)/25)^2)/(25*1.77)};

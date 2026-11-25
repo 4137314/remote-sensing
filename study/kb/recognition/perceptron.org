@@ -14,6 +14,7 @@
 Two classes, labels \(y=\pm1\), augmented vectors \(\mathbf x=(x_1,\dots,x_p,1)\). Decide \(\omega_1\) if \(\mathbf w^\top\mathbf x>0\). A sample is correct iff \(y\,\mathbf w^\top\mathbf x>0\). The perceptron criterion \(J(\mathbf w)=-\sum_{\text{misclassified}}y\,\mathbf w^\top\mathbf x\) is minimised by gradient descent, one sample at a time.
 
 * Algorithm
+#+CAPTION: The perceptron algorithm: for each misclassified sample (\(y_k\mathbf w^\top\mathbf x_k\le0\)) add \(y_k\mathbf x_k\) to the weights, until an epoch has no errors or the limit is reached.
 \begin{algorithmic}[1]
 \Require samples $(\mathbf x_k,y_k)$, learning rate $\eta>0$
 \State $\mathbf w\gets\mathbf 0$

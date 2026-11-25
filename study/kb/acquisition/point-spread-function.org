@@ -16,6 +16,7 @@ The DN of band \(b\) at pixel \((x_0,y_0)\) is, up to calibration,
 with \(\mathrm{PSF}\) the spatial response (optics diffraction, detector size, image motion, electronics) and \(R_b\) the relative spectral response of band \(b\). Ideal integration would use rectangles; real ones are bell-shaped with tails. The [[id:discrete-fourier-transform][Fourier transform]] of the PSF is the modulation transfer function (MTF): how much contrast survives at each spatial frequency.
 
 * Picture
+#+CAPTION: Response of a sensor to a point source across pixels: the ideal response is confined to one pixel, the real point spread function spreads into its neighbours.
 \begin{tikzpicture}
 \begin{axis}[width=6.8cm, height=4cm, axis lines=left, xlabel={$x$ (pixels)}, ylabel={response}, xmin=-2.5, xmax=2.5, ymin=0, ymax=1.15]
 \addplot+[const plot, no marks] coordinates {(-2.5,0) (-0.5,1) (0.5,0) (2.5,0)}; \addlegendentry{ideal}

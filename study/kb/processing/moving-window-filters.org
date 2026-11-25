@@ -28,6 +28,7 @@ Borders need a policy (replicate, mirror, zero, or discard). Cost \(O(NM\,K)\) f
 #+end_src
 
 * Picture
+#+CAPTION: A moving-window filter: each output pixel \(I'(y,x)\) is the weighted sum of the input pixels in a window centred on it.
 \begin{tikzpicture}[font=\scriptsize]
 \foreach \i in {0,...,5} \foreach \j in {0,...,4} \draw[kbguide] (\i*0.5,\j*0.5) rectangle ++(0.5,0.5);
 \draw[kbcyan, line width=1.5pt] (1,0.5) rectangle (2.5,2); \fill[kbamber, opacity=0.5] (1.5,1) rectangle (2,1.5);

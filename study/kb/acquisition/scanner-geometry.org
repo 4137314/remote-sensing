@@ -21,6 +21,7 @@
 For \(H=700\) km, \(f=1\) m and \(w=10\) µm: \(\mathrm{GIFOV}=700\times10^3\cdot10^{-5}=7\) m. Halving the altitude or doubling the focal length halves the pixel.
 
 * Picture
+#+CAPTION: Scanner geometry: a detector of size \(w\) behind optics of focal length \(f\) at altitude \(H\) sees a ground footprint GIFOV \(=Hw/f\).
 \begin{tikzpicture}[font=\scriptsize]
 \draw[kbcyan, fill=kbcyan, fill opacity=0.2] (-0.15,3) rectangle (0.15,3.2); \node[right] at (0.2,3.1) {detector $w$};
 \draw[kbguide] (-0.6,2.5) -- (0.6,2.5); \node[left] at (-0.7,2.5) {optics, focal $f$};

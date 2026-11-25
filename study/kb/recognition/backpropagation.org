@@ -17,6 +17,7 @@ Error for one sample, squared form: \(E=\tfrac12\sum_c(y_c-t_c)^2\). With \(a_j=
 Update \(w_{ji}\gets w_{ji}-\eta\,\delta_jh_i\) (plus momentum). With [[id:multilayer-perceptron][softmax]] and cross-entropy the output error simplifies to \(\delta_j=y_j-t_j\).
 
 * Algorithm
+#+CAPTION: Backpropagation: for each sample or mini-batch, propagate forward, propagate the output error backward through the layers, and update every weight against its gradient.
 \begin{algorithmic}[1]
 \Require training set, learning rate $\eta$, epochs
 \State initialise weights with small random values

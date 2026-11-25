@@ -23,6 +23,7 @@ Surface parameters:
 - *geometry*: slopes facing the radar are bright, dihedral corners (building–ground) give strong double-bounce returns.
 
 * Picture
+#+CAPTION: Radar backscatter from three surfaces: a smooth surface reflects specularly away from the sensor, a rough one scatters diffusely, and a corner reflector returns a strong double bounce.
 \begin{tikzpicture}[font=\scriptsize, >={Stealth}]
 \draw[kbguide] (0,0) -- (2.2,0); \draw[->, kbamber] (0,1.2) -- (1,0.05); \draw[->, kbcyan] (1.1,0.05) -- (2.1,1.2); \node at (1.1,-0.35) {smooth: specular};
 \draw[kbguide, decorate, decoration={zigzag, amplitude=2pt, segment length=5pt}] (3,0) -- (5.2,0); \draw[->, kbamber] (3,1.2) -- (4,0.1);

@@ -18,6 +18,7 @@
 *Multi-class*: one-against-all or one-against-one combinations of binary SVMs. \(C\) and \(\gamma\) are chosen by [[id:training-validation][cross-validation]].
 
 * Picture
+#+CAPTION: A linear support vector machine: the separating hyperplane \(\mathbf w^\top\mathbf x+b=0\) maximises the margin, which the circled support vectors define.
 \begin{tikzpicture}[font=\scriptsize]
 \draw[-{Stealth}] (0,0) -- (4.4,0) node[right] {$x_1$}; \draw[-{Stealth}] (0,0) -- (0,3.4) node[above] {$x_2$};
 \draw[kbmagenta, line width=1pt] (0.4,0.2) -- (3.6,3.2);

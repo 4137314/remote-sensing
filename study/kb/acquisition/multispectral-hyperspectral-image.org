@@ -17,6 +17,7 @@ for \(b=1,\dots,B\).
 - *Hyperspectral* (imaging spectrometers, since the 1980s): \(B\approx100\)–400 contiguous bands of ~10 nm over 0.4–2.5 µm (AVIRIS, PRISMA). Fine sampling of the signature allows identifying materials (minerals, pigments) and estimating physical parameters, at the cost of huge data volumes, redundancy between bands and lower SNR per band.
 
 * Picture
+#+CAPTION: A multispectral image as a data cube: two spatial axes \(x\), \(y\) and the band \(b\); each pixel is a vector \(\mathbf x\in\mathbb R^B\).
 \begin{tikzpicture}[font=\scriptsize, >={Stealth}]
 \draw[kbcyan, fill=kbcyan, fill opacity=0.12] (0,0) rectangle (2.2,2.2);
 \draw[kbcyan] (0,2.2) -- (1.0,3.0) -- (3.2,3.0) -- (2.2,2.2); \draw[kbcyan] (2.2,0) -- (3.2,0.8) -- (3.2,3.0);
